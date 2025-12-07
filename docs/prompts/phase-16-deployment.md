@@ -232,8 +232,6 @@ BACKEND DEPLOYMENT:
    - Configure memory limits
 6. Monitoring Setup: Configure monitoring:
    - Set up Sentry for error tracking
-   - Configure log aggregation (CloudWatch, Datadog, or Papertrail)
-   - Set up uptime monitoring (UptimeRobot or Pingdom)
    - Configure alerts (email, Slack)
 7. Resource Management:
    - Monitor local resource usage

@@ -61,7 +61,7 @@ WEB IMPLEMENTATION:
    - Rows: allergen types
    - Columns: products
    - Color coding (red=present, green=absent)
-7. Print/Export: Add print-friendly view and PDF export
+
 8. Responsive Design: Mobile-friendly comparison view
 
 MOBILE IMPLEMENTATION:
@@ -98,7 +98,7 @@ TESTING REQUIREMENTS:
 3. Differences highlighted correctly
 4. Charts render accurately
 5. Responsive on all screen sizes
-6. Print view works (web)
+
 7. Share works (mobile)
 8. Handles missing product data
 9. Works on both platforms
@@ -111,7 +111,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Charts render correctly
 - ✅ Differences highlighted
 - ✅ Allergen matrix displays
-- ✅ Print/export works (web)
+
 - ✅ Share works (mobile)
 - ✅ Responsive design
 
@@ -130,7 +130,7 @@ DELIVERABLES:
 - Comparison logic
 - Visual highlighting
 - Charts and tables
-- Print/share functionality
+
 
 SUCCESS METRIC: Users can compare 2-5 products side-by-side with clear visual differences and nutrition insights.
 ```
@@ -171,11 +171,7 @@ BACKEND IMPLEMENTATION:
    - Barcode type (alphabetical)
    - Product name (alphabetical)
    - Nutrition grade (best first, worst first)
-5. Search Suggestions: Implement autocomplete:
-   - Track popular searches
-   - Return top 10 suggestions
-   - Match on prefix
-   - Include recent user searches
+
 6. Batch Delete Endpoint: Create DELETE /scans/batch:
    - Accept array of scan IDs
    - Delete multiple scans
@@ -194,7 +190,7 @@ WEB IMPLEMENTATION:
    - Clear all filters button
 2. Search Input: Implement search box:
    - Debounced search (300ms)
-   - Autocomplete dropdown
+   - Debounced search (300ms)
    - Recent searches
    - Clear button
 3. Filter Chips: Display active filters as removable chips:
@@ -227,7 +223,7 @@ MOBILE IMPLEMENTATION:
 1. Search Screen: Create dedicated search screen
 2. Search Input: Add search with suggestions:
    - Auto-focus on screen open
-   - Show suggestions below input
+   - Auto-focus on screen open
    - Recent searches section
 3. Filter Bottom Sheet: Implement filter UI:
    - Slide-up bottom sheet
@@ -260,7 +256,7 @@ TESTING REQUIREMENTS:
 1. Full-text search works correctly
 2. All filters apply properly
 3. Sorting works for all options
-4. Suggestions display correctly
+
 5. Fast search results
 6. Batch delete works
 7. URL persistence works (web)
@@ -273,7 +269,7 @@ ACCEPTANCE CRITERIA:
 - ✅ All filters functional
 - ✅ Sorting works
 - ✅ Fast results
-- ✅ Suggestions working
+
 - ✅ Batch delete functional
 - ✅ Web UI intuitive
 - ✅ Mobile UI intuitive
@@ -292,7 +288,7 @@ DELIVERABLES:
 - Full-text search implementation
 - Search endpoint with filters
 - Filter implementation
-- Suggestions logic
+
 - Batch delete endpoint
 - Web search UI
 - Mobile search screen
