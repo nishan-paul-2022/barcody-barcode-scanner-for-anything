@@ -141,9 +141,7 @@ REQUIREMENTS:
     - Disconnect WebSocket when offline
     - Reconnect when back online
     - Sync queued events
-11. Background Handling: Manage connection during app backgrounding:
-    - Disconnect when app goes to background
-    - Reconnect when app comes to foreground
+
 12. Connection Status: Update sync store with status
 13. Error Handling: Handle all error scenarios
 
@@ -168,7 +166,7 @@ TESTING REQUIREMENTS:
 5. Reconnection functional
 6. Event queue works
 7. Offline handling correct
-8. Background/foreground transitions handled
+
 9. No duplicate scans
 10. Battery efficient
 
@@ -180,7 +178,7 @@ ACCEPTANCE CRITERIA:
 - ✅ State updates functional
 - ✅ Reconnection with backoff
 - ✅ Offline handling robust
-- ✅ Background handling correct
+
 
 QUALITY STANDARDS:
 - Battery efficient
@@ -195,7 +193,7 @@ DELIVERABLES:
 - SQLite integration
 - State update logic
 - Reconnection logic
-- Offline/background handling
+
 
 SUCCESS METRIC: Real-time scan updates work on mobile with SQLite sync and efficient offline/background handling.
 ```

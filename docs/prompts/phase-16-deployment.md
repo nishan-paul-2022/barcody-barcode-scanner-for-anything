@@ -253,17 +253,7 @@ WEB DEPLOYMENT:
    - Configure local IP or mDNS (e.g., barcody.local)
    - Verify local network connectivity
    - Setup local SSL (mkcert)
-3. CDN Configuration: Set up CDN for static assets:
-   - Configure caching headers
-   - Set up asset optimization
-   - Enable compression
-4. Analytics: Enable analytics:
-   - Set up Google Analytics or Plausible
-   - Configure event tracking
-5. Error Monitoring: Set up Sentry:
-   - Configure Sentry DSN
-   - Test error reporting
-6. Preview Deployments: Configure preview deployments for PRs
+
 
 MOBILE DEPLOYMENT:
 1. Production Build: Build production apps:
@@ -275,19 +265,16 @@ MOBILE DEPLOYMENT:
    - Generate production APK
    - Test installation on local device
    - Document sideloading process for users
-3. iOS Deployment: Local/TestFlight distribution:
+3. iOS Deployment: Local distribution:
    - Generate IPA (Ad-hoc or Development)
    - Install via Expo Go or direct build install
 4. App Signing: Configure signing:
-   - Android: Set up Play App Signing
-   - iOS: Configure certificates and provisioning profiles
+   - Android: Sign with debug keystore or local release key
+   - iOS: Ad-hoc signing for local devices
 5. Crash Reporting: Set up crash reporting:
-   - Configure Sentry or Firebase Crashlytics
+   - Configure Sentry
    - Test crash reporting
-6. OTA Updates: Configure over-the-air updates:
-   - Set up Expo Updates
-   - Configure update channels
-   - Test OTA updates
+
 
 ADMIN DASHBOARD DEPLOYMENT:
 1. Local Setup: Deploy admin dashboard:

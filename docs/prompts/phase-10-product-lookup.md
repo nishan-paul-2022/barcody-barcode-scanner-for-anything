@@ -208,7 +208,7 @@ CONSTRAINTS:
 - Rate limit must be per-user
 - Must return proper HTTP status codes
 - Clear error messages
-- Fast response times (<500ms from cache)
+- Fast response times from cache
 
 INTEGRATION POINTS:
 - Caching service from Task 10.2
@@ -281,7 +281,7 @@ WEB IMPLEMENTATION:
    - Common allergens (nuts, dairy, gluten, soy, eggs)
    - Color-coded warnings (red for present, green for absent)
    - Clear visual indicators
-5. Product Images: Display product images with zoom capability
+5. Product Images: Display product images
 6. Loading States: Skeleton loader while fetching
 7. Error Handling: Show message if product not found
 8. Responsive Design: Mobile-friendly layout
@@ -299,7 +299,7 @@ MOBILE IMPLEMENTATION:
    - Store in product_cache table
    - 30-day expiry
    - Offline access to previously viewed products
-6. Image Caching: Cache product images for offline viewing
+
 7. Loading States: Show loading indicator
 8. Error Handling: Handle not found and network errors
 

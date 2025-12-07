@@ -121,8 +121,6 @@ REQUIREMENTS:
    - Format headers (bold, colored background)
    - Auto-size columns
    - Add filters to data sheet
-   - Include formulas for statistics
-   - Apply conditional formatting
    - Stream Excel file to response
 4. Branding: Add company logo, use brand colors, professional styling
 5. Charts: Generate charts using chart libraries:
@@ -214,7 +212,7 @@ WEB IMPLEMENTATION:
    - Cancel button
 7. Download Handling: Trigger browser download when complete
 8. Error Handling: Display errors with retry option
-9. Large Export Warning: Warn user if exporting >10k records
+
 
 MOBILE IMPLEMENTATION:
 
@@ -253,7 +251,7 @@ TESTING REQUIREMENTS:
 6. Files download/save successfully
 7. Sharing works (mobile)
 8. Error handling displays messages
-9. Large export warning shows
+
 10. Responsive on all screen sizes (web)
 
 ACCEPTANCE CRITERIA:

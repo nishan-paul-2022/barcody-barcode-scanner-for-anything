@@ -122,7 +122,7 @@ SUCCESS METRIC: Comprehensive backend test coverage >75% with all tests passing 
 ## Task 15.2: Web Testing
 
 ```
-TASK: Implement web application testing suite achieving >70% code coverage with accessibility compliance.
+TASK: Implement web application testing suite achieving >75% code coverage.
 
 SYSTEM CONTEXT: Ensure web app reliability, validate user flows, verify accessibility, and maintain code quality.
 
@@ -153,13 +153,7 @@ E2E TESTS:
 3. Cross-Browser: Test on Chrome, Firefox, Safari
 4. Responsive Testing: Test on different viewport sizes
 
-ACCESSIBILITY TESTS:
-1. axe-core: Use axe for accessibility testing
-2. WCAG Compliance: Test WCAG 2.1 AA compliance
-3. Keyboard Navigation: Test keyboard navigation
-4. Screen Reader: Test screen reader compatibility
-5. Color Contrast: Verify color contrast ratios
-6. ARIA Labels: Validate ARIA labels
+
 
 RESPONSIVE DESIGN TESTS:
 1. Viewport Tests: Test on mobile, tablet, desktop viewports
@@ -167,7 +161,7 @@ RESPONSIVE DESIGN TESTS:
 3. Touch Interactions: Test touch interactions on mobile
 
 COVERAGE TARGET:
-1. Overall Coverage: Achieve >70% code coverage
+1. Overall Coverage: Achieve >75% code coverage
 2. Critical Paths: 100% coverage for critical user paths
 
 CONSTRAINTS:
@@ -190,7 +184,7 @@ TESTING REQUIREMENTS:
 4. Accessibility tests pass
 5. Responsive tests pass
 6. Cross-browser tests pass
-7. Coverage >70%
+7. Coverage >75%
 
 ACCEPTANCE CRITERIA:
 - ✅ Component tests comprehensive
@@ -199,7 +193,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Accessibility compliant (WCAG 2.1 AA)
 - ✅ Responsive design tested
 - ✅ Cross-browser tested
-- ✅ Coverage >70%
+- ✅ Coverage >75%
 
 QUALITY STANDARDS:
 - Comprehensive test coverage
@@ -226,7 +220,7 @@ SUCCESS METRIC: Comprehensive web test coverage >70% with accessibility complian
 ## Task 15.3: Mobile Testing
 
 ```
-TASK: Implement mobile application testing suite achieving >70% code coverage on both platforms.
+TASK: Implement mobile application testing suite achieving >75% code coverage on both platforms.
 
 SYSTEM CONTEXT: Ensure mobile app reliability on iOS and Android, validate offline functionality, and maintain code quality.
 
@@ -276,7 +270,7 @@ PLATFORM-SPECIFIC TESTS:
 3. Platform Differences: Test platform-specific UI differences
 
 COVERAGE TARGET:
-1. Overall Coverage: Achieve >70% code coverage
+1. Overall Coverage: Achieve >75% code coverage
 2. Critical Paths: 100% coverage for critical paths
 
 CONSTRAINTS:
@@ -299,7 +293,7 @@ TESTING REQUIREMENTS:
 4. All E2E tests pass on Android
 5. Offline tests pass
 6. Permission tests pass
-7. Coverage >70%
+7. Coverage >75%
 
 ACCEPTANCE CRITERIA:
 - ✅ Component tests comprehensive
@@ -309,7 +303,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Android testing complete
 - ✅ Offline functionality tested
 - ✅ Permissions tested
-- ✅ Coverage >70%
+- ✅ Coverage >75%
 
 QUALITY STANDARDS:
 - Comprehensive test coverage
@@ -326,7 +320,7 @@ DELIVERABLES:
 - Permission tests
 - Coverage reports
 
-SUCCESS METRIC: Comprehensive mobile test coverage >70% on both platforms with offline functionality verified.
+SUCCESS METRIC: Comprehensive mobile test coverage >75% on both platforms with offline functionality verified.
 ```
 
 ---
@@ -336,7 +330,7 @@ SUCCESS METRIC: Comprehensive mobile test coverage >70% on both platforms with o
 ## Task 15.4: Admin Dashboard Testing
 
 ```
-TASK: Implement admin dashboard testing suite achieving >70% code coverage with authorization verification.
+TASK: Implement admin dashboard testing suite with authorization verification.
 
 SYSTEM CONTEXT: Ensure admin dashboard reliability, validate admin-only access, verify analytics accuracy, and maintain code quality.
 
@@ -378,7 +372,7 @@ ANALYTICS ACCURACY TESTS:
 4. Trend Calculations: Verify trend percentage calculations
 
 COVERAGE TARGET:
-1. Overall Coverage: Achieve >70% code coverage
+1. Overall Coverage: Comprehensive code coverage
 2. Critical Paths: 100% coverage for admin authorization
 
 CONSTRAINTS:
@@ -409,7 +403,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Admin authorization tested
 - ✅ Non-admin rejection tested
 - ✅ Analytics accuracy verified
-- ✅ Coverage >70%
+- ✅ Coverage comprehensive
 
 QUALITY STANDARDS:
 - Comprehensive test coverage
@@ -426,7 +420,7 @@ DELIVERABLES:
 - Analytics accuracy tests
 - Coverage reports
 
-SUCCESS METRIC: Comprehensive admin dashboard test coverage >70% with authorization and analytics accuracy verified.
+SUCCESS METRIC: Comprehensive admin dashboard test coverage with authorization and analytics accuracy verified.
 ```
 
 ---
@@ -477,12 +471,7 @@ DATA CONSISTENCY TESTS:
 4. Timestamps: Verify timestamp consistency
 5. Metadata: Verify metadata consistency
 
-TEST SCENARIOS DOCUMENT:
-1. Scenario Documentation: Create comprehensive test scenarios document
-2. Test Cases: Document all cross-platform test cases
-3. Expected Results: Document expected results for each scenario
-4. Edge Cases: Document edge cases and error scenarios
-5. Test Data: Document test data requirements
+
 
 CONSTRAINTS:
 - All scenarios must pass

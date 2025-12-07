@@ -235,7 +235,6 @@ REQUIREMENTS:
 5. Cache Strategies:
    - NetworkFirst for API calls
    - CacheFirst for static assets
-   - StaleWhileRevalidate for images
 6. Offline Page: Create app/offline/page.tsx with:
    - Network status indicator
    - Retry connection button
@@ -246,7 +245,7 @@ REQUIREMENTS:
 9. Icons: Generate all required icon sizes
 
 CONSTRAINTS:
-- Must pass Lighthouse PWA audit
+
 - Offline functionality required
 - Fast cache retrieval
 - Proper cache invalidation
@@ -263,7 +262,7 @@ TESTING REQUIREMENTS:
 4. Service worker caches correctly
 5. Offline page displays when no connection
 6. Auto-redirect when back online
-7. Lighthouse PWA score >90
+
 
 ACCEPTANCE CRITERIA:
 - ✅ PWA configured
@@ -271,7 +270,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Service worker functional
 - ✅ Offline page implemented
 - ✅ Install prompt working
-- ✅ Lighthouse PWA passing
+
 
 QUALITY STANDARDS:
 - Follow PWA best practices

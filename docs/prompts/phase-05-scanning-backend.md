@@ -180,7 +180,7 @@ REQUIREMENTS:
 2. Scans Gateway: Create ScansGateway with @WebSocketGateway decorator
 3. JWT Middleware: Implement WebSocket middleware for authentication:
    - Extract token from socket.handshake.auth.token (preferred)
-   - Fallback to socket.handshake.query.token for compatibility
+
    - Validate token using JwtService.verify()
    - Reject connection with error if token invalid/missing
    - Extract user ID from token payload

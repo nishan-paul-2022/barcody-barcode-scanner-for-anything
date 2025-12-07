@@ -99,8 +99,6 @@ REQUIREMENTS:
 3. Fetch Backend Info: Call GET /setup/tailscale-info to get Tailscale IP
 4. QR Code Generation: Generate QR code containing:
    - Backend URL (http://{tailscale_ip}:8000)
-   - Timestamp for validation
-   - Format as JSON string
 5. QR Code Display: Show large, scannable QR code (300x300px minimum)
 6. Manual Entry Option: Display backend URL as copyable text
 7. Connection Test: Implement test button:
@@ -177,7 +175,6 @@ REQUIREMENTS:
 3. QR Scanner: Implement QR code scanner:
    - Request camera permissions
    - Scan QR code from web setup page
-   - Parse JSON data from QR code
    - Extract backend URL
    - Validate URL format
 4. Manual Entry: Add manual IP entry option:

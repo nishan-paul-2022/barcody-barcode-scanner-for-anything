@@ -52,12 +52,12 @@ QUALITY STANDARDS:
 - Follow GitHub Actions best practices
 - Use official Docker actions
 - Implement proper error handling
-- Add workflow status badges to README
+
 
 DELIVERABLES:
 - .github/workflows/backend-build.yml
 - Documentation of required secrets
-- Workflow status badge
+
 
 SUCCESS METRIC: Every main branch push produces a tagged Docker image on Docker Hub.
 ```
@@ -117,7 +117,7 @@ QUALITY STANDARDS:
 DELIVERABLES:
 - .github/workflows/web-build.yml
 - Secret documentation
-- Workflow badge
+
 
 SUCCESS METRIC: Optimized web Docker images published automatically on every main push.
 ```
@@ -142,7 +142,7 @@ REQUIREMENTS:
 5. Build Profile: Use production build profile from eas.json
 6. APK Generation: Build Android APK (not AAB initially)
 7. GitHub Release: Upload APK to GitHub Releases
-8. Release Notes: Auto-generate from commits since last tag
+8. Release Notes: properties from release notes template
 9. Secret Documentation: Document EXPO_TOKEN requirement
 
 CONSTRAINTS:
@@ -236,7 +236,7 @@ QUALITY STANDARDS:
 DELIVERABLES:
 - .github/workflows/admin-dashboard-build.yml
 - Secret documentation
-- Workflow badge
+
 
 SUCCESS METRIC: Admin dashboard images published automatically with separate versioning.
 ```

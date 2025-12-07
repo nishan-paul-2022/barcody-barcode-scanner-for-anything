@@ -70,7 +70,7 @@ TESTING REQUIREMENTS:
 2. All tables exist
 3. Indexes created
 4. Can insert and query data
-5. Query performance on large datasets (<100ms)
+5. Query performance on large datasets
 
 ACCEPTANCE CRITERIA:
 - ✅ Database initialized

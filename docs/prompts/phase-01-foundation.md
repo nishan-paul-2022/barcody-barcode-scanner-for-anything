@@ -265,7 +265,7 @@ REQUIREMENTS:
 6. Dark Mode: Configure dark mode with system preference detection
 7. Layout: Create root layout with header component
 8. Health Check: Create /api/health/route.ts for health monitoring
-9. Typography: Configure Tailwind with custom font stack
+
 
 CONSTRAINTS:
 - Must use App Router (not Pages Router)
@@ -607,17 +607,16 @@ REQUIREMENTS:
 4. Admin Sentry: Install @sentry/nextjs, configure client and server
 5. Environment Variables: Add SENTRY_DSN to all .env files
 6. Environment Tags: Tag errors with production/development/staging
-7. Release Tracking: Configure release versions
-8. Source Maps: Upload source maps for better stack traces
+
 
 CONSTRAINTS:
 - Sentry must be disabled in development (optional)
 - Must not impact application performance
 - PII must not be sent to Sentry
-- Source maps must be uploaded
+
 
 INTEGRATION POINTS:
-- CI/CD uploads source maps (Task 2.1-2.4)
+
 
 TESTING REQUIREMENTS:
 1. Backend errors appear in Sentry
@@ -629,7 +628,7 @@ TESTING REQUIREMENTS:
 
 ACCEPTANCE CRITERIA:
 - ✅ Errors tracked in Sentry dashboard
-- ✅ Source maps uploaded
+
 - ✅ Environment tags applied
 - ✅ No PII leaked
 
@@ -642,7 +641,7 @@ QUALITY STANDARDS:
 DELIVERABLES:
 - Sentry configuration for all projects
 - Error tracking verified
-- Source map upload configured
+
 
 SUCCESS METRIC: Errors from all platforms appear in Sentry with readable stack traces.
 ```

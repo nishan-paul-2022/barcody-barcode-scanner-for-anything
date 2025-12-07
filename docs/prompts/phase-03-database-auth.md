@@ -169,9 +169,9 @@ SUCCESS METRIC: All common queries use indexes and meet performance targets.
 ## Task 3.3: Redis Setup
 
 ```
-TASK: Configure Redis for session storage, caching, and rate limiting with health monitoring.
+TASK: Configure Redis for session storage and caching with health monitoring.
 
-SYSTEM CONTEXT: Redis provides fast in-memory caching for sessions, API responses, and rate limiting. Critical for application performance and scalability.
+SYSTEM CONTEXT: Redis provides fast in-memory caching for sessions and API responses. Critical for application performance and scalability.
 
 REQUIREMENTS:
 
@@ -196,8 +196,7 @@ CONSTRAINTS:
 INTEGRATION POINTS:
 - Auth module will store refresh tokens in Redis
 - Product lookup will cache API responses
-- Rate limiting will use Redis counters
-- Session storage will use Redis
+
 
 TESTING REQUIREMENTS:
 1. Redis connection successful
@@ -217,7 +216,7 @@ QUALITY STANDARDS:
 - Use connection pooling
 - Implement proper error handling
 - Set appropriate TTLs
-- Use key namespacing for organization
+
 - Monitor Redis memory usage
 
 DELIVERABLES:
@@ -323,7 +322,7 @@ REQUIREMENTS:
 4. Refresh Token Storage: Store in Redis with user ID as key
 5. Token Rotation: Invalidate old refresh token when issuing new one
 6. Secret Management: Use JWT_SECRET from environment
-7. Algorithm: Use HS256 for signing
+
 
 CONSTRAINTS:
 - Access tokens must be short-lived (15 minutes)

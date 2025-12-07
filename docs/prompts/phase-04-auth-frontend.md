@@ -166,11 +166,10 @@ REQUIREMENTS:
    - checkAuthStatus(): Validate current auth state on app load
 
 4. TOKEN PERSISTENCE
-   - Store tokens in localStorage (encrypted if possible)
+   - Store tokens in localStorage
    - Restore tokens on app initialization
    - Clear tokens on logout
    - Handle token expiration
-   - Automatic cleanup on browser close (optional)
 
 5. TOKEN REFRESH LOGIC
    - Monitor access token expiration (decode JWT to check exp)
@@ -302,7 +301,7 @@ REQUIREMENTS:
    - Retry on 5xx server errors
    - Retry on timeout
    - Max retries: 3 attempts
-   - Backoff: 1s, 2s, 4s
+   - Backoff: exponential
    - Don't retry on 401, 403, 404
 
 5. TYPED API METHODS
@@ -482,8 +481,7 @@ CONSTRAINTS:
 - Proper query key structure
 - Efficient cache invalidation
 - No unnecessary refetches
-- Handle offline scenarios gracefully
-- Memory-efficient caching
+
 
 INTEGRATION POINTS:
 - API client from Task 4.3

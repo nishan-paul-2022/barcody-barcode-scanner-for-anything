@@ -71,15 +71,10 @@ MOBILE IMPLEMENTATION:
    - Long-press to select
    - Multi-select mode
    - "Compare" button when 2-5 selected
-3. Swipe View: Horizontal swipe between products:
-   - One product per screen
-   - Swipe left/right to navigate
-   - Dots indicator for position
-4. Comparison Table View: Add table view option:
-   - Scrollable table
-   - Products as columns
-   - Nutrition facts as rows
-5. Difference Highlighting: Color code differences
+3. Comparison View: Display side-by-side or stacked comparison:
+   - Responsive layout for mobile
+   - Show key differences
+   - Nutrition facts comparison
 6. Share Feature: Add share comparison:
    - Generate comparison image
    - Share via messaging apps
@@ -250,7 +245,7 @@ MOBILE IMPLEMENTATION:
 6. Swipe to Delete: Add swipe gesture for single delete
 
 CONSTRAINTS:
-- Search must be fast (<100ms)
+- Search must be fast
 - Efficient database indexes required
 - Intuitive UI mandatory
 - Mobile-friendly filters
@@ -266,7 +261,7 @@ TESTING REQUIREMENTS:
 2. All filters apply properly
 3. Sorting works for all options
 4. Suggestions display correctly
-5. Fast search results (<100ms)
+5. Fast search results
 6. Batch delete works
 7. URL persistence works (web)
 8. Filter bottom sheet works (mobile)
@@ -277,7 +272,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Full-text search implemented
 - ✅ All filters functional
 - ✅ Sorting works
-- ✅ Fast results (<100ms)
+- ✅ Fast results
 - ✅ Suggestions working
 - ✅ Batch delete functional
 - ✅ Web UI intuitive

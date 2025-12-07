@@ -48,7 +48,7 @@ CONSTRAINTS:
 - Only single admin email can access
 - Efficient aggregation queries (no N+1 problems)
 - Secure guard implementation
-- Fast response times (<500ms)
+- Fast response times
 - Proper pagination for large datasets
 
 INTEGRATION POINTS:
@@ -271,7 +271,7 @@ TESTING REQUIREMENTS:
 2. All tables created in analytics schema
 3. Indexes created correctly
 4. Data can be inserted
-5. Queries are fast (<100ms)
+5. Queries are fast
 6. Indexes used by queries
 7. Migration can rollback
 
@@ -332,7 +332,6 @@ REQUIREMENTS:
    - Cards with icons and color coding
 5. Line Charts: Add trend charts:
    - Scans Over Time (daily scans for selected date range)
-   - Users Over Time (daily active users)
    - X-axis: dates, Y-axis: counts
    - Tooltips on hover
    - Responsive sizing
@@ -341,15 +340,16 @@ REQUIREMENTS:
    - Device Breakdown (Web, iOS, Android)
    - Color-coded segments
    - Percentage labels
+7. Retention Cohort: Create retention cohort table:
+   - Rows: Cohort date (user start week/month)
+   - Columns: Retention period (Week 0, 1, 2...)
+   - Cells: Retention percentage
 7. Date Range Selector: Implement date range filter:
    - Predefined ranges (Last 7 days, Last 30 days, Last 90 days)
    - Custom date range picker
    - Apply to all charts
    - Update URL params
-8. Real-Time Updates: Add auto-refresh:
-   - Refetch data every 30 seconds
-   - Show last updated timestamp
-   - Manual refresh button
+
 9. Loading States: Show skeleton loaders during data fetch
 10. Error Handling: Display error messages with retry option
 
@@ -382,7 +382,7 @@ ACCEPTANCE CRITERIA:
 - ✅ Line charts render
 - ✅ Pie charts render
 - ✅ Date range selector works
-- ✅ Real-time updates working
+
 - ✅ Responsive design
 
 QUALITY STANDARDS:
@@ -448,7 +448,7 @@ MOBILE IMPLEMENTATION:
 4. Session Tracking: Track session metrics:
    - Session start/end
    - Session length
-   - Screens per session
+
 5. Device Info Tracking: Track anonymized device info:
    - OS version (iOS 16, Android 13)
    - Device model (anonymized)

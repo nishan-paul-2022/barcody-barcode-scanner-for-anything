@@ -250,8 +250,7 @@ REQUIREMENTS:
 7. Batch Save API: Use POST /scans/bulk endpoint
 8. Queue Clear: Clear queue after successful save
 9. Visual Feedback: Show scan added to queue animation
-10. Queue Display: Show list of queued scans
-11. Remove from Queue: Allow removing individual scans from queue
+
 
 CONSTRAINTS:
 - Max 100 scans in queue
@@ -271,14 +270,14 @@ TESTING REQUIREMENTS:
 4. Auto-save at 100 scans
 5. Manual save works
 6. Queue clears after save
-7. Remove from queue works
+
 
 ACCEPTANCE CRITERIA:
 - ✅ Batch mode functional
 - ✅ Queue management working
 - ✅ Auto-save at limit
 - ✅ Manual save button
-- ✅ Queue display
+
 - ✅ Clear after save
 
 QUALITY STANDARDS:
