@@ -1,10 +1,10 @@
-# Barcody - Modular Implementation Task List
+# Barcody - Modular Implementation Task List (FIXED)
 
 > **Strategy**: Atomic tasks optimized for AI agent single-shot implementation
 >
-> **Structure**: 69 focused tasks, 5-8 checkboxes each, single responsibility
+> **Structure**: 69 focused tasks, enhanced with critical implementation details
 >
-> **Goal**: Seamless, robust, bug-free implementation
+> **Goal**: 100% bug-free, production-ready implementation
 
 ---
 
@@ -66,9 +66,9 @@
 
 ### Phase 7: Scanning Mobile (Tasks 37-40)
 
-- [7.1 Mobile Scanner](#task-71-mobile-scanner---camera-integration)
-- [7.2 Mobile Scan Result UI](#task-72-mobile-scanner---scan-result-ui)
-- [7.3 Mobile State Management](#task-73-mobile-state-management)
+- [7.1 Mobile State Management](#task-71-mobile-state-management)
+- [7.2 Mobile Scanner](#task-72-mobile-scanner---camera-integration)
+- [7.3 Mobile Scan Result UI](#task-73-mobile-scanner---scan-result-ui)
 - [7.4 Mobile Batch Mode](#task-74-mobile-scanner---batch-mode)
 
 ### Phase 8: Offline-First Mobile (Tasks 41-44)
@@ -299,9 +299,12 @@
 - [ ] Create auth context provider
 - [ ] Create protected route wrapper component
 - [ ] Restrict access to single admin email (from environment variable)
+- [ ] Implement middleware to check authenticated email against ADMIN_EMAIL env var
+- [ ] Reject access and redirect to unauthorized page if email doesn't match
 - [ ] Add logout functionality
 - [ ] Test: Only admin email can access dashboard
 - [ ] Test: Unauthorized users redirected to login
+- [ ] Test: Different Gmail accounts are rejected
 
 **Acceptance**: Admin dashboard secured, only authorized admin can access
 
@@ -347,7 +350,10 @@
 
 - [ ] Initialize Husky: `npx husky install`
 - [ ] Create `.husky/pre-commit` hook (lint-staged + type-check affected projects)
-- [ ] Create `.husky/pre-push` hook (run tests + security audit)
+- [ ] Create `.husky/pre-push` hook:
+  - Run unit tests only (not E2E tests for speed)
+  - Run security audit: `npm audit --audit-level=high`
+  - Exit with error if tests fail or vulnerabilities found
 - [ ] Create `.husky/commit-msg` hook (commitlint validation)
 - [ ] Make hooks executable: `chmod +x .husky/*`
 
@@ -360,8 +366,6 @@
 - [ ] Test: Push without tests passing (should fail)
 
 **Acceptance**: All hooks working, code quality enforced, conventional commits required
-
-**Reference**: `/home/nishan/.gemini/antigravity/brain/3f5bb82d-558a-4138-9818-56aa001a702d/git_hooks_guide.md`
 
 ---
 
@@ -489,10 +493,12 @@
 - [ ] Create `Scan` entity (id UUID, user_id, barcode_data, barcode_type, raw_data, scanned_at, device_type, metadata JSONB)
 - [ ] Add migration scripts to package.json (migration:generate, migration:run, migration:revert, seed)
 - [ ] Generate migration: `npm run migration:generate -- -n InitialSchema`
-- [ ] Create rollback migration
+- [ ] Create rollback migration with down() method containing DROP TABLE statements in reverse order
+- [ ] Ensure rollback drops tables: scans, sessions, users (in that order)
 - [ ] Create seed script with development data (1 user, 50 scans, various types)
 - [ ] Create test directory structure: test/unit/, test/integration/, test/e2e/, test/fixtures/, test/helpers/
-- [ ] Test: Migration runs up and down successfully
+- [ ] Test: Migration runs up successfully
+- [ ] Test: Migration rolls back successfully without errors
 - [ ] Test: `npm run seed` populates database
 - [ ] Test: Connection pool works under load
 
@@ -643,17 +649,18 @@
 - [ ] Create QueryClient with default options (staleTime: 5min, cacheTime: 10min, retry: 3)
 - [ ] Wrap app in QueryClientProvider
 - [ ] Add React Query DevTools for development
-- [ ] Create query hooks:
-  - useScans (list scans with pagination)
-  - useScan (get single scan)
-  - useProduct (product lookup)
-  - useAnalytics (analytics data)
+- [ ] Create query hooks with custom stale times:
+  - useScans (list scans with pagination) - staleTime: 1min
+  - useScan (get single scan) - staleTime: 1min
+  - useProduct (product lookup) - staleTime: 30min
+  - useAnalytics (analytics data) - staleTime: 5min
 - [ ] Create mutation hooks:
   - useCreateScan, useDeleteScan
   - useExport
 - [ ] Configure automatic refetching on window focus
 - [ ] Test: Queries cache and refetch correctly
 - [ ] Test: Mutations invalidate related queries
+- [ ] Test: Stale times work as configured
 
 **Acceptance**: React Query configured, data fetching optimized
 
@@ -772,16 +779,21 @@
 - [ ] Install `@nestjs/websockets`, `@nestjs/platform-socket.io`
 - [ ] Create `ScansGateway`
 - [ ] Implement WebSocket middleware for JWT validation
-- [ ] Extract JWT token from handshake query params or headers
-- [ ] Validate token before connection established
-- [ ] Reject connection if invalid token
-- [ ] Attach user to socket context
-- [ ] Emit `scan:created` event on new scan
-- [ ] Emit `scan:deleted` event on delete
-- [ ] Implement user-specific rooms (room per user ID)
-- [ ] Test: WebSocket connection works with valid token
-- [ ] Test: Unauthenticated connections rejected
-- [ ] Test: Events received only by correct user
+- [ ] Extract JWT token from connection handshake: `socket.handshake.auth.token` or query param `?token=xxx`
+- [ ] If token in auth object, use `socket.handshake.auth.token`
+- [ ] If token in query, use `socket.handshake.query.token`
+- [ ] Validate token using JwtService.verify()
+- [ ] Reject connection with error message if token invalid or missing
+- [ ] Extract user ID from validated token payload
+- [ ] Attach user object to socket: `socket.data.user = decodedToken`
+- [ ] Join user to private room: `socket.join(`user:${userId}`)`
+- [ ] Emit `scan:created` event to user's room on new scan
+- [ ] Emit `scan:deleted` event to user's room on delete
+- [ ] Test: WebSocket connection works with token in auth object
+- [ ] Test: WebSocket connection works with token in query param
+- [ ] Test: Connection rejected with missing token
+- [ ] Test: Connection rejected with invalid token
+- [ ] Test: Events received only by correct user's room
 
 **Acceptance**: WebSocket events broadcast correctly
 
@@ -851,11 +863,18 @@
   - display: "standalone"
 - [ ] Create service worker for offline caching
 - [ ] Configure cache strategies (NetworkFirst for API, CacheFirst for static)
-- [ ] Create offline fallback page (`app/offline/page.tsx`)
+- [ ] Create offline fallback page (`app/offline/page.tsx`) with:
+  - Network status indicator (online/offline)
+  - Retry connection button
+  - Display of cached scans (read from IndexedDB)
+  - Message explaining offline mode
+- [ ] Implement online detection and auto-redirect when connection restored
 - [ ] Add install prompt component
 - [ ] Test: App installable on mobile/desktop
 - [ ] Test: Works offline after first visit
 - [ ] Test: Service worker caches correctly
+- [ ] Test: Offline page displays when no connection
+- [ ] Test: Auto-redirect to main app when back online
 
 **Acceptance**: Web app is PWA-ready, installable, works offline
 
@@ -863,7 +882,26 @@
 
 ## Phase 7: Barcode Scanning Mobile (Tasks 37-40)
 
-### Task 7.1: Mobile Scanner - Camera Screen
+### Task 7.1: Mobile State Management
+
+**Scope**: Configure Zustand for global state
+
+- [ ] Install `zustand`
+- [ ] Create stores:
+  - `authStore` (user, tokens, isAuthenticated)
+  - `scanStore` (scans, filters, pagination)
+  - `settingsStore` (theme, backend URL, preferences)
+  - `syncStore` (syncStatus, queueCount, lastSync)
+- [ ] Implement persist middleware for AsyncStorage
+- [ ] Create store hooks for each store
+- [ ] Test: State updates correctly
+- [ ] Test: State persists across app restarts
+
+**Acceptance**: Global state management configured
+
+---
+
+### Task 7.2: Mobile Scanner - Camera Screen
 
 **Scope**: Implement mobile barcode scanner
 
@@ -878,19 +916,24 @@
 - [ ] Add haptic feedback on successful scan (Haptics.notificationAsync)
 - [ ] Add haptic feedback on error (Haptics.notificationAsync)
 - [ ] Handle all barcode formats (QR, EAN, UPC, Code128, DataMatrix, PDF417)
-- [ ] Implement useEffect cleanup for camera (stop stream on unmount)
-- [ ] Release camera permissions properly
+- [ ] Implement useEffect cleanup for camera:
+  - Stop camera recording: `camera.stopRecording()`
+  - Pause camera preview: `camera.pausePreview()`
+  - Remove barcode detection listeners
+  - Clear debounce timers
+  - Release camera permissions
 - [ ] Test: Camera opens, scans work
 - [ ] Test: Haptic feedback triggers
 - [ ] Test: Permission denied shows error message
 - [ ] Test: No duplicate scans
+- [ ] Test: Camera properly released on unmount
 - [ ] Test: No memory leaks after multiple scans
 
 **Acceptance**: Mobile scanner detects barcodes
 
 ---
 
-### Task 7.2: Mobile Scanner - Scan Result UI
+### Task 7.3: Mobile Scanner - Scan Result UI
 
 **Scope**: Create scan result and history screens
 
@@ -912,38 +955,21 @@
 
 ---
 
-### Task 7.3: Mobile State Management
-
-**Scope**: Configure Zustand for global state
-
-- [ ] Install `zustand`
-- [ ] Create stores:
-  - `authStore` (user, tokens, isAuthenticated)
-  - `scanStore` (scans, filters, pagination)
-  - `settingsStore` (theme, backend URL, preferences)
-  - `syncStore` (syncStatus, queueCount, lastSync)
-- [ ] Implement persist middleware for AsyncStorage
-- [ ] Create store hooks for each store
-- [ ] Test: State updates correctly
-- [ ] Test: State persists across app restarts
-
-**Acceptance**: Global state management configured
-
----
-
 ### Task 7.4: Mobile Scanner - Batch Mode
 
 **Scope**: Implement continuous scanning
 
 - [ ] Add batch scanning toggle
 - [ ] Implement continuous scan mode
-- [ ] Queue scans in memory
+- [ ] Queue scans in memory (max 100 scans)
+- [ ] Auto-save batch when queue reaches limit
 - [ ] Add batch save functionality
 - [ ] Show scan count indicator
+- [ ] Clear queue after successful save
 - [ ] Test: Batch mode works
-
+- [ ] Test: Queue limit enforced (auto-saves at 100)
+- [ ] Test: Queue clears after save
 **Acceptance**: Continuous scanning functional
-
 ---
 
 ## Phase 8: Offline-First Mobile (Tasks 41-44)
@@ -961,9 +987,17 @@
   - status (pending/in_progress/failed/completed)
   - created_at, last_attempt_at, error_message
 - [ ] Create `product_cache` table schema (barcode, product_data JSON, cached_at, expires_at)
+- [ ] Create indexes for performance:
+  - CREATE INDEX idx_scans_scanned_at ON scans(scanned_at DESC)
+  - CREATE INDEX idx_scans_synced ON scans(synced)
+  - CREATE INDEX idx_scans_barcode ON scans(barcode_data)
+  - CREATE INDEX idx_product_cache_barcode ON product_cache(barcode)
+  - CREATE INDEX idx_sync_queue_status ON sync_queue(status)
 - [ ] Implement database service with initialization
 - [ ] Test: Database created, tables exist
+- [ ] Test: Indexes created successfully
 - [ ] Test: Can insert and query data
+- [ ] Test: Query performance on large datasets
 
 **Acceptance**: SQLite database functional
 
@@ -1007,12 +1041,21 @@
 
 - [ ] Create sync service
 - [ ] Detect backend availability (health check)
-- [ ] Implement upload offline scans
-- [ ] Implement download new scans
-- [ ] Add conflict resolution (timestamp-based)
-- [ ] Clear sync queue on success
-- [ ] Add retry logic with exponential backoff
+- [ ] Implement upload offline scans to backend
+- [ ] Implement download new scans from backend
+- [ ] Implement deduplication using composite key:
+  - Combine: barcode_data + scanned_at (rounded to second) + user_id
+  - Generate hash: SHA-256 of composite key
+  - Check if hash exists before insert
+- [ ] Add conflict resolution (timestamp-based: most recent wins)
+- [ ] Clear sync queue on successful upload
+- [ ] Add retry logic with exponential backoff (1s, 2s, 4s, 8s, max 30s)
+- [ ] Limit max retry attempts to 10
+- [ ] Mark failed syncs after max retries
 - [ ] Test: Sync works on reconnection
+- [ ] Test: No duplicate scans created
+- [ ] Test: Deduplication works for same barcode at same timestamp
+- [ ] Test: Retry logic backs off correctly
 
 **Acceptance**: Auto-sync functional, no duplicates
 
@@ -1032,9 +1075,12 @@
   - Allow methods: GET, POST, PUT, DELETE, PATCH
   - Allow headers: Authorization, Content-Type
 - [ ] Add Tailscale IP to trusted proxies
+- [ ] Auto-detect Tailscale IP by executing `tailscale ip -4` command or read from TAILSCALE_IP env var
+- [ ] Cache detected Tailscale IP in memory
 - [ ] Create `/setup/tailscale-info` endpoint (returns backend URL, Tailscale IP)
 - [ ] Test: Backend accessible via Tailscale IP
 - [ ] Test: CORS headers present in responses
+- [ ] Test: Tailscale IP auto-detection works
 
 **Acceptance**: Backend accessible from Tailscale network
 
@@ -1099,8 +1145,16 @@
 - [ ] Add cascade fallback (OFF → UPC → Barcode)
 - [ ] Set TTL: 30 days for products
 - [ ] Cache "not found" results (24 hours)
-- [ ] Track API usage per day
+- [ ] Implement daily API usage counter in Redis:
+  - Key: `api:usage:upc:{YYYY-MM-DD}` and `api:usage:barcode:{YYYY-MM-DD}`
+  - Increment on each API call
+  - Set expiry to midnight UTC (automatic reset)
+- [ ] Check counter before making API calls
+- [ ] Skip API call if daily limit reached (100 for UPC, 50 for Barcode Lookup)
 - [ ] Test: Cache hit rate >90%
+- [ ] Test: Daily counter increments correctly
+- [ ] Test: Counter resets at midnight UTC
+- [ ] Test: API calls blocked when limit reached
 
 **Acceptance**: Caching works, API limits respected
 
@@ -1119,7 +1173,8 @@
 - [ ] Return product data or "not found" message
 - [ ] Add cache statistics endpoint (`GET /products/stats`)
 - [ ] Test: Endpoint returns product data
-- [ ] Test: Rate limit enforced (11th request returns 429)
+- [ ] Test: Rate limit enforced (11th request within 1 minute returns 429)
+- [ ] Test: Retry-after header present in 429 response
 
 **Acceptance**: Product lookup endpoint functional
 
@@ -1162,8 +1217,13 @@
 - [ ] Implement `GET /export/csv` endpoint
 - [ ] Implement `GET /export/json` endpoint
 - [ ] Add filters (date range, barcode type)
-- [ ] Implement pagination for large exports
-- [ ] Test: CSV and JSON exports work
+- [ ] Implement streaming export with Node.js streams for large datasets
+- [ ] Process records in chunks of 1000 records
+- [ ] Use Transform streams to avoid loading all data in memory
+- [ ] Set appropriate headers for streaming response
+- [ ] Test: CSV and JSON exports work for small datasets (<100 records)
+- [ ] Test: Streaming works for large datasets (>10,000 records)
+- [ ] Test: Memory usage stays constant during large exports
 
 **Acceptance**: CSV and JSON exports functional
 
@@ -1216,11 +1276,19 @@
 
 - [ ] Install `socket.io-client`
 - [ ] Create WebSocket service
-- [ ] Implement auto-reconnect logic
+- [ ] Implement auto-reconnect logic with exponential backoff:
+  - Initial delay: 1s, then 2s, 4s, 8s, max 30s
+  - Max retry attempts: 10
+  - Reset backoff on successful connection
+- [ ] Queue messages in memory during disconnect (max 50 messages)
+- [ ] Flush queued messages on reconnect
 - [ ] Subscribe to scan events
 - [ ] Update UI on real-time events
-- [ ] Add connection status indicator
+- [ ] Add connection status indicator (connected/reconnecting/disconnected)
 - [ ] Test: Real-time updates work
+- [ ] Test: Reconnection works after disconnect
+- [ ] Test: Exponential backoff increases correctly
+- [ ] Test: Stops retrying after max attempts
 
 **Acceptance**: Web receives real-time scan updates
 
@@ -1232,11 +1300,16 @@
 
 - [ ] Install `socket.io-client`
 - [ ] Create WebSocket service
-- [ ] Implement background connection
+- [ ] Implement background connection with exponential backoff:
+  - Initial delay: 1s, then 2s, 4s, 8s, max 30s
+  - Max retry attempts: 10
+- [ ] Queue events in memory during disconnect (max 50 events)
 - [ ] Subscribe to scan events
 - [ ] Update SQLite on events
 - [ ] Add connection status indicator
 - [ ] Test: Real-time updates work
+- [ ] Test: Events queued during disconnect
+- [ ] Test: Reconnection works correctly
 
 **Acceptance**: Mobile receives real-time scan updates
 
@@ -1251,9 +1324,15 @@
 - [ ] Create `AnalyticsModule`
 - [ ] Implement `POST /analytics/event` endpoint
 - [ ] Create event processor
-- [ ] Implement user ID hashing (SHA-256)
+- [ ] Implement user ID hashing:
+  - Use SHA-256 algorithm
+  - Add global pepper from ANALYTICS_HASH_SECRET env var
+  - Hash format: SHA-256(userId + ANALYTICS_HASH_SECRET)
+  - Ensure consistent hashing across events
 - [ ] Send events to Supabase
 - [ ] Test: Events tracked correctly
+- [ ] Test: User IDs are hashed consistently
+- [ ] Test: Same user ID produces same hash
 
 **Acceptance**: Analytics events sent to Supabase
 
@@ -1550,7 +1629,6 @@
   - Download docker-compose.yml from GitHub
   - Start services with docker-compose up -d
   - Display success message with URLs (web, API, Tailscale setup)
-- [ ] Create `install.bat` for Windows
 - [ ] Create `update.sh` script:
   - Pull latest Docker images
   - Stop containers
@@ -1565,17 +1643,28 @@
 - [ ] Create `restore.sh` script:
   - List available backups
   - Restore from selected backup
-  - Verify restoration
-- [ ] Schedule automated daily backups (cron job)
+  - Verify restoration using pg_restore --list
+- [ ] Implement backup retention policy:
+  - Keep 7 daily backups
+  - Keep 4 weekly backups (every Sunday)
+  - Delete backups older than retention period
+- [ ] Schedule automated daily backups:
+  - Create cron job: `0 2 * * * /path/to/backup.sh`
+  - Run at 2 AM daily
+  - Log backup results to /var/log/barcody-backup.log
 - [ ] Build production Docker images
 - [ ] Build production APK via EAS
 - [ ] Upload APK to GitHub Releases
 - [ ] Deploy admin dashboard to Vercel
-- [ ] Configure monitoring (Sentry - already done in Task 11.3.1)
+- [ ] Configure monitoring (Sentry - already done in Task 1.11)
 - [ ] Test: `install.sh` works on fresh Ubuntu
 - [ ] Test: Script handles missing Docker gracefully
 - [ ] Test: `update.sh` updates from v1.0 to v1.1
-- [ ] Test: `backup.sh` and `restore.sh` work
+- [ ] Test: `backup.sh` creates valid backup
+- [ ] Test: `restore.sh` restores backup successfully
+- [ ] Test: Backup verification detects corrupted backups
+- [ ] Test: Retention policy deletes old backups
+- [ ] Test: Cron job runs automatically
 - [ ] Test: Full system works in production
 
 **Acceptance**: v1.0.0 deployed, all features working
@@ -1641,58 +1730,59 @@ graph TD
     T34 --> T35[6.3 Web History]
 
     %% Phase 7: Scanning Mobile
-    T31 --> T36[7.1 Mobile Scanner]
-    T36 --> T37[7.2 Mobile History]
-    T37 --> T38[7.3 Batch Mode]
+    T31 --> T36[7.1 Mobile State Mgmt]
+    T36 --> T37[7.2 Mobile Scanner]
+    T37 --> T38[7.3 Scan Result UI]
+    T38 --> T39[7.4 Batch Mode]
 
     %% Phase 8: Offline
-    T36 --> T39[8.1 SQLite Setup]
-    T39 --> T40[8.2 SQLite CRUD]
-    T40 --> T41[8.3 Offline Detection]
-    T41 --> T42[8.4 Auto-Sync]
+    T37 --> T40[8.1 SQLite Setup]
+    T40 --> T41[8.2 SQLite CRUD]
+    T41 --> T42[8.3 Offline Detection]
+    T42 --> T43[8.4 Auto-Sync]
 
     %% Phase 9: Tailscale
-    T31 --> T43[9.1 Backend Tailscale]
-    T43 --> T44[9.2 Web Tailscale]
-    T43 --> T45[9.3 Mobile Tailscale]
+    T31 --> T44[9.1 Backend Tailscale]
+    T44 --> T45[9.2 Web Tailscale]
+    T44 --> T46[9.3 Mobile Tailscale]
 
     %% Phase 10: Product Lookup
-    T18 --> T46[10.1 API Clients]
-    T46 --> T47[10.2 Caching]
-    T47 --> T48[10.3 Lookup Endpoint]
-    T48 --> T49[10.4 Product UI]
+    T18 --> T47[10.1 API Clients]
+    T47 --> T48[10.2 Caching]
+    T48 --> T49[10.3 Lookup Endpoint]
+    T49 --> T50[10.4 Product UI]
 
     %% Phase 11: Export
-    T31 --> T50[11.1 CSV/JSON Export]
-    T50 --> T51[11.2 PDF/Excel Export]
-    T51 --> T52[11.3 Export UI]
+    T31 --> T51[11.1 CSV/JSON Export]
+    T51 --> T52[11.2 PDF/Excel Export]
+    T52 --> T53[11.3 Export UI]
 
     %% Phase 12: Real-time
-    T32 --> T53[12.1 WebSocket Web]
-    T32 --> T54[12.2 WebSocket Mobile]
+    T32 --> T54[12.1 WebSocket Web]
+    T32 --> T55[12.2 WebSocket Mobile]
 
     %% Phase 13: Analytics
-    T31 --> T55[13.1 Analytics Backend]
-    T55 --> T56[13.2 Analytics DB]
-    T56 --> T57[13.3 Dashboard Charts]
+    T31 --> T56[13.1 Analytics Backend]
+    T56 --> T57[13.2 Analytics DB]
+    T57 --> T58[13.3 Dashboard Charts]
 
     %% Phase 14: Advanced
-    T48 --> T58[14.1 Comparison]
-    T31 --> T59[14.2 Search/Filters]
+    T49 --> T59[14.1 Comparison]
+    T31 --> T60[14.2 Search/Filters]
 
     %% Phase 15: Testing
-    T59 --> T60[15.1 Backend Tests]
-    T59 --> T61[15.2 Web Tests]
-    T59 --> T62[15.3 Mobile Tests]
-    T59 --> T63[15.4 Admin Tests]
-    T61 --> T64[15.5 Cross-Platform Tests]
-    T62 --> T64
-    T63 --> T64
+    T60 --> T61[15.1 Backend Tests]
+    T60 --> T62[15.2 Web Tests]
+    T60 --> T63[15.3 Mobile Tests]
+    T60 --> T64[15.4 Admin Tests]
+    T62 --> T65[15.5 Cross-Platform Tests]
+    T63 --> T65
+    T64 --> T65
 
     %% Phase 16: Deployment
-    T60 --> T65[16.1 Documentation]
-    T64 --> T65
-    T65 --> T66[16.2 Production Deploy]
+    T61 --> T66[16.1 Documentation]
+    T65 --> T66
+    T66 --> T67[16.2 Production Deploy]
 ```
 
 ---
