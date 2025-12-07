@@ -1,8 +1,8 @@
-# Barcody - Modular Implementation Task List (FIXED)
+# Barcody - Modular Implementation Task List
 
 > **Strategy**: Atomic tasks optimized for AI agent single-shot implementation
 >
-> **Structure**: 69 focused tasks, enhanced with critical implementation details
+> **Structure**: 75 focused tasks, enhanced with critical implementation details
 >
 > **Goal**: 100% bug-free, production-ready implementation
 
@@ -20,7 +20,7 @@
 - [1.6 Web Docker Setup](#task-16-web-docker-setup)
 - [1.7 Mobile Project Setup](#task-17-mobile-project-setup)
 - [1.8 Admin Dashboard Setup](#task-18-admin-dashboard-setup)
-- [1.9 Admin Dashboard Authentication](#task-19-admin-dashboard-authentication)
+- [1.9 Admin Dashboard Docker Setup](#task-19-admin-dashboard-docker-setup)
 - [1.10 Git Hooks & Code Quality Setup](#task-110-git-hooks--code-quality-setup)
 - [1.11 Error Monitoring Setup](#task-111-error-monitoring-setup)
 
@@ -40,7 +40,7 @@
 - [3.5 JWT Service](#task-35-backend-auth---jwt-service)
 - [3.6 Auth Endpoints](#task-36-backend-auth---endpoints)
 
-### Phase 4: Auth Frontend (Tasks 22-29)
+### Phase 4: Auth Frontend (Tasks 22-34)
 
 - [4.1 Web Auth - Google OAuth UI](#task-41-web-auth---google-oauth-ui)
 - [4.2 Web Auth - State Management](#task-42-web-auth---state-management)
@@ -50,6 +50,11 @@
 - [4.6 Mobile Auth - Google OAuth Flow](#task-46-mobile-auth---google-oauth-flow)
 - [4.7 Mobile Auth - Token Storage](#task-47-mobile-auth---token-storage)
 - [4.8 Mobile Auth - UI Components](#task-48-mobile-auth---ui-components)
+- [4.9 Mobile API Client Service](#task-49-mobile-api-client-service)
+- [4.10 Mobile Data Fetching Setup](#task-410-mobile-data-fetching-setup)
+- [4.11 Mobile Auth - Protected Navigation](#task-411-mobile-auth---protected-navigation)
+- [4.12 Admin Dashboard Data Fetching](#task-412-admin-dashboard-data-fetching)
+- [4.13 Admin Dashboard Authentication](#task-413-admin-dashboard-authentication)
 
 ### Phase 5: Scanning Backend (Tasks 30-32)
 
@@ -104,10 +109,11 @@
 
 ### Phase 13: Analytics Dashboard (Tasks 57-60)
 
-- [13.1 Analytics Backend](#task-131-analytics-backend---event-tracking)
-- [13.2 Analytics Database Schema](#task-132-analytics-database-schema)
-- [13.3 Admin Dashboard Charts & Metrics](#task-133-admin-dashboard---charts--metrics)
-- [13.4 Frontend Analytics Integration](#task-134-frontend-analytics-integration)
+- [13.1 Backend Admin Module](#task-131-backend-admin-module)
+- [13.2 Analytics Backend](#task-132-analytics-backend---event-tracking)
+- [13.3 Analytics Database Schema](#task-133-analytics-database-schema)
+- [13.4 Admin Dashboard Charts & Metrics](#task-134-admin-dashboard---charts--metrics)
+- [13.5 Frontend Analytics Integration](#task-135-frontend-analytics-integration)
 
 ### Phase 14: Advanced Features (Tasks 61-62)
 
@@ -275,38 +281,35 @@
 
 ### Task 1.8: Admin Dashboard Setup
 
-**Scope**: Initialize admin dashboard
+**Scope**: Initialize admin dashboard application
 
-- [ ] Initialize Next.js: `npx create-next-app@latest admin --typescript --tailwind --app`
-- [ ] Install Supabase client: `@supabase/supabase-js`
-- [ ] Configure Supabase connection
-- [ ] Create basic dashboard layout
-- [ ] Set up Vercel deployment configuration (`vercel.json`)
-- [ ] Test: Dashboard loads locally
-- [ ] Test: Supabase connection works
+- [ ] Initialize Next.js: `npx create-next-app@latest admin-dashboard --typescript --tailwind --app`
+- [ ] Configure `tsconfig.json` with path aliases (`@/components`, `@/lib`, `@/app`)
+- [ ] Set up `.env.local.example` with `NEXT_PUBLIC_API_URL`
+- [ ] Install shadcn/ui: `npx shadcn-ui@latest init`
+- [ ] Install shadcn/ui components: button, input, card, dialog, table, tabs, select, badge, alert, skeleton, dropdown-menu, separator
+- [ ] Install axios: `npm install axios`
+- [ ] Configure dark mode (default)
+- [ ] Create basic dashboard layout with header
+- [ ] Test: `npm run dev` works at `localhost:3000`
+- [ ] Test: shadcn components render correctly
 
-**Acceptance**: Admin dashboard runs, connects to Supabase
+**Acceptance**: Admin dashboard loads with dark mode, Tailwind working
 
 ---
 
-### Task 1.9: Admin Dashboard Authentication
+### Task 1.9: Admin Dashboard Docker Setup
 
-**Scope**: Implement Gmail OAuth for admin access
+**Scope**: Containerize admin dashboard
 
-- [ ] Configure Gmail OAuth in Supabase Auth
-- [ ] Create login page with Gmail sign-in button
-- [ ] Implement OAuth callback handler
-- [ ] Create auth context provider
-- [ ] Create protected route wrapper component
-- [ ] Restrict access to single admin email (from environment variable)
-- [ ] Implement middleware to check authenticated email against ADMIN_EMAIL env var
-- [ ] Reject access and redirect to unauthorized page if email doesn't match
-- [ ] Add logout functionality
-- [ ] Test: Only admin email can access dashboard
-- [ ] Test: Unauthorized users redirected to login
-- [ ] Test: Different Gmail accounts are rejected
+- [ ] Create `Dockerfile` with multi-stage build
+- [ ] Create `.dockerignore`
+- [ ] Add admin-dashboard service to root `docker-compose.yml` (port 3001)
+- [ ] Configure environment variables in docker-compose
+- [ ] Test: `docker-compose up admin-dashboard` works
+- [ ] Test: Dashboard accessible at `localhost:3001`
 
-**Acceptance**: Admin dashboard secured, only authorized admin can access
+**Acceptance**: Admin dashboard container runs, app accessible
 
 ---
 
@@ -461,15 +464,20 @@
 
 ### Task 2.4: Admin Dashboard CI/CD
 
-**Scope**: Automate admin dashboard deployment
+**Scope**: Automate admin dashboard Docker builds
 
-- [ ] Create `vercel.json` configuration
-- [ ] Connect GitHub repo to Vercel
-- [ ] Configure environment variables in Vercel
-- [ ] Set up production domain
-- [ ] Test: Push to main triggers deployment
+- [ ] Create `.github/workflows/admin-dashboard-build.yml`
+- [ ] Configure Docker Buildx
+- [ ] Add Docker Hub login step
+- [ ] Implement multi-platform build (linux/amd64)
+- [ ] Add semantic versioning tags
+- [ ] Configure build caching
+- [ ] Document required GitHub secrets in workflow comments:
+  - DOCKERHUB_USERNAME, DOCKERHUB_TOKEN
+- [ ] Test: Push to main triggers build
+- [ ] Test: Docker image pushed to Docker Hub
 
-**Acceptance**: Admin dashboard auto-deploys to Vercel
+**Acceptance**: admin dashboard Docker image pushed to Docker Hub
 
 ---
 
@@ -703,17 +711,21 @@
 
 ### Task 4.7: Mobile Auth - Token Storage
 
-**Scope**: Implement secure token storage
+**Scope**: Implement secure token storage with state management
 
-- [ ] Install `@react-native-async-storage/async-storage`, `expo-secure-store`
+- [ ] Install `@react-native-async-storage/async-storage`, `expo-secure-store`, `zustand`
 - [ ] Create secure storage service
 - [ ] Implement token save/retrieve/delete
-- [ ] Create auth context provider
+- [ ] Create auth store with Zustand (user, tokens, isAuthenticated)
+- [ ] Implement login action
+- [ ] Implement logout action
+- [ ] Implement token refresh logic
 - [ ] Implement auto-login on app launch
 - [ ] Test: Tokens persist across app restarts
 - [ ] Test: Auto-login works
+- [ ] Test: State updates on login/logout
 
-**Acceptance**: Tokens stored securely, auto-login functional
+**Acceptance**: Tokens stored securely, Zustand state management functional, auto-login works
 
 ---
 
@@ -730,6 +742,117 @@
 - [ ] Test: Navigation works
 
 **Acceptance**: Auth UI complete, navigation smooth
+
+---
+
+### Task 4.9: Mobile API Client Service
+
+**Scope**: Create centralized API client for mobile with error handling
+
+- [ ] Install `axios`
+- [ ] Create `services/api/client.ts` API client service
+- [ ] Configure base URL from environment variable
+- [ ] Add axios interceptor for auth token injection (from secure storage)
+- [ ] Implement error handling interceptor
+- [ ] Add retry logic for network failures (exponential backoff)
+- [ ] Create typed API methods:
+  - Auth API (login, logout, refresh, me)
+  - Scans API (create, list, get, delete, bulk, sync)
+  - Products API (lookup)
+  - Export API (csv, json)
+- [ ] Test: API client attaches auth headers
+- [ ] Test: Retry logic works on network failure
+- [ ] Test: Offline detection triggers appropriate errors
+
+**Acceptance**: Centralized mobile API client functional, all endpoints typed
+
+---
+
+### Task 4.10: Mobile Data Fetching Setup
+
+**Scope**: Configure TanStack Query for mobile data fetching
+
+- [ ] Install `@tanstack/react-query`
+- [ ] Create QueryClient with default options (staleTime: 5min, cacheTime: 10min, retry: 3)
+- [ ] Wrap app in QueryClientProvider
+- [ ] Create query hooks with custom stale times:
+  - useScans (list scans with pagination) - staleTime: 1min
+  - useScan (get single scan) - staleTime: 1min
+  - useProduct (product lookup) - staleTime: 30min
+- [ ] Create mutation hooks:
+  - useCreateScan, useDeleteScan, useSyncScans
+  - useExport
+- [ ] Configure automatic refetching on app focus
+- [ ] Test: Queries cache and refetch correctly
+- [ ] Test: Mutations invalidate related queries
+- [ ] Test: Offline queries return cached data
+
+**Acceptance**: TanStack Query configured, mobile data fetching optimized
+
+---
+
+### Task 4.11: Mobile Auth - Protected Navigation
+
+**Scope**: Implement navigation guards for authenticated routes
+
+- [ ] Create `useAuthGuard` hook
+- [ ] Implement navigation listener for auth checks
+- [ ] Redirect to login if unauthenticated
+- [ ] Add loading state during auth check
+- [ ] Protect main app screens (Scan, History, Settings)
+- [ ] Create splash screen for initial auth check
+- [ ] Test: Unauthenticated users redirected to login
+- [ ] Test: Authenticated users access app screens
+- [ ] Test: Auto-login works on app launch
+
+**Acceptance**: Navigation protection works, auth flow seamless
+
+---
+
+### Task 4.12: Admin Dashboard Data Fetching
+
+**Scope**: Configure React Query for admin dashboard
+
+- [ ] Install `@tanstack/react-query`, `@tanstack/react-query-devtools`
+- [ ] Create QueryClient with default options (staleTime: 5min, cacheTime: 10min, retry: 3)
+- [ ] Wrap app in QueryClientProvider
+- [ ] Add React Query DevTools for development
+- [ ] Create query hooks with custom stale times:
+  - useAnalyticsOverview - staleTime: 5min
+  - useAnalyticsTrends - staleTime: 5min
+  - useBarcodeTypes - staleTime: 10min
+  - useDeviceBreakdown - staleTime: 10min
+  - useUsers - staleTime: 2min
+  - useScans - staleTime: 1min
+- [ ] Configure automatic refetching on window focus
+- [ ] Test: Queries cache and refetch correctly
+- [ ] Test: Stale times work as configured
+
+**Acceptance**: React Query configured for admin dashboard, data fetching optimized
+
+---
+
+### Task 4.13: Admin Dashboard Authentication
+
+**Scope**: Implement Gmail OAuth for admin access (reusing backend auth)
+
+- [ ] Install `@react-oauth/google`, `zustand`
+- [ ] Create Google OAuth provider wrapper
+- [ ] Create login page with Gmail sign-in button
+- [ ] Implement OAuth callback handler (exchanges code with backend)
+- [ ] Create auth store (user, tokens, isAuthenticated) with Zustand
+- [ ] Create API client service (`lib/api/client.ts`)
+- [ ] Configure base URL from `NEXT_PUBLIC_API_URL` environment variable
+- [ ] Add axios interceptor for auth token injection
+- [ ] Implement error handling interceptor
+- [ ] Create protected route wrapper component
+- [ ] Add logout functionality
+- [ ] Test: OAuth flow completes with backend
+- [ ] Test: Only admin email can access dashboard (backend validates)
+- [ ] Test: Unauthorized users redirected to login
+- [ ] Test: Different Gmail accounts are rejected by backend
+
+**Acceptance**: Admin dashboard secured via backend OAuth, only authorized admin can access
 
 ---
 
@@ -821,10 +944,9 @@
 
 **Scope**: Implement image file scanning
 
-- [ ] Install `html5-qrcode`
 - [ ] Create file upload component
 - [ ] Implement image file selection
-- [ ] Add barcode detection from image
+- [ ] Use `@zxing/browser` for barcode detection from image
 - [ ] Display scan result
 - [ ] Test: Upload image, barcode detected
 
@@ -1315,9 +1437,49 @@
 
 ---
 
+---
+
 ## Phase 13: Analytics Dashboard (Tasks 57-60)
 
-### Task 13.1: Analytics Backend - Event Tracking
+### Task 13.1: Backend Admin Module
+
+**Scope**: Create admin API module for dashboard backend
+
+- [ ] Create `backend/src/modules/admin/` directory
+- [ ] Create `AdminModule` in `admin.module.ts`
+- [ ] Create `AdminController` with endpoints:
+  - `GET /api/v1/admin/analytics/overview` - Total scans, users, metrics
+  - `GET /api/v1/admin/analytics/trends` - Daily scans trend data (with date range filter)
+  - `GET /api/v1/admin/analytics/barcode-types` - Barcode type distribution
+  - `GET /api/v1/admin/analytics/devices` - Device breakdown
+  - `GET /api/v1/admin/users` - User list with pagination
+  - `GET /api/v1/admin/scans` - All scans across users with filters
+- [ ] Create `AdminService` with database queries:
+  - Analytics aggregation queries (COUNT, GROUP BY, etc.)
+  - User management queries
+  - Cross-user scan queries
+- [ ] Create `AdminGuard` to restrict access:
+  - Check JWT token validity
+  - Extract email from token
+  - Compare with `ADMIN_EMAIL` environment variable
+  - Reject if email doesn't match
+- [ ] Create DTOs:
+  - `AnalyticsFilterDto` (date range, filters)
+  - `PaginationDto` (page, limit)
+  - `AnalyticsOverviewDto` (response)
+  - `TrendDataDto` (response)
+- [ ] Add `ADMIN_EMAIL` to environment variables
+- [ ] Apply `@UseGuards(JwtAuthGuard, AdminGuard)` to all admin endpoints
+- [ ] Test: Admin email can access all endpoints
+- [ ] Test: Non-admin email receives 403 Forbidden
+- [ ] Test: Unauthenticated requests receive 401 Unauthorized
+- [ ] Test: All analytics queries return correct data
+
+**Acceptance**: Admin API module functional, secured with admin guard
+
+---
+
+### Task 13.2: Analytics Backend - Event Tracking
 
 **Scope**: Implement analytics event collection
 
@@ -1338,7 +1500,7 @@
 
 ---
 
-### Task 13.2: Analytics Database Schema
+### Task 13.3: Analytics Database Schema
 
 **Scope**: Create analytics tables in Supabase
 
@@ -1354,11 +1516,16 @@
 
 ---
 
-### Task 13.3: Admin Dashboard - Charts & Metrics
+### Task 13.4: Admin Dashboard - Charts & Metrics
 
-**Scope**: Create analytics dashboard UI
+**Scope**: Create analytics dashboard UI (fetches from backend admin API)
 
-- [ ] Install `recharts`
+- [ ] Install `recharts`, `@tanstack/react-query`
+- [ ] Create API hooks:
+  - `useAnalyticsOverview()` - Fetches `GET /api/v1/admin/analytics/overview`
+  - `useAnalyticsTrends()` - Fetches `GET /api/v1/admin/analytics/trends`
+  - `useBarcodeTypes()` - Fetches `GET /api/v1/admin/analytics/barcode-types`
+  - `useDeviceBreakdown()` - Fetches `GET /api/v1/admin/analytics/devices`
 - [ ] Create overview page (total scans, users)
 - [ ] Add daily scans trend chart
 - [ ] Create barcode type pie chart
@@ -1366,13 +1533,13 @@
 - [ ] Create retention cohort table
 - [ ] Add device breakdown chart
 - [ ] Implement date range filter
-- [ ] Test: All charts render
+- [ ] Test: All charts render with real data from backend
 
-**Acceptance**: Admin dashboard shows all metrics
+**Acceptance**: Admin dashboard shows all metrics from backend API
 
 ---
 
-### Task 13.4: Frontend Analytics Integration
+### Task 13.5: Frontend Analytics Integration
 
 **Scope**: Integrate analytics tracking in frontend
 
@@ -1565,15 +1732,17 @@
 - [ ] Write component tests for chart components (Jest + RTL)
 - [ ] Add snapshot tests for dashboard layouts
 - [ ] Write E2E tests (Playwright):
-  - Gmail OAuth login flow
+  - Gmail OAuth login flow with backend
   - Analytics dashboard rendering
   - Date range filtering
   - Chart interactions
-- [ ] Test: Only authorized admin email can access
+- [ ] Test: Only authorized admin email can access (backend validates)
 - [ ] Test: Unauthorized users redirected to login
 - [ ] Test: All charts render with mock data
+- [ ] Test: API client handles errors correctly
+- [ ] Test: Auth interceptor attaches tokens to requests
 
-**Acceptance**: Admin dashboard tests pass, auth restrictions verified
+**Acceptance**: Admin dashboard tests pass, backend auth integration verified
 
 ---
 
@@ -1680,7 +1849,7 @@ graph TD
 
     T5[1.5 Web Setup] --> T6[1.6 Web Docker]
     T7[1.7 Mobile Setup]
-    T8[1.8 Admin Setup] --> T9[1.9 Admin Auth]
+    T8[1.8 Admin Setup] --> T9[1.9 Admin Docker]
 
     %% Git Hooks depends on all 4 project setups
     T1 --> T10[1.10 Git Hooks]
@@ -1708,91 +1877,99 @@ graph TD
     T19 --> T20[3.5 JWT Service]
     T20 --> T21[3.6 Auth Endpoints]
 
-    %% Phase 4: Auth Frontend
+    %% Phase 4: Auth Frontend (13 tasks)
     T21 --> T22[4.1 Web OAuth UI]
     T22 --> T23[4.2 Web Auth State]
-    T23 --> T24[4.3 API Client]
-    T24 --> T25[4.4 Data Fetching]
-    T25 --> T26[4.5 Protected Routes]
+    T23 --> T24[4.3 Web API Client]
+    T24 --> T25[4.4 Web Data Fetching]
+    T25 --> T26[4.5 Web Protected Routes]
 
     T21 --> T27[4.6 Mobile OAuth]
     T27 --> T28[4.7 Mobile Token Storage]
     T28 --> T29[4.8 Mobile Auth UI]
+    T29 --> T30[4.9 Mobile API Client]
+    T30 --> T31[4.10 Mobile Data Fetching]
+    T31 --> T32[4.11 Mobile Protected Nav]
+
+    T21 --> T33[4.12 Admin Data Fetching]
+    T33 --> T34[4.13 Admin Auth]
 
     %% Phase 5: Scanning Backend
-    T21 --> T30[5.1 Scans DB Ops]
-    T30 --> T31[5.2 Scans API]
-    T31 --> T32[5.3 WebSocket]
+    T21 --> T35[5.1 Scans DB Ops]
+    T35 --> T36[5.2 Scans API]
+    T36 --> T37[5.3 WebSocket]
 
     %% Phase 6: Scanning Web
-    T31 --> T33[6.1 Web Scanner]
-    T33 --> T34[6.2 Web File Upload]
-    T34 --> T35[6.3 Web History]
+    T36 --> T38[6.1 Web Scanner]
+    T38 --> T39[6.2 Web File Upload]
+    T39 --> T40[6.3 Web History]
 
     %% Phase 7: Scanning Mobile
-    T31 --> T36[7.1 Mobile State Mgmt]
-    T36 --> T37[7.2 Mobile Scanner]
-    T37 --> T38[7.3 Scan Result UI]
-    T38 --> T39[7.4 Batch Mode]
+    T36 --> T41[7.1 Mobile State Mgmt]
+    T41 --> T42[7.2 Mobile Scanner]
+    T42 --> T43[7.3 Scan Result UI]
+    T43 --> T44[7.4 Batch Mode]
 
     %% Phase 8: Offline
-    T37 --> T40[8.1 SQLite Setup]
-    T40 --> T41[8.2 SQLite CRUD]
-    T41 --> T42[8.3 Offline Detection]
-    T42 --> T43[8.4 Auto-Sync]
+    T42 --> T45[8.1 SQLite Setup]
+    T45 --> T46[8.2 SQLite CRUD]
+    T46 --> T47[8.3 Offline Detection]
+    T47 --> T48[8.4 Auto-Sync]
 
     %% Phase 9: Tailscale
-    T31 --> T44[9.1 Backend Tailscale]
-    T44 --> T45[9.2 Web Tailscale]
-    T44 --> T46[9.3 Mobile Tailscale]
+    T36 --> T49[9.1 Backend Tailscale]
+    T49 --> T50[9.2 Web Tailscale]
+    T49 --> T51[9.3 Mobile Tailscale]
 
     %% Phase 10: Product Lookup
-    T18 --> T47[10.1 API Clients]
-    T47 --> T48[10.2 Caching]
-    T48 --> T49[10.3 Lookup Endpoint]
-    T49 --> T50[10.4 Product UI]
+    T18 --> T52[10.1 API Clients]
+    T52 --> T53[10.2 Caching]
+    T53 --> T54[10.3 Lookup Endpoint]
+    T54 --> T55[10.4 Product UI]
 
     %% Phase 11: Export
-    T31 --> T51[11.1 CSV/JSON Export]
-    T51 --> T52[11.2 PDF/Excel Export]
-    T52 --> T53[11.3 Export UI]
+    T36 --> T56[11.1 CSV/JSON Export]
+    T56 --> T57[11.2 PDF/Excel Export]
+    T57 --> T58[11.3 Export UI]
 
     %% Phase 12: Real-time
-    T32 --> T54[12.1 WebSocket Web]
-    T32 --> T55[12.2 WebSocket Mobile]
+    T37 --> T59[12.1 WebSocket Web]
+    T37 --> T60[12.2 WebSocket Mobile]
 
     %% Phase 13: Analytics
-    T31 --> T56[13.1 Analytics Backend]
-    T56 --> T57[13.2 Analytics DB]
-    T57 --> T58[13.3 Dashboard Charts]
+    T36 --> T61[13.1 Backend Admin Module]
+    T61 --> T62[13.2 Analytics Backend]
+    T62 --> T63[13.3 Analytics DB]
+    T63 --> T64[13.4 Dashboard Charts]
+    T64 --> T65[13.5 Frontend Analytics]
 
     %% Phase 14: Advanced
-    T49 --> T59[14.1 Comparison]
-    T31 --> T60[14.2 Search/Filters]
+    T54 --> T66[14.1 Comparison]
+    T36 --> T67[14.2 Search/Filters]
 
     %% Phase 15: Testing
-    T60 --> T61[15.1 Backend Tests]
-    T60 --> T62[15.2 Web Tests]
-    T60 --> T63[15.3 Mobile Tests]
-    T60 --> T64[15.4 Admin Tests]
-    T62 --> T65[15.5 Cross-Platform Tests]
-    T63 --> T65
-    T64 --> T65
+    T67 --> T68[15.1 Backend Tests]
+    T67 --> T69[15.2 Web Tests]
+    T67 --> T70[15.3 Mobile Tests]
+    T67 --> T71[15.4 Admin Tests]
+    T69 --> T72[15.5 Cross-Platform Tests]
+    T70 --> T72
+    T71 --> T72
 
     %% Phase 16: Deployment
-    T61 --> T66[16.1 Documentation]
-    T65 --> T66
-    T66 --> T67[16.2 Production Deploy]
+    T68 --> T73[16.1 Documentation]
+    T72 --> T73
+    T73 --> T74[16.2 Production Deploy]
 ```
 
 ---
 
 ## Progress Tracking
 
-**Total Tasks**: 69  
+**Total Tasks**: 75  
 **Completed**: 0  
 **In Progress**: 0  
-**Remaining**: 69
+**Remaining**: 75
 
 ---
 

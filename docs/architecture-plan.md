@@ -17,27 +17,23 @@ graph TB
         WA[Web App<br/>Next.js]
     end
 
-    subgraph "Tailscale VPN Network"
-        LB[Local Backend<br/>NestJS]
+    subgraph "Localhost Docker Network"
+        LB[Backend<br/>NestJS]
         LDB[(PostgreSQL)]
         REDIS[Redis Cache]
-    end
-
-    subgraph "Cloud Infrastructure"
         AD[Admin Dashboard<br/>Next.js]
-        ADB[(Analytics DB<br/>PostgreSQL)]
     end
 
     MA -->|Tailscale VPN<br/>100.64.0.1:8000| LB
-    WA -->|localhost:8000| LB
+    WA -->|localhost:3000| LB
+    AD -->|localhost:3001| LB
     LB --> LDB
     LB --> REDIS
-
-    LB -.->|Analytics Only| AD
-    AD --> ADB
+    LB -->|Admin API| AD
 
     style MA fill:#00D9FF
     style LB fill:#0080FF
+    style AD fill:#FF6B6B
 ```
 
 ### 1.2 Technology Stack Rationale
@@ -50,9 +46,8 @@ graph TB
 | **Database (Local)** | PostgreSQL               | Production-grade RDBMS, ACID compliance, excellent performance with proper indexing          |
 | **Cache**            | Redis                    | High-performance caching, session management, rate limiting                                  |
 | **Networking**       | Tailscale VPN            | Secure internet access to localhost, works from anywhere, zero-config mesh network           |
-| **Admin Dashboard**  | Next.js + Vercel         | Same stack as web for consistency, serverless deployment, automatic scaling                  |
-| **Analytics DB**     | PostgreSQL (Managed)     | Supabase for serverless PostgreSQL with built-in auth and real-time capabilities             |
-| **Containerization** | Docker + Docker Compose  | Consistent environments, easy deployment                                                     |
+| **Admin Dashboard**  | Next.js + Docker         | Same stack as web, localhost deployment, admin API module in backend                         |
+| **Containerization** | Docker + Docker Compose  | Consistent environments, easy deployment, all services in one network                        |
 | **CI/CD**            | GitHub Actions           | Free for public repos, excellent Docker/mobile build support                                 |
 
 ---
@@ -285,7 +280,7 @@ CREATE INDEX idx_sessions_token ON sessions(session_token);
 - **Request Validation**: Efficient DTO validation with class-validator
 - **Lazy Module Loading**: On-demand module initialization
 
-### 2.4 Admin Dashboard (Cloud-Hosted)
+### 2.4 Admin Dashboard (Localhost Docker)
 
 #### Purpose
 
@@ -304,33 +299,53 @@ admin-dashboard/
 │   │   ├── overview/
 │   │   ├── analytics/
 │   │   ├── users/            # Aggregate stats only
-│   │   └── system/
-│   ├── api/
-│   │   └── analytics/
+│   │   └── scans/
+│   ├── login/
 │   └── layout.tsx
 ├── components/
 │   ├── charts/
 │   ├── metrics/
-│   └── ui/
+│   └── ui/                   # shadcn/ui components
 ├── lib/
-│   ├── supabase.ts           # Analytics DB client
-│   └── auth.ts               # Admin authentication
-└── middleware.ts             # Auth protection
+│   ├── api-client.ts         # Backend API client
+│   └── auth-store.ts         # Zustand auth store
+└── hooks/
+    └── use-analytics.ts      # React Query hooks
 ```
 
-**Analytics Data Model:**
+**Backend Admin API Module:**
 
-- `usage_stats`: Daily aggregates (scans, users, platform breakdown)
-- `scan_metrics`: Per-barcode-type performance
-- `error_stats`: Error type tracking
-- `user_behavior`: Session length, retention metrics
-- `device_stats`: Device/OS breakdown, crash rates
-- `api_metrics`: Endpoint latency and request counts
-- `anonymous_events`: Hashed user events (SHA-256)
+```
+backend/src/modules/admin/
+├── admin.controller.ts       # Admin API endpoints
+├── admin.service.ts          # Business logic
+├── admin.module.ts
+├── guards/
+│   └── admin.guard.ts        # Email-based access control
+└── dto/
+    ├── analytics.dto.ts
+    └── user-stats.dto.ts
+```
+
+**Admin API Endpoints:**
+
+- `GET /api/v1/admin/analytics/overview` - High-level metrics
+- `GET /api/v1/admin/analytics/trends` - Daily scan trends
+- `GET /api/v1/admin/analytics/barcode-types` - Type distribution
+- `GET /api/v1/admin/analytics/devices` - Device breakdown
+- `GET /api/v1/admin/users` - User list with pagination
+- `GET /api/v1/admin/scans` - All scans with filters
+
+**Authentication:**
+
+- Google OAuth (reuses backend auth module)
+- Zustand state management
+- AdminGuard validates against `ADMIN_EMAIL` environment variable
+- Only authorized admin email can access dashboard
 
 **Privacy**: All user IDs hashed, no PII stored, opt-in telemetry
 
-**Deployment:** Vercel (free tier), Supabase (PostgreSQL + Auth), Gmail OAuth for single admin
+**Deployment:** Docker Compose (localhost:3001), shares PostgreSQL with main backend
 
 ---
 
@@ -1493,16 +1508,17 @@ docker-compose -f docker-compose.dev.yml up
 ### 15.1 Infrastructure Costs (Monthly)
 
 | Component            | Service              | Cost       |
-|----------------------|----------------------|------------|
-| **Backend (Local)**  | Docker (self-hosted) | **$0**     |
-| **Database (Local)** | PostgreSQL (Docker)  | **$0**     |
-| **Cache (Local)**    | Redis (Docker)       | **$0**     |
-| **Admin Dashboard**  | Vercel (free tier)   | **$0**     |
-| **Analytics DB**     | Supabase (free tier) | **$0**     |
-| **CI/CD**            | GitHub Actions       | **$0**     |
-| **Mobile Hosting**   | GitHub Releases      | **$0**     |
-| **Networking**       | Tailscale (free)     | **$0**     |
-| **Total**            | -                    | **$0/month** |
+| -------------------- | -------------------- | ---------- |
+| **Backend Hosting**  | Self-hosted (Docker) | **$0**     |
+| **Database**         | Self-hosted (Docker) | **$0**     |
+| **Mobile App**       | Expo (free tier)     | **$0**     |
+| **Web App**          | Self-hosted (Docker) | **$0**     |
+| **Admin Dashboard**  | Self-hosted (Docker) | **$0**     |
+| **Tailscale VPN**    | Free (personal use)  | **$0**     |
+| **GitHub Actions**   | Free (public repo)   | **$0**     |
+| **Domain (optional)**| Namecheap/Cloudflare | **$10/yr** |
+
+**Total Monthly Cost: $0** (excluding optional domain)
 
 > [!NOTE] > **Completely Free Infrastructure**
 >
@@ -1593,7 +1609,7 @@ docker-compose -f docker-compose.dev.yml up
 
 1. **Database**: PostgreSQL (production-grade, ACID compliance)
 2. **Mobile Distribution**: GitHub Releases (with OTA updates via Expo)
-3. **Admin Dashboard Hosting**: Vercel (free tier, automatic scaling)
+3. **Admin Dashboard Hosting**: Docker Compose (localhost deployment)
 4. **Backend Framework**: NestJS (TypeScript-first, enterprise-grade)
 5. **Networking**: Tailscale VPN (secure internet access to localhost)
 6. **Monetization**: Completely free and open-source
@@ -1730,8 +1746,8 @@ Mobile App (React Native + Expo)
 Backend (NestJS + PostgreSQL + Redis)
     ↓ localhost
 Web App (Next.js)
-    ↓ Vercel
-Admin Dashboard (Analytics)
+    ↓ localhost
+Admin Dashboard (Next.js + Admin API)
 ```
 
 ---
@@ -1823,26 +1839,26 @@ graph TB
         W[💻 Web App<br/>localhost:3000]
     end
 
-    subgraph "Tailscale VPN Network"
+    subgraph "Localhost Docker Network"
         B[⚙️ Backend<br/>NestJS + PostgreSQL]
+        A[📊 Admin Dashboard<br/>Next.js]
     end
 
-    subgraph "Cloud Services"
-        A[📊 Admin Dashboard<br/>Vercel]
+    subgraph "External APIs"
         API1[🔍 Open Food Facts]
         API2[🔍 UPC Database]
     end
 
     M -->|100.64.0.1:8000| B
-    W -->|localhost:8000| B
-    B -.->|Analytics| A
+    W -->|localhost:3000| B
+    A -->|localhost:3001| B
     B -.->|Product Lookup| API1
     B -.->|Product Lookup| API2
 
     style M fill:#00D9FF
     style W fill:#00D9FF
     style B fill:#0080FF
-    style A fill:#0A1929
+    style A fill:#FF6B6B
 ```
 
 ---
