@@ -78,28 +78,28 @@ ARCHITECTURE DIAGRAMS:
 
 DEPLOYMENT GUIDES:
 1. Backend Deployment: Create docs/deployment/backend.md:
-   - VPS/cloud provider setup (DigitalOcean, AWS, GCP)
+   - Local Docker environment setup
    - Docker deployment steps
    - Database migration process
    - Environment variable configuration
-   - SSL certificate setup
+   - Local SSL certificate setup (mkcert)
    - Monitoring configuration
    - Backup procedures
 2. Web Deployment: Create docs/deployment/web.md:
-   - Vercel deployment steps
-   - Netlify deployment steps
-   - Custom domain configuration
+   - Local Nginx/Docker setup
+   - Static asset serving
+   - Local network access configuration
    - Environment variables
    - Build optimization
 3. Mobile Deployment: Create docs/deployment/mobile.md:
    - EAS Build configuration
-   - iOS App Store submission process
-   - Google Play Store submission process
+   - Android APK generation and sideloading
+   - iOS IPA generation (ad-hoc/development)
    - App signing setup
-   - Release management
+   - Release management (local versioning)
    - OTA updates configuration
 4. Admin Deployment: Create docs/deployment/admin.md:
-   - Subdomain setup
+   - Local Docker setup
    - Deployment process
    - Admin access configuration
 
@@ -206,11 +206,10 @@ SYSTEM CONTEXT: Make application accessible to users in production environment. 
 REQUIREMENTS:
 
 BACKEND DEPLOYMENT:
-1. Server Setup: Deploy to VPS or cloud provider:
-   - Choose provider (DigitalOcean, AWS EC2, GCP Compute Engine)
-   - Provision server (4GB RAM minimum, 2 CPU cores)
-   - Configure firewall rules (allow 80, 443, 22)
-   - Set up SSH key authentication
+1. Server Setup: Local Environment Preparation:
+   - Prepare local machine/VM (4GB RAM minimum, 2 CPU cores)
+   - Configure local firewall rules (allow 80, 443)
+   - Set up SSH key authentication (if remote local server)
 2. Docker Deployment: Deploy using Docker:
    - Install Docker and Docker Compose
    - Copy docker-compose.prod.yml to server
@@ -236,25 +235,24 @@ BACKEND DEPLOYMENT:
    - Configure log aggregation (CloudWatch, Datadog, or Papertrail)
    - Set up uptime monitoring (UptimeRobot or Pingdom)
    - Configure alerts (email, Slack)
-7. Auto-Scaling: Configure auto-scaling (if cloud):
-   - Set up load balancer
-   - Configure auto-scaling group
-   - Define scaling policies
+7. Resource Management:
+   - Monitor local resource usage
+   - Configure container resource limits
 8. Health Checks: Configure health check endpoints:
    - /health endpoint for load balancer
    - Database connectivity check
    - Redis connectivity check
 
 WEB DEPLOYMENT:
-1. Vercel/Netlify Deployment: Deploy web app:
-   - Connect GitHub repository
-   - Configure build settings
-   - Set environment variables (NEXT_PUBLIC_API_URL, SENTRY_DSN, etc.)
-   - Deploy to production
-2. Custom Domain: Configure custom domain:
-   - Add domain to Vercel/Netlify
-   - Configure DNS records
-   - Verify SSL certificate
+1. Local Deployment: Deploy web app locally:
+   - Build production bundle using Docker
+   - Configure local Nginx to serve static assets
+   - Set environment variables (NEXT_PUBLIC_API_URL, etc.)
+   - Deploy container
+2. Local Network Access: Configure accessibility:
+   - Configure local IP or mDNS (e.g., barcody.local)
+   - Verify local network connectivity
+   - Setup local SSL (mkcert)
 3. CDN Configuration: Set up CDN for static assets:
    - Configure caching headers
    - Set up asset optimization
@@ -273,20 +271,13 @@ MOBILE DEPLOYMENT:
    - Set up app signing
    - Build Android APK/AAB
    - Build iOS IPA
-2. Google Play Store: Submit Android app:
-   - Create Play Console account
-   - Create app listing
-   - Upload APK/AAB
-   - Fill out store listing (description, screenshots, etc.)
-   - Set up pricing and distribution
-   - Submit for review
-3. Apple App Store: Submit iOS app:
-   - Create App Store Connect account
-   - Create app record
-   - Upload IPA via Transporter
-   - Fill out app information
-   - Add screenshots and app preview
-   - Submit for review
+2. Android Deployment: Local distribution:
+   - Generate production APK
+   - Test installation on local device
+   - Document sideloading process for users
+3. iOS Deployment: Local/TestFlight distribution:
+   - Generate IPA (Ad-hoc or Development)
+   - Install via Expo Go or direct build install
 4. App Signing: Configure signing:
    - Android: Set up Play App Signing
    - iOS: Configure certificates and provisioning profiles
@@ -299,10 +290,10 @@ MOBILE DEPLOYMENT:
    - Test OTA updates
 
 ADMIN DASHBOARD DEPLOYMENT:
-1. Subdomain Setup: Deploy to admin.barcody.com:
-   - Configure subdomain DNS
-   - Deploy to Vercel/Netlify
-   - Set up SSL
+1. Local Setup: Deploy admin dashboard:
+   - Configure local route/port
+   - Deploy container locally
+   - Set up local SSL (mkcert)
 2. Admin Access: Configure admin restrictions:
    - Set ADMIN_EMAIL environment variable
    - Test admin access control
@@ -351,14 +342,14 @@ TESTING REQUIREMENTS:
 7. Performance acceptable
 
 ACCEPTANCE CRITERIA:
-- ✅ Backend deployed to production
-- ✅ Web app deployed
-- ✅ Mobile apps in stores
-- ✅ Admin dashboard deployed
-- ✅ SSL configured on all services
+- ✅ Backend deployed locally
+- ✅ Web app serving locally
+- ✅ Mobile apps built and verified locally
+- ✅ Admin dashboard deployed locally
+- ✅ SSL configured (local/mkcert)
 - ✅ Monitoring active
 - ✅ Automated backups configured
-- ✅ Auto-scaling working (if cloud)
+- ✅ Resource limits configured
 - ✅ All smoke tests pass
 
 QUALITY STANDARDS:
@@ -369,10 +360,10 @@ QUALITY STANDARDS:
 - Performance optimized
 
 DELIVERABLES:
-- Production backend deployment
-- Production web deployment
-- Mobile apps in stores
-- Admin dashboard deployment
+- Local backend deployment
+- Local web deployment
+- Mobile apps (APK/IPA)
+- Local admin dashboard deployment
 - SSL certificates
 - Monitoring configuration
 - Backup configuration
