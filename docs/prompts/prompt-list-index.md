@@ -37,7 +37,7 @@ This directory contains comprehensive, fully detailed prompts for implementing a
 - Task 1.11: Error Monitoring Setup
 
 ### ✅ Phase 2: CI/CD Pipeline (5 tasks)
-**File**: `phase-02-cicd.md`
+**File**: `phase-02-CI-CD.md`
 - Task 2.1: Backend CI/CD
 - Task 2.2: Web CI/CD
 - Task 2.3: Mobile CI/CD
