@@ -68,8 +68,8 @@
 
 - [7.1 Mobile Scanner](#task-71-mobile-scanner---camera-integration)
 - [7.2 Mobile Scan Result UI](#task-72-mobile-scanner---scan-result-ui)
-- [7.3 Mobile Batch Mode](#task-73-mobile-scanner---batch-mode)
-- [7.4 Mobile State Management](#task-74-mobile-state-management)
+- [7.3 Mobile State Management](#task-73-mobile-state-management)
+- [7.4 Mobile Batch Mode](#task-74-mobile-scanner---batch-mode)
 
 ### Phase 8: Offline-First Mobile (Tasks 41-44)
 
@@ -912,7 +912,7 @@
 
 ---
 
-### Task 7.4: Mobile State Management
+### Task 7.3: Mobile State Management
 
 **Scope**: Configure Zustand for global state
 
@@ -931,7 +931,7 @@
 
 ---
 
-### Task 7.3: Mobile Scanner - Batch Mode
+### Task 7.4: Mobile Scanner - Batch Mode
 
 **Scope**: Implement continuous scanning
 
