@@ -2,13 +2,134 @@
 
 > **Strategy**: Atomic tasks optimized for AI agent single-shot implementation
 >
-> **Structure**: 65 focused tasks, 5-8 checkboxes each, single responsibility
+> **Structure**: 69 focused tasks, 5-8 checkboxes each, single responsibility
 >
 > **Goal**: Seamless, robust, bug-free implementation
 
 ---
 
-## Phase 1: Foundation (Tasks 1-8)
+## Index
+
+### Phase 1: Foundation (Tasks 1-11)
+
+- [1.1 Backend Project Setup](#task-11-backend-project-setup)
+- [1.2 Backend Docker Setup](#task-12-backend-docker-setup)
+- [1.3 Backend Health Checks](#task-13-backend-health-checks)
+- [1.4 Backend API Documentation](#task-14-backend-api-documentation)
+- [1.5 Web Project Setup](#task-15-web-project-setup)
+- [1.6 Web Docker Setup](#task-16-web-docker-setup)
+- [1.7 Mobile Project Setup](#task-17-mobile-project-setup)
+- [1.8 Admin Dashboard Setup](#task-18-admin-dashboard-setup)
+- [1.9 Admin Dashboard Authentication](#task-19-admin-dashboard-authentication)
+- [1.10 Git Hooks & Code Quality Setup](#task-110-git-hooks--code-quality-setup)
+- [1.11 Error Monitoring Setup](#task-111-error-monitoring-setup)
+
+### Phase 2: CI/CD Pipeline (Tasks 12-15)
+
+- [2.1 Backend CI/CD](#task-21-backend-cicd)
+- [2.2 Web CI/CD](#task-22-web-cicd)
+- [2.3 Mobile CI/CD](#task-23-mobile-cicd)
+- [2.4 Admin Dashboard CI/CD](#task-24-admin-dashboard-cicd)
+
+### Phase 3: Database & Auth Backend (Tasks 16-21)
+
+- [3.1 Database Schema](#task-31-database-schema)
+- [3.2 Database Indexes](#task-32-database-indexes--performance)
+- [3.3 Redis Setup](#task-33-redis-setup)
+- [3.4 Google OAuth Backend](#task-34-backend-auth---google-oauth)
+- [3.5 JWT Service](#task-35-backend-auth---jwt-service)
+- [3.6 Auth Endpoints](#task-36-backend-auth---endpoints)
+
+### Phase 4: Auth Frontend (Tasks 22-29)
+
+- [4.1 Web Auth - Google OAuth UI](#task-41-web-auth---google-oauth-ui)
+- [4.2 Web Auth - State Management](#task-42-web-auth---state-management)
+- [4.3 Web API Client Service](#task-43-web-api-client-service)
+- [4.4 Web Data Fetching Setup](#task-44-web-data-fetching-setup)
+- [4.5 Web Auth - Protected Routes](#task-45-web-auth---protected-routes)
+- [4.6 Mobile Auth - Google OAuth Flow](#task-46-mobile-auth---google-oauth-flow)
+- [4.7 Mobile Auth - Token Storage](#task-47-mobile-auth---token-storage)
+- [4.8 Mobile Auth - UI Components](#task-48-mobile-auth---ui-components)
+
+### Phase 5: Scanning Backend (Tasks 30-32)
+
+- [5.1 Scans Database Operations](#task-51-backend-scans---database-operations)
+- [5.2 Scans API](#task-52-backend-scans---api)
+- [5.3 WebSocket Gateway](#task-53-backend-scans---websocket-gateway)
+
+### Phase 6: Scanning Web (Tasks 33-36)
+
+- [6.1 Web Scanner](#task-61-web-scanner---camera-integration)
+- [6.2 Web File Upload](#task-62-web-scanner---file-upload)
+- [6.3 Web History](#task-63-web-scanner---history--management)
+- [6.4 Web PWA Configuration](#task-64-web-pwa-configuration)
+
+### Phase 7: Scanning Mobile (Tasks 37-40)
+
+- [7.1 Mobile Scanner](#task-71-mobile-scanner---camera-integration)
+- [7.2 Mobile Scan Result UI](#task-72-mobile-scanner---scan-result-ui)
+- [7.3 Mobile Batch Mode](#task-73-mobile-scanner---batch-mode)
+- [7.4 Mobile State Management](#task-74-mobile-state-management)
+
+### Phase 8: Offline-First Mobile (Tasks 41-44)
+
+- [8.1 SQLite Database Setup](#task-81-mobile-sqlite---database-setup)
+- [8.2 SQLite CRUD Operations](#task-82-mobile-sqlite---crud-operations)
+- [8.3 Offline Detection & UI](#task-83-mobile-offline---detection--ui)
+- [8.4 Auto-Sync](#task-84-mobile-offline---auto-sync)
+
+### Phase 9: Tailscale Integration (Tasks 45-47)
+
+- [9.1 Backend Tailscale Configuration](#task-91-backend-tailscale-configuration)
+- [9.2 Web Tailscale Setup](#task-92-web-tailscale-setup-guide)
+- [9.3 Mobile Tailscale Integration](#task-93-mobile-tailscale-integration)
+
+### Phase 10: Product Lookup (Tasks 48-51)
+
+- [10.1 API Clients](#task-101-backend-product-lookup---api-clients)
+- [10.2 Caching Strategy](#task-102-backend-product-lookup---caching)
+- [10.3 Lookup Endpoint](#task-103-backend-product-lookup---endpoint)
+- [10.4 Frontend Product Display](#task-104-frontend-product-display)
+
+### Phase 11: Export Functionality (Tasks 52-54)
+
+- [11.1 CSV & JSON Export](#task-111-backend-export---csv--json)
+- [11.2 PDF & Excel Export](#task-112-backend-export---pdf--excel)
+- [11.3 Frontend Export UI](#task-113-frontend-export-ui)
+
+### Phase 12: Real-Time Sync (Tasks 55-56)
+
+- [12.1 WebSocket Client - Web](#task-121-websocket-client---web)
+- [12.2 WebSocket Client - Mobile](#task-122-websocket-client---mobile)
+
+### Phase 13: Analytics Dashboard (Tasks 57-60)
+
+- [13.1 Analytics Backend](#task-131-analytics-backend---event-tracking)
+- [13.2 Analytics Database Schema](#task-132-analytics-database-schema)
+- [13.3 Admin Dashboard Charts & Metrics](#task-133-admin-dashboard---charts--metrics)
+- [13.4 Frontend Analytics Integration](#task-134-frontend-analytics-integration)
+
+### Phase 14: Advanced Features (Tasks 61-62)
+
+- [14.1 Product Comparison](#task-141-product-comparison)
+- [14.2 Advanced Search & Filters](#task-142-advanced-search--filters)
+
+### Phase 15: Testing & Quality (Tasks 63-67)
+
+- [15.1 Backend Testing](#task-151-backend-testing)
+- [15.2 Web Testing](#task-152-web-testing)
+- [15.3 Mobile Testing](#task-153-mobile-testing)
+- [15.4 Admin Dashboard Testing](#task-154-admin-dashboard-testing)
+- [15.5 Cross-Platform Testing](#task-155-cross-platform-testing)
+
+### Phase 16: Deployment (Tasks 68-69)
+
+- [16.1 Documentation](#task-161-documentation)
+- [16.2 Production Deployment](#task-162-production-deployment)
+
+---
+
+## Phase 1: Foundation (Tasks 1-11)
 
 ### Task 1.1: Backend Project Setup
 
@@ -186,7 +307,104 @@
 
 ---
 
-## Phase 2: CI/CD Pipeline (Tasks 9-12)
+### Task 1.10: Git Hooks & Code Quality Setup
+
+**Scope**: Configure Husky, lint-staged, ESLint, Prettier, Commitlint for all projects
+
+**Root Level:**
+
+- [ ] Install Husky, lint-staged, Commitlint, Prettier (root)
+- [ ] Configure lint-staged in root package.json for all projects
+- [ ] Create `.prettierrc` with shared formatting rules
+- [ ] Create `.prettierignore` file
+- [ ] Create `commitlint.config.js` with conventional commit rules
+
+**Backend (NestJS):**
+
+- [ ] Install ESLint plugins: @typescript-eslint, eslint-plugin-import
+- [ ] Create `.eslintrc.js` with NestJS rules (no `any`, import ordering)
+- [ ] Add lint, format, type-check scripts to package.json
+
+**Web (Next.js):**
+
+- [ ] Install ESLint plugins: @typescript-eslint, eslint-config-next
+- [ ] Create `.eslintrc.json` with Next.js + React hooks rules
+- [ ] Add lint, format, type-check scripts to package.json
+
+**Mobile (Expo):**
+
+- [ ] Install ESLint plugins: @typescript-eslint, eslint-config-expo
+- [ ] Create `.eslintrc.js` with React Native rules
+- [ ] Add lint, format, type-check scripts to package.json
+
+**Admin (Next.js):**
+
+- [ ] Install ESLint plugins: @typescript-eslint, eslint-config-next
+- [ ] Create `.eslintrc.json` with Next.js + React hooks rules
+- [ ] Add lint, format, type-check scripts to package.json
+
+**Git Hooks:**
+
+- [ ] Initialize Husky: `npx husky install`
+- [ ] Create `.husky/pre-commit` hook (lint-staged + type-check affected projects)
+- [ ] Create `.husky/pre-push` hook (run tests + security audit)
+- [ ] Create `.husky/commit-msg` hook (commitlint validation)
+- [ ] Make hooks executable: `chmod +x .husky/*`
+
+**Testing:**
+
+- [ ] Test: Commit with bad code (should fail)
+- [ ] Test: Commit with good code (should auto-fix and pass)
+- [ ] Test: Invalid commit message (should fail)
+- [ ] Test: Valid commit message (should pass)
+- [ ] Test: Push without tests passing (should fail)
+
+**Acceptance**: All hooks working, code quality enforced, conventional commits required
+
+**Reference**: `/home/nishan/.gemini/antigravity/brain/3f5bb82d-558a-4138-9818-56aa001a702d/git_hooks_guide.md`
+
+---
+
+### Task 1.11: Error Monitoring Setup
+
+**Scope**: Configure Sentry for error tracking across all platforms
+
+**Backend:**
+
+- [ ] Install `@ntegral/nestjs-sentry`, `@sentry/node`
+- [ ] Configure Sentry in `app.module.ts`
+- [ ] Add SENTRY_DSN to environment variables
+- [ ] Set environment (production/development)
+- [ ] Test: Errors sent to Sentry
+
+**Web:**
+
+- [ ] Install `@sentry/nextjs`
+- [ ] Run Sentry wizard: `npx @sentry/wizard@latest -i nextjs`
+- [ ] Configure `sentry.client.config.ts`
+- [ ] Configure `sentry.server.config.ts`
+- [ ] Add SENTRY_DSN to `.env.local`
+- [ ] Test: Errors tracked in Sentry dashboard
+
+**Mobile:**
+
+- [ ] Install `sentry-expo`
+- [ ] Configure Sentry in `app.json`
+- [ ] Add error boundary with Sentry
+- [ ] Test: Crashes reported to Sentry
+
+**Admin:**
+
+- [ ] Install `@sentry/nextjs`
+- [ ] Configure Sentry (same as Web)
+- [ ] Add SENTRY_DSN to Vercel environment variables
+- [ ] Test: Errors tracked in Sentry dashboard
+
+**Acceptance**: Error monitoring configured on all platforms
+
+---
+
+## Phase 2: CI/CD Pipeline (Tasks 12-15)
 
 ### Task 2.1: Backend CI/CD
 
@@ -251,7 +469,7 @@
 
 ---
 
-## Phase 3: Database & Auth Backend (Tasks 13-18)
+## Phase 3: Database & Auth Backend (Tasks 16-21)
 
 ### Task 3.1: Database Schema Setup
 
@@ -362,7 +580,7 @@
 
 ---
 
-## Phase 4: Auth Frontend (Tasks 19-24)
+## Phase 4: Auth Frontend (Tasks 22-29)
 
 ### Task 4.1: Web Auth - Google OAuth UI
 
@@ -396,7 +614,7 @@
 
 ---
 
-### Task 4.2.1: Web API Client Service
+### Task 4.3: Web API Client Service
 
 **Scope**: Create centralized API client with error handling
 
@@ -417,7 +635,7 @@
 
 ---
 
-### Task 4.2.2: Web Data Fetching Setup
+### Task 4.4: Web Data Fetching Setup
 
 **Scope**: Configure React Query for server state management
 
@@ -441,7 +659,7 @@
 
 ---
 
-### Task 4.3: Web Auth - Protected Routes
+### Task 4.5: Web Auth - Protected Routes
 
 **Scope**: Implement route protection
 
@@ -460,7 +678,7 @@
 
 ---
 
-### Task 4.4: Mobile Auth - Google OAuth Flow
+### Task 4.6: Mobile Auth - Google OAuth Flow
 
 **Scope**: Implement Google OAuth on mobile
 
@@ -476,7 +694,7 @@
 
 ---
 
-### Task 4.5: Mobile Auth - Token Storage
+### Task 4.7: Mobile Auth - Token Storage
 
 **Scope**: Implement secure token storage
 
@@ -492,7 +710,7 @@
 
 ---
 
-### Task 4.6: Mobile Auth - UI Components
+### Task 4.8: Mobile Auth - UI Components
 
 **Scope**: Create auth UI screens
 
@@ -508,7 +726,7 @@
 
 ---
 
-## Phase 5: Barcode Scanning Backend (Tasks 25-27)
+## Phase 5: Barcode Scanning Backend (Tasks 30-32)
 
 ### Task 5.1: Scans Module - Database Operations
 
@@ -569,7 +787,7 @@
 
 ---
 
-## Phase 6: Barcode Scanning Web (Tasks 28-30)
+## Phase 6: Barcode Scanning Web (Tasks 33-36)
 
 ### Task 6.1: Web Scanner - Camera Component
 
@@ -618,7 +836,7 @@
 
 ---
 
-### Task 6.3.1: Web PWA Configuration
+### Task 6.4: Web PWA Configuration
 
 **Scope**: Make web app installable with offline support
 
@@ -643,7 +861,7 @@
 
 ---
 
-## Phase 7: Barcode Scanning Mobile (Tasks 31-33)
+## Phase 7: Barcode Scanning Mobile (Tasks 37-40)
 
 ### Task 7.1: Mobile Scanner - Camera Screen
 
@@ -694,7 +912,7 @@
 
 ---
 
-### Task 7.2.1: Mobile State Management
+### Task 7.4: Mobile State Management
 
 **Scope**: Configure Zustand for global state
 
@@ -728,7 +946,7 @@
 
 ---
 
-## Phase 8: Offline-First Mobile (Tasks 34-37)
+## Phase 8: Offline-First Mobile (Tasks 41-44)
 
 ### Task 8.1: Mobile SQLite - Database Setup
 
@@ -800,7 +1018,7 @@
 
 ---
 
-## Phase 9: Tailscale Integration (Tasks 38-40)
+## Phase 9: Tailscale Integration (Tasks 45-47)
 
 ### Task 9.1: Backend Tailscale Configuration
 
@@ -854,7 +1072,7 @@
 
 ---
 
-## Phase 10: Product Lookup (Tasks 41-44)
+## Phase 10: Product Lookup (Tasks 48-51)
 
 ### Task 10.1: Backend Product Lookup - API Clients
 
@@ -933,7 +1151,7 @@
 
 ---
 
-## Phase 11: Export Functionality (Tasks 45-47)
+## Phase 11: Export Functionality (Tasks 52-54)
 
 ### Task 11.1: Backend Export - CSV & JSON
 
@@ -990,41 +1208,7 @@
 
 **Acceptance**: All 4 formats export correctly
 
----
-
-### Task 11.3.1: Error Monitoring Setup
-
-**Scope**: Configure Sentry for error tracking
-
-**Backend:**
-
-- [ ] Install `@ntegral/nestjs-sentry`, `@sentry/node`
-- [ ] Configure Sentry in `app.module.ts`
-- [ ] Add SENTRY_DSN to environment variables
-- [ ] Set environment (production/development)
-- [ ] Test: Errors sent to Sentry
-
-**Web:**
-
-- [ ] Install `@sentry/nextjs`
-- [ ] Run Sentry wizard: `npx @sentry/wizard@latest -i nextjs`
-- [ ] Configure `sentry.client.config.ts`
-- [ ] Configure `sentry.server.config.ts`
-- [ ] Add SENTRY_DSN to `.env.local`
-- [ ] Test: Errors tracked in Sentry dashboard
-
-**Mobile:**
-
-- [ ] Install `sentry-expo`
-- [ ] Configure Sentry in `app.json`
-- [ ] Add error boundary with Sentry
-- [ ] Test: Crashes reported to Sentry
-
-**Acceptance**: Error monitoring configured on all platforms
-
----
-
-## Phase 12: Real-Time Sync (Tasks 48-49)
+## Phase 12: Real-Time Sync (Tasks 55-56)
 
 ### Task 12.1: WebSocket Client - Web
 
@@ -1058,7 +1242,7 @@
 
 ---
 
-## Phase 13: Analytics Dashboard (Tasks 50-52)
+## Phase 13: Analytics Dashboard (Tasks 57-60)
 
 ### Task 13.1: Analytics Backend - Event Tracking
 
@@ -1109,7 +1293,7 @@
 
 ---
 
-### Task 13.1.1: Frontend Analytics Integration
+### Task 13.4: Frontend Analytics Integration
 
 **Scope**: Integrate analytics tracking in frontend
 
@@ -1136,7 +1320,7 @@
 
 ---
 
-## Phase 14: Advanced Features (Tasks 53-54)
+## Phase 14: Advanced Features (Tasks 61-62)
 
 ### Task 14.1: Product Comparison
 
@@ -1192,51 +1376,145 @@
 
 ---
 
-## Phase 15: Testing & Quality (Tasks 55-56)
+## Phase 15: Testing & Quality (Tasks 63-67)
 
 ### Task 15.1: Backend Testing
 
-**Scope**: Achieve >75% test coverage
+**Scope**: Achieve >75% test coverage with comprehensive testing strategy
+
+**Unit Tests:**
 
 - [ ] Create test database configuration (separate from development)
 - [ ] Use in-memory SQLite for unit tests
-- [ ] Use Docker PostgreSQL for integration tests
 - [ ] Configure separate test environment variables
-- [ ] Add database cleanup between tests (beforeEach/afterEach)
 - [ ] Write unit tests for services (Jest)
-- [ ] Write integration tests for endpoints (Supertest)
-- [ ] Write E2E tests for user flows
-- [ ] Configure CI to run tests
-- [ ] Test: Coverage >75%
-- [ ] Test: Tests use separate database (not development)
+- [ ] Write unit tests for validators, utilities, helpers
+- [ ] Test: Unit test coverage >80%
 
-**Acceptance**: All tests pass, coverage achieved
+**Integration Tests:**
+
+- [ ] Use Docker PostgreSQL for integration tests
+- [ ] Add database cleanup between tests (beforeEach/afterEach)
+- [ ] Write integration tests for REST endpoints (Supertest)
+- [ ] Write integration tests for WebSocket events (socket.io-client)
+- [ ] Test WebSocket authentication, room isolation, event broadcasting
+- [ ] Test: Integration test coverage >70%
+
+**E2E Tests:**
+
+- [ ] Write E2E tests for complete user flows
+- [ ] Test: Auth flow (login → JWT → protected routes)
+- [ ] Test: Scan flow (create → list → delete)
+- [ ] Test: Product lookup flow (barcode → cache → API fallback)
+
+**API Contract Testing:**
+
+- [ ] Install Pact for contract testing
+- [ ] Define consumer contracts (Web, Mobile expectations)
+- [ ] Implement provider verification tests
+- [ ] Test: All API contracts verified
+
+**Load/Performance Testing:**
+
+- [ ] Install k6 for load testing
+- [ ] Create load test scenarios:
+  - Bulk scan endpoint (100 scans/request)
+  - WebSocket concurrent connections (50+ users)
+  - Product lookup under load (cache hit rate)
+- [ ] Test: Bulk endpoint handles 1000 scans in <5s
+- [ ] Test: WebSocket supports 100 concurrent connections
+
+**Database Migration Testing:**
+
+- [ ] Write migration rollback tests
+- [ ] Test: Each migration can roll back without data loss
+- [ ] Test: Migration idempotency (can run multiple times safely)
+
+**CI Configuration:**
+
+- [ ] Configure CI to run all test suites
+- [ ] Add test result reporting
+- [ ] Test: All tests pass in CI environment
+- [ ] Test: Overall coverage >75%
+
+**Acceptance**: All tests pass, coverage >75%, contracts verified, load tests pass
 
 ---
 
-### Task 15.2: Frontend Testing
+### Task 15.2: Web Testing
 
-**Scope**: Test web and mobile
-
-**Web:**
+**Scope**: Test Next.js web application with comprehensive coverage
 
 - [ ] Write component tests (Jest + RTL)
-- [ ] Write E2E tests (Playwright)
-- [ ] Add visual regression tests
+- [ ] Add snapshot tests for React components
+- [ ] Write E2E tests (Playwright):
+  - Login flow
+  - Scan flow (camera → save → history)
+  - Product lookup flow
+  - Export flow (CSV, JSON, PDF, Excel)
+- [ ] Add visual regression tests (Playwright screenshots)
+- [ ] Test: Component coverage >75%
+- [ ] Test: E2E tests cover all critical paths
 
-**Mobile:**
-
-- [ ] Write component tests (Jest)
-- [ ] Write E2E tests (Detox)
-- [ ] Test on multiple devices
-
-**Test**: All tests pass
-
-**Acceptance**: Frontend tests complete, coverage >75%
+**Acceptance**: Web tests pass, coverage >75%
 
 ---
 
-## Phase 16: Deployment (Tasks 57-58)
+### Task 15.3: Mobile Testing
+
+**Scope**: Test Expo mobile application with comprehensive coverage
+
+- [ ] Write component tests (Jest)
+- [ ] Add snapshot tests for React Native components
+- [ ] Write E2E tests (Detox):
+  - Login flow
+  - Camera scan flow
+  - Offline mode (scan → save to SQLite → sync)
+  - Batch scan mode
+- [ ] Test on multiple devices (iOS simulator, Android emulator)
+- [ ] Test: Component coverage >75%
+- [ ] Test: E2E tests pass on both platforms
+
+**Acceptance**: Mobile tests pass on iOS and Android, coverage >75%
+
+---
+
+### Task 15.4: Admin Dashboard Testing
+
+**Scope**: Test Next.js admin dashboard with comprehensive coverage
+
+- [ ] Write component tests for chart components (Jest + RTL)
+- [ ] Add snapshot tests for dashboard layouts
+- [ ] Write E2E tests (Playwright):
+  - Gmail OAuth login flow
+  - Analytics dashboard rendering
+  - Date range filtering
+  - Chart interactions
+- [ ] Test: Only authorized admin email can access
+- [ ] Test: Unauthorized users redirected to login
+- [ ] Test: All charts render with mock data
+
+**Acceptance**: Admin dashboard tests pass, auth restrictions verified
+
+---
+
+### Task 15.5: Cross-Platform Testing
+
+**Scope**: Test integration and consistency across all platforms
+
+- [ ] Test WebSocket real-time updates (Web + Mobile)
+- [ ] Test offline/online sync behavior (Mobile)
+- [ ] Test responsive design (Web on mobile viewport)
+- [ ] Test API contract consistency (Web, Mobile, Admin)
+- [ ] Test: Real-time scan updates appear on all connected clients
+- [ ] Test: Offline scans sync correctly when reconnected
+- [ ] Test: Web UI responsive on mobile browsers
+
+**Acceptance**: Cross-platform features work consistently
+
+---
+
+## Phase 16: Deployment (Tasks 68-69)
 
 ### Task 16.1: Documentation
 
@@ -1304,8 +1582,6 @@
 
 ---
 
-## Task Dependency Graph
-
 ```mermaid
 graph TD
     %% Phase 1: Foundation
@@ -1315,99 +1591,118 @@ graph TD
 
     T5[1.5 Web Setup] --> T6[1.6 Web Docker]
     T7[1.7 Mobile Setup]
-    T8[1.8 Admin Setup]
+    T8[1.8 Admin Setup] --> T9[1.9 Admin Auth]
+
+    %% Git Hooks depends on all 4 project setups
+    T1 --> T10[1.10 Git Hooks]
+    T5 --> T10
+    T7 --> T10
+    T8 --> T10
+
+    %% Error Monitoring depends on all 4 project setups
+    T1 --> T11[1.11 Error Monitoring]
+    T5 --> T11
+    T7 --> T11
+    T8 --> T11
 
     %% Phase 2: CI/CD
-    T2 --> T9[2.1 Backend CI/CD]
-    T6 --> T10[2.2 Web CI/CD]
-    T7 --> T11[2.3 Mobile CI/CD]
-    T8 --> T12[2.4 Admin CI/CD]
+    T2 --> T12[2.1 Backend CI/CD]
+    T6 --> T13[2.2 Web CI/CD]
+    T7 --> T14[2.3 Mobile CI/CD]
+    T9 --> T15[2.4 Admin CI/CD]
 
     %% Phase 3: Database & Auth Backend
-    T4 --> T13[3.1 DB Schema]
-    T13 --> T14[3.2 DB Indexes]
-    T4 --> T15[3.3 Redis Setup]
-    T13 --> T16[3.4 Google OAuth]
-    T16 --> T17[3.5 JWT Service]
-    T17 --> T18[3.6 Auth Endpoints]
+    T4 --> T16[3.1 DB Schema]
+    T16 --> T17[3.2 DB Indexes]
+    T4 --> T18[3.3 Redis Setup]
+    T16 --> T19[3.4 Google OAuth]
+    T19 --> T20[3.5 JWT Service]
+    T20 --> T21[3.6 Auth Endpoints]
 
     %% Phase 4: Auth Frontend
-    T18 --> T19[4.1 Web OAuth UI]
-    T19 --> T20[4.2 Web Auth State]
-    T20 --> T21[4.3 Web Protected Routes]
+    T21 --> T22[4.1 Web OAuth UI]
+    T22 --> T23[4.2 Web Auth State]
+    T23 --> T24[4.3 API Client]
+    T24 --> T25[4.4 Data Fetching]
+    T25 --> T26[4.5 Protected Routes]
 
-    T18 --> T22[4.4 Mobile OAuth]
-    T22 --> T23[4.5 Mobile Token Storage]
-    T23 --> T24[4.6 Mobile Auth UI]
+    T21 --> T27[4.6 Mobile OAuth]
+    T27 --> T28[4.7 Mobile Token Storage]
+    T28 --> T29[4.8 Mobile Auth UI]
 
     %% Phase 5: Scanning Backend
-    T18 --> T25[5.1 Scans DB Ops]
-    T25 --> T26[5.2 Scans API]
-    T26 --> T27[5.3 WebSocket]
+    T21 --> T30[5.1 Scans DB Ops]
+    T30 --> T31[5.2 Scans API]
+    T31 --> T32[5.3 WebSocket]
 
     %% Phase 6: Scanning Web
-    T26 --> T28[6.1 Web Scanner]
-    T28 --> T29[6.2 Web File Upload]
-    T29 --> T30[6.3 Web History]
+    T31 --> T33[6.1 Web Scanner]
+    T33 --> T34[6.2 Web File Upload]
+    T34 --> T35[6.3 Web History]
 
     %% Phase 7: Scanning Mobile
-    T26 --> T31[7.1 Mobile Scanner]
-    T31 --> T32[7.2 Mobile History]
-    T32 --> T33[7.3 Batch Mode]
+    T31 --> T36[7.1 Mobile Scanner]
+    T36 --> T37[7.2 Mobile History]
+    T37 --> T38[7.3 Batch Mode]
 
     %% Phase 8: Offline
-    T31 --> T34[8.1 SQLite Setup]
-    T34 --> T35[8.2 SQLite CRUD]
-    T35 --> T36[8.3 Offline Detection]
-    T36 --> T37[8.4 Auto-Sync]
+    T36 --> T39[8.1 SQLite Setup]
+    T39 --> T40[8.2 SQLite CRUD]
+    T40 --> T41[8.3 Offline Detection]
+    T41 --> T42[8.4 Auto-Sync]
 
     %% Phase 9: Tailscale
-    T26 --> T38[9.1 Backend Tailscale]
-    T38 --> T39[9.2 Web Tailscale]
-    T38 --> T40[9.3 Mobile Tailscale]
+    T31 --> T43[9.1 Backend Tailscale]
+    T43 --> T44[9.2 Web Tailscale]
+    T43 --> T45[9.3 Mobile Tailscale]
 
     %% Phase 10: Product Lookup
-    T15 --> T41[10.1 API Clients]
-    T41 --> T42[10.2 Caching]
-    T42 --> T43[10.3 Lookup Endpoint]
-    T43 --> T44[10.4 Product UI]
+    T18 --> T46[10.1 API Clients]
+    T46 --> T47[10.2 Caching]
+    T47 --> T48[10.3 Lookup Endpoint]
+    T48 --> T49[10.4 Product UI]
 
     %% Phase 11: Export
-    T26 --> T45[11.1 CSV/JSON Export]
-    T45 --> T46[11.2 PDF/Excel Export]
-    T46 --> T47[11.3 Export UI]
+    T31 --> T50[11.1 CSV/JSON Export]
+    T50 --> T51[11.2 PDF/Excel Export]
+    T51 --> T52[11.3 Export UI]
 
     %% Phase 12: Real-time
-    T27 --> T48[12.1 WebSocket Web]
-    T27 --> T49[12.2 WebSocket Mobile]
+    T32 --> T53[12.1 WebSocket Web]
+    T32 --> T54[12.2 WebSocket Mobile]
 
     %% Phase 13: Analytics
-    T26 --> T50[13.1 Analytics Backend]
-    T50 --> T51[13.2 Analytics DB]
-    T51 --> T52[13.3 Dashboard Charts]
+    T31 --> T55[13.1 Analytics Backend]
+    T55 --> T56[13.2 Analytics DB]
+    T56 --> T57[13.3 Dashboard Charts]
 
     %% Phase 14: Advanced
-    T43 --> T53[14.1 Comparison]
-    T26 --> T54[14.2 Search/Filters]
+    T48 --> T58[14.1 Comparison]
+    T31 --> T59[14.2 Search/Filters]
 
     %% Phase 15: Testing
-    T54 --> T55[15.1 Backend Tests]
-    T54 --> T56[15.2 Frontend Tests]
+    T59 --> T60[15.1 Backend Tests]
+    T59 --> T61[15.2 Web Tests]
+    T59 --> T62[15.3 Mobile Tests]
+    T59 --> T63[15.4 Admin Tests]
+    T61 --> T64[15.5 Cross-Platform Tests]
+    T62 --> T64
+    T63 --> T64
 
     %% Phase 16: Deployment
-    T55 --> T57[16.1 Documentation]
-    T56 --> T57
-    T57 --> T58[16.2 Production Deploy]
+    T60 --> T65[16.1 Documentation]
+    T64 --> T65
+    T65 --> T66[16.2 Production Deploy]
 ```
 
 ---
 
 ## Progress Tracking
 
-**Total Tasks**: 65  
+**Total Tasks**: 69  
 **Completed**: 0  
 **In Progress**: 0  
-**Remaining**: 65
+**Remaining**: 69
 
 ---
 
