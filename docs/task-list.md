@@ -32,7 +32,7 @@
 - [2.4 Admin Dashboard CI/CD](#task-24-admin-dashboard-cicd)
 - [2.5 PR Checks & Branch Protection](#task-25-pr-checks--branch-protection)
 
-### Phase 3: Database & Auth Backend (Tasks 16-21)
+### Phase 3: Database & Auth Backend (Tasks 17-22)
 
 - [3.1 Database Schema](#task-31-database-schema)
 - [3.2 Database Indexes](#task-32-database-indexes--performance)
@@ -41,7 +41,7 @@
 - [3.5 JWT Service](#task-35-backend-auth---jwt-service)
 - [3.6 Auth Endpoints](#task-36-backend-auth---endpoints)
 
-### Phase 4: Auth Frontend (Tasks 22-34)
+### Phase 4: Auth Frontend (Tasks 23-35)
 
 - [4.1 Web Auth - Google OAuth UI](#task-41-web-auth---google-oauth-ui)
 - [4.2 Web Auth - State Management](#task-42-web-auth---state-management)
@@ -57,58 +57,58 @@
 - [4.12 Admin Dashboard Data Fetching](#task-412-admin-dashboard-data-fetching)
 - [4.13 Admin Dashboard Authentication](#task-413-admin-dashboard-authentication)
 
-### Phase 5: Scanning Backend (Tasks 30-32)
+### Phase 5: Scanning Backend (Tasks 36-38)
 
 - [5.1 Scans Database Operations](#task-51-backend-scans---database-operations)
 - [5.2 Scans API](#task-52-backend-scans---api)
 - [5.3 WebSocket Gateway](#task-53-backend-scans---websocket-gateway)
 
-### Phase 6: Scanning Web (Tasks 33-36)
+### Phase 6: Scanning Web (Tasks 39-42)
 
 - [6.1 Web Scanner](#task-61-web-scanner---camera-integration)
 - [6.2 Web File Upload](#task-62-web-scanner---file-upload)
 - [6.3 Web History](#task-63-web-scanner---history--management)
 - [6.4 Web PWA Configuration](#task-64-web-pwa-configuration)
 
-### Phase 7: Scanning Mobile (Tasks 37-40)
+### Phase 7: Scanning Mobile (Tasks 43-46)
 
 - [7.1 Mobile State Management](#task-71-mobile-state-management)
 - [7.2 Mobile Scanner](#task-72-mobile-scanner---camera-integration)
 - [7.3 Mobile Scan Result UI](#task-73-mobile-scanner---scan-result-ui)
 - [7.4 Mobile Batch Mode](#task-74-mobile-scanner---batch-mode)
 
-### Phase 8: Offline-First Mobile (Tasks 41-44)
+### Phase 8: Offline-First Mobile (Tasks 47-50)
 
 - [8.1 SQLite Database Setup](#task-81-mobile-sqlite---database-setup)
 - [8.2 SQLite CRUD Operations](#task-82-mobile-sqlite---crud-operations)
 - [8.3 Offline Detection & UI](#task-83-mobile-offline---detection--ui)
 - [8.4 Auto-Sync](#task-84-mobile-offline---auto-sync)
 
-### Phase 9: Tailscale Integration (Tasks 45-47)
+### Phase 9: Tailscale Integration (Tasks 51-53)
 
 - [9.1 Backend Tailscale Configuration](#task-91-backend-tailscale-configuration)
 - [9.2 Web Tailscale Setup](#task-92-web-tailscale-setup-guide)
 - [9.3 Mobile Tailscale Integration](#task-93-mobile-tailscale-integration)
 
-### Phase 10: Product Lookup (Tasks 48-51)
+### Phase 10: Product Lookup (Tasks 54-57)
 
 - [10.1 API Clients](#task-101-backend-product-lookup---api-clients)
 - [10.2 Caching Strategy](#task-102-backend-product-lookup---caching)
 - [10.3 Lookup Endpoint](#task-103-backend-product-lookup---endpoint)
 - [10.4 Frontend Product Display](#task-104-frontend-product-display)
 
-### Phase 11: Export Functionality (Tasks 52-54)
+### Phase 11: Export Functionality (Tasks 58-60)
 
 - [11.1 CSV & JSON Export](#task-111-backend-export---csv--json)
 - [11.2 PDF & Excel Export](#task-112-backend-export---pdf--excel)
 - [11.3 Frontend Export UI](#task-113-frontend-export-ui)
 
-### Phase 12: Real-Time Sync (Tasks 55-56)
+### Phase 12: Real-Time Sync (Tasks 61-62)
 
 - [12.1 WebSocket Client - Web](#task-121-websocket-client---web)
 - [12.2 WebSocket Client - Mobile](#task-122-websocket-client---mobile)
 
-### Phase 13: Analytics Dashboard (Tasks 57-60)
+### Phase 13: Analytics Dashboard (Tasks 63-67)
 
 - [13.1 Backend Admin Module](#task-131-backend-admin-module)
 - [13.2 Analytics Backend](#task-132-analytics-backend---event-tracking)
@@ -116,12 +116,12 @@
 - [13.4 Admin Dashboard Charts & Metrics](#task-134-admin-dashboard---charts--metrics)
 - [13.5 Frontend Analytics Integration](#task-135-frontend-analytics-integration)
 
-### Phase 14: Advanced Features (Tasks 61-62)
+### Phase 14: Advanced Features (Tasks 68-69)
 
 - [14.1 Product Comparison](#task-141-product-comparison)
 - [14.2 Advanced Search & Filters](#task-142-advanced-search--filters)
 
-### Phase 15: Testing & Quality (Tasks 63-67)
+### Phase 15: Testing & Quality (Tasks 70-74)
 
 - [15.1 Backend Testing](#task-151-backend-testing)
 - [15.2 Web Testing](#task-152-web-testing)
@@ -129,7 +129,7 @@
 - [15.4 Admin Dashboard Testing](#task-154-admin-dashboard-testing)
 - [15.5 Cross-Platform Testing](#task-155-cross-platform-testing)
 
-### Phase 16: Deployment (Tasks 68-69)
+### Phase 16: Deployment (Tasks 75-76)
 
 - [16.1 Documentation](#task-161-documentation)
 - [16.2 Production Deployment](#task-162-production-deployment)
@@ -1553,17 +1553,25 @@
 
 ### Task 13.3: Analytics Database Schema
 
-**Scope**: Create analytics tables in Supabase
+**Scope**: Create analytics tables in local PostgreSQL database
 
-- [ ] Create `usage_stats` table
-- [ ] Create `scan_metrics` table
-- [ ] Create `error_stats` table
-- [ ] Create `user_behavior` table
-- [ ] Create `device_stats` table
-- [ ] Create `api_metrics` table
-- [ ] Test: Tables created, data inserted
+- [ ] Create analytics schema in PostgreSQL: `CREATE SCHEMA IF NOT EXISTS analytics;`
+- [ ] Create `analytics.usage_stats` table (date, total_scans, active_users, new_users)
+- [ ] Create `analytics.scan_metrics` table (date, barcode_type, success_count, error_count, avg_scan_time)
+- [ ] Create `analytics.error_stats` table (date, error_type, count, device_type)
+- [ ] Create `analytics.user_behavior` table (hashed_user_id, session_length, scan_frequency, retention_day)
+- [ ] Create `analytics.device_stats` table (device_model, os_version, camera_specs, scan_count, avg_fps)
+- [ ] Create `analytics.api_metrics` table (endpoint, method, response_time, status_code, timestamp)
+- [ ] Generate TypeORM migration for analytics schema
+- [ ] Add indexes for performance:
+  - CREATE INDEX idx_usage_stats_date ON analytics.usage_stats(date DESC)
+  - CREATE INDEX idx_scan_metrics_date_type ON analytics.scan_metrics(date DESC, barcode_type)
+  - CREATE INDEX idx_error_stats_date ON analytics.error_stats(date DESC)
+- [ ] Test: Migration runs successfully
+- [ ] Test: Tables created in analytics schema
+- [ ] Test: Data can be inserted and queried
 
-**Acceptance**: Analytics database ready
+**Acceptance**: Analytics database ready in local PostgreSQL
 
 ---
 

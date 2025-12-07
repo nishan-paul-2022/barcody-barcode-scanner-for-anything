@@ -855,11 +855,12 @@ sequenceDiagram
 - **Rate Limiting**: Prevent brute force
 
 #### Admin Dashboard
-
-- **Gmail OAuth**: Single admin account configured during initial setup
-- **No MFA**: Simplified authentication flow
-- **Single Admin**: One admin user, no role-based access control
-- **Session Management**: Secure session tokens with auto-refresh
+ 
+ - **Gmail OAuth**: Single admin account configured via `ADMIN_EMAIL` environment variable
+ - **Access Control**: Strict validation against `ADMIN_EMAIL` on every request
+ - **No MFA**: Simplified authentication flow (relies on Google's security)
+ - **Single Admin**: One admin user, no role-based access control
+ - **Session Management**: Secure session tokens with auto-refresh
 
 ---
 
@@ -1363,7 +1364,89 @@ async invalidateUserCache(userId: string): Promise<void> {
 - **Consent Management**: Clear opt-in/opt-out
 - **Data Portability**: JSON export format
 
----
+### 11.3 Backup & Disaster Recovery
+
+#### Automated Backup Strategy
+
+**Daily Backups:**
+
+```bash
+# Automated backup script (backup.sh)
+#!/bin/bash
+BACKUP_DIR="/var/backups/barcody"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+# PostgreSQL backup
+docker exec barcody-db pg_dump -U user barcode > "$BACKUP_DIR/db_$TIMESTAMP.sql"
+
+# Redis backup
+docker exec barcody-redis redis-cli SAVE
+docker cp barcody-redis:/data/dump.rdb "$BACKUP_DIR/redis_$TIMESTAMP.rdb"
+
+# Create compressed archive
+tar -czf "$BACKUP_DIR/barcody_backup_$TIMESTAMP.tar.gz" \
+  "$BACKUP_DIR/db_$TIMESTAMP.sql" \
+  "$BACKUP_DIR/redis_$TIMESTAMP.rdb"
+
+# Cleanup individual files
+rm "$BACKUP_DIR/db_$TIMESTAMP.sql" "$BACKUP_DIR/redis_$TIMESTAMP.rdb"
+```
+
+**Retention Policy:**
+
+- **Daily backups**: Keep last 7 days
+- **Weekly backups**: Keep last 4 weeks (every Sunday)
+- **Automatic cleanup**: Delete backups older than retention period
+
+**Cron Schedule:**
+
+```bash
+# Run daily at 2 AM
+0 2 * * * /path/to/backup.sh >> /var/log/barcody-backup.log 2>&1
+```
+
+#### Restore Procedures
+
+**Database Restore:**
+
+```bash
+# Restore PostgreSQL
+docker exec -i barcody-db psql -U user barcode < backup.sql
+
+# Verify restoration
+docker exec barcody-db psql -U user barcode -c "\dt"
+```
+
+**Redis Restore:**
+
+```bash
+# Stop Redis
+docker stop barcody-redis
+
+# Replace dump file
+docker cp backup.rdb barcody-redis:/data/dump.rdb
+
+# Start Redis
+docker start barcody-redis
+```
+
+**Verification:**
+
+- Check table counts match backup metadata
+- Verify recent scans are present
+- Test application functionality
+- Validate data integrity with checksums
+
+#### Backup Validation
+
+**Automated Checks:**
+
+- Test restore on separate database instance monthly
+- Verify backup file integrity (checksums)
+- Alert on backup failures
+- Monitor backup file sizes for anomalies
+
+
 
 ## 12. Monitoring & Observability
 
