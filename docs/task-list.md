@@ -2,7 +2,7 @@
 
 > **Strategy**: Atomic tasks optimized for AI agent single-shot implementation
 >
-> **Structure**: 75 focused tasks, enhanced with critical implementation details
+> **Structure**: 76 focused tasks, enhanced with critical implementation details
 >
 > **Goal**: 100% bug-free, production-ready implementation
 
@@ -24,12 +24,13 @@
 - [1.10 Git Hooks & Code Quality Setup](#task-110-git-hooks--code-quality-setup)
 - [1.11 Error Monitoring Setup](#task-111-error-monitoring-setup)
 
-### Phase 2: CI/CD Pipeline (Tasks 12-15)
+### Phase 2: CI/CD Pipeline (Tasks 12-16)
 
 - [2.1 Backend CI/CD](#task-21-backend-cicd)
 - [2.2 Web CI/CD](#task-22-web-cicd)
 - [2.3 Mobile CI/CD](#task-23-mobile-cicd)
 - [2.4 Admin Dashboard CI/CD](#task-24-admin-dashboard-cicd)
+- [2.5 PR Checks & Branch Protection](#task-25-pr-checks--branch-protection)
 
 ### Phase 3: Database & Auth Backend (Tasks 16-21)
 
@@ -426,6 +427,7 @@
 - [ ] Document required GitHub secrets in workflow comments:
   - DOCKERHUB_USERNAME, DOCKERHUB_TOKEN
 - [ ] Test: Push to main triggers build
+- [ ] Test: Docker image pushed to Docker Hub
 
 **Acceptance**: Backend Docker image pushed to Docker Hub
 
@@ -437,10 +439,14 @@
 
 - [ ] Create `.github/workflows/web-build.yml`
 - [ ] Configure Docker Buildx
-- [ ] Add Docker Hub login
-- [ ] Implement build and push
-- [ ] Add versioning tags
+- [ ] Add Docker Hub login step
+- [ ] Implement multi-platform build (linux/amd64)
+- [ ] Add semantic versioning tags
+- [ ] Configure build caching
+- [ ] Document required GitHub secrets in workflow comments:
+  - DOCKERHUB_USERNAME, DOCKERHUB_TOKEN
 - [ ] Test: Push to main triggers build
+- [ ] Test: Docker image pushed to Docker Hub
 
 **Acceptance**: Web Docker image pushed to Docker Hub
 
@@ -452,11 +458,14 @@
 
 - [ ] Create `.github/workflows/mobile-build.yml`
 - [ ] Configure EAS Build
-- [ ] Add Expo token secret
+- [ ] Add Expo token secret (EXPO_TOKEN)
+- [ ] Document required GitHub secrets in workflow comments:
+  - EXPO_TOKEN
 - [ ] Implement APK build on tag push (`mobile-v*`)
 - [ ] Upload APK to GitHub Releases
 - [ ] Add release notes template
 - [ ] Test: Tag push triggers build
+- [ ] Test: APK uploaded to GitHub Releases
 
 **Acceptance**: APK built and uploaded to GitHub Releases
 
@@ -478,6 +487,48 @@
 - [ ] Test: Docker image pushed to Docker Hub
 
 **Acceptance**: admin dashboard Docker image pushed to Docker Hub
+
+---
+
+### Task 2.5: PR Checks & Branch Protection
+
+**Scope**: Configure automated PR validation and merge gates
+
+- [ ] Create `.github/workflows/pr-checks.yml`
+- [ ] Configure workflow triggers: `pull_request` to `dev` branch
+- [ ] Add lint job:
+  - Run ESLint for backend, web, mobile, admin-dashboard
+  - Fail workflow if linting errors found
+- [ ] Add type-check job:
+  - Run TypeScript compiler in strict mode
+  - Check backend, web, mobile, admin-dashboard
+- [ ] Add test job:
+  - Run Jest unit tests for backend, web, mobile, admin-dashboard
+  - Exclude E2E tests (too slow for PR checks)
+  - Generate coverage report
+- [ ] Add build job:
+  - Verify backend builds successfully
+  - Verify web builds successfully
+  - Verify mobile builds successfully (Expo)
+  - Verify admin-dashboard builds successfully
+- [ ] Create `.github/CONTRIBUTING.md` with git workflow documentation:
+  - Branch strategy: `task-X.Y-description` from `dev`
+  - Commit convention: conventional commits (feat, fix, docs, etc.)
+  - PR process: create, review, automated checks, merge
+  - Code review guidelines
+- [ ] Document merge requirements in CONTRIBUTING.md
+- [ ] Enable branch protection for `dev` branch (GitHub Settings → Branches)
+- [ ] Configure protection rules:
+  - Require status checks to pass before merging
+  - Require branches to be up to date before merging
+  - Select required checks: `pr-checks` workflow
+- [ ] Test: Create test PR with intentional failing test
+- [ ] Test: Verify merge button is disabled (red X)
+- [ ] Test: Fix test and push
+- [ ] Test: Verify merge button enabled (green checkmark)
+- [ ] Test: Verify cannot bypass checks (even as admin)
+
+**Acceptance**: PRs cannot merge to dev if lint, type-check, test, or build fails for any project
 
 ---
 
@@ -1868,108 +1919,114 @@ graph TD
     T6 --> T13[2.2 Web CI/CD]
     T7 --> T14[2.3 Mobile CI/CD]
     T9 --> T15[2.4 Admin CI/CD]
+    
+    %% PR Checks depend on all CI/CD pipelines
+    T12 --> T16[2.5 PR Checks]
+    T13 --> T16
+    T14 --> T16
+    T15 --> T16
 
     %% Phase 3: Database & Auth Backend
-    T4 --> T16[3.1 DB Schema]
-    T16 --> T17[3.2 DB Indexes]
-    T4 --> T18[3.3 Redis Setup]
-    T16 --> T19[3.4 Google OAuth]
-    T19 --> T20[3.5 JWT Service]
-    T20 --> T21[3.6 Auth Endpoints]
+    T4 --> T17[3.1 DB Schema]
+    T17 --> T18[3.2 DB Indexes]
+    T4 --> T19[3.3 Redis Setup]
+    T17 --> T20[3.4 Google OAuth]
+    T20 --> T21[3.5 JWT Service]
+    T21 --> T22[3.6 Auth Endpoints]
 
     %% Phase 4: Auth Frontend (13 tasks)
-    T21 --> T22[4.1 Web OAuth UI]
-    T22 --> T23[4.2 Web Auth State]
-    T23 --> T24[4.3 Web API Client]
-    T24 --> T25[4.4 Web Data Fetching]
-    T25 --> T26[4.5 Web Protected Routes]
+    T22 --> T23[4.1 Web OAuth UI]
+    T23 --> T24[4.2 Web Auth State]
+    T24 --> T25[4.3 Web API Client]
+    T25 --> T26[4.4 Web Data Fetching]
+    T26 --> T27[4.5 Web Protected Routes]
 
-    T21 --> T27[4.6 Mobile OAuth]
-    T27 --> T28[4.7 Mobile Token Storage]
-    T28 --> T29[4.8 Mobile Auth UI]
-    T29 --> T30[4.9 Mobile API Client]
-    T30 --> T31[4.10 Mobile Data Fetching]
-    T31 --> T32[4.11 Mobile Protected Nav]
+    T22 --> T28[4.6 Mobile OAuth]
+    T28 --> T29[4.7 Mobile Token Storage]
+    T29 --> T30[4.8 Mobile Auth UI]
+    T30 --> T31[4.9 Mobile API Client]
+    T31 --> T32[4.10 Mobile Data Fetching]
+    T32 --> T33[4.11 Mobile Protected Nav]
 
-    T21 --> T33[4.12 Admin Data Fetching]
-    T33 --> T34[4.13 Admin Auth]
+    T22 --> T34[4.12 Admin Data Fetching]
+    T34 --> T35[4.13 Admin Auth]
 
     %% Phase 5: Scanning Backend
-    T21 --> T35[5.1 Scans DB Ops]
-    T35 --> T36[5.2 Scans API]
-    T36 --> T37[5.3 WebSocket]
+    T22 --> T36[5.1 Scans DB Ops]
+    T36 --> T37[5.2 Scans API]
+    T37 --> T38[5.3 WebSocket]
 
     %% Phase 6: Scanning Web
-    T36 --> T38[6.1 Web Scanner]
-    T38 --> T39[6.2 Web File Upload]
-    T39 --> T40[6.3 Web History]
+    T37 --> T39[6.1 Web Scanner]
+    T39 --> T40[6.2 Web File Upload]
+    T40 --> T41[6.3 Web History]
 
     %% Phase 7: Scanning Mobile
-    T36 --> T41[7.1 Mobile State Mgmt]
-    T41 --> T42[7.2 Mobile Scanner]
-    T42 --> T43[7.3 Scan Result UI]
-    T43 --> T44[7.4 Batch Mode]
+    T37 --> T42[7.1 Mobile State Mgmt]
+    T42 --> T43[7.2 Mobile Scanner]
+    T43 --> T44[7.3 Scan Result UI]
+    T44 --> T45[7.4 Batch Mode]
 
     %% Phase 8: Offline
-    T42 --> T45[8.1 SQLite Setup]
-    T45 --> T46[8.2 SQLite CRUD]
-    T46 --> T47[8.3 Offline Detection]
-    T47 --> T48[8.4 Auto-Sync]
+    T43 --> T46[8.1 SQLite Setup]
+    T46 --> T47[8.2 SQLite CRUD]
+    T47 --> T48[8.3 Offline Detection]
+    T48 --> T49[8.4 Auto-Sync]
 
     %% Phase 9: Tailscale
-    T36 --> T49[9.1 Backend Tailscale]
-    T49 --> T50[9.2 Web Tailscale]
-    T49 --> T51[9.3 Mobile Tailscale]
+    T37 --> T50[9.1 Backend Tailscale]
+    T50 --> T51[9.2 Web Tailscale]
+    T50 --> T52[9.3 Mobile Tailscale]
 
     %% Phase 10: Product Lookup
-    T18 --> T52[10.1 API Clients]
-    T52 --> T53[10.2 Caching]
-    T53 --> T54[10.3 Lookup Endpoint]
-    T54 --> T55[10.4 Product UI]
+    T19 --> T53[10.1 API Clients]
+    T53 --> T54[10.2 Caching]
+    T54 --> T55[10.3 Lookup Endpoint]
+    T55 --> T56[10.4 Product UI]
 
     %% Phase 11: Export
-    T36 --> T56[11.1 CSV/JSON Export]
-    T56 --> T57[11.2 PDF/Excel Export]
-    T57 --> T58[11.3 Export UI]
+    T37 --> T57[11.1 CSV/JSON Export]
+    T57 --> T58[11.2 PDF/Excel Export]
+    T58 --> T59[11.3 Export UI]
 
     %% Phase 12: Real-time
-    T37 --> T59[12.1 WebSocket Web]
-    T37 --> T60[12.2 WebSocket Mobile]
+    T38 --> T60[12.1 WebSocket Web]
+    T38 --> T61[12.2 WebSocket Mobile]
 
     %% Phase 13: Analytics
-    T36 --> T61[13.1 Backend Admin Module]
-    T61 --> T62[13.2 Analytics Backend]
-    T62 --> T63[13.3 Analytics DB]
-    T63 --> T64[13.4 Dashboard Charts]
-    T64 --> T65[13.5 Frontend Analytics]
+    T37 --> T62[13.1 Backend Admin Module]
+    T62 --> T63[13.2 Analytics Backend]
+    T63 --> T64[13.3 Analytics DB]
+    T64 --> T65[13.4 Dashboard Charts]
+    T65 --> T66[13.5 Frontend Analytics]
 
     %% Phase 14: Advanced
-    T54 --> T66[14.1 Comparison]
-    T36 --> T67[14.2 Search/Filters]
+    T55 --> T67[14.1 Comparison]
+    T37 --> T68[14.2 Search/Filters]
 
     %% Phase 15: Testing
-    T67 --> T68[15.1 Backend Tests]
-    T67 --> T69[15.2 Web Tests]
-    T67 --> T70[15.3 Mobile Tests]
-    T67 --> T71[15.4 Admin Tests]
-    T69 --> T72[15.5 Cross-Platform Tests]
-    T70 --> T72
-    T71 --> T72
+    T68 --> T69[15.1 Backend Tests]
+    T68 --> T70[15.2 Web Tests]
+    T68 --> T71[15.3 Mobile Tests]
+    T68 --> T72[15.4 Admin Tests]
+    T70 --> T73[15.5 Cross-Platform Tests]
+    T71 --> T73
+    T72 --> T73
 
     %% Phase 16: Deployment
-    T68 --> T73[16.1 Documentation]
-    T72 --> T73
-    T73 --> T74[16.2 Production Deploy]
+    T69 --> T74[16.1 Documentation]
+    T73 --> T74
+    T74 --> T75[16.2 Production Deploy]
 ```
 
 ---
 
 ## Progress Tracking
 
-**Total Tasks**: 75  
+**Total Tasks**: 76  
 **Completed**: 0  
 **In Progress**: 0  
-**Remaining**: 75
+**Remaining**: 76
 
 ---
 
@@ -1991,16 +2048,6 @@ graph TD
 - Input validation with DTOs
 - Structured logging
 - Unit tests for critical logic
-
-### Git Workflow:
-
-```bash
-git checkout -b task-X.Y-description
-# Implement task
-git add .
-git commit -m "feat(component): implement feature X"
-git push origin task-X.Y-description
-```
 
 ---
 
