@@ -8,40 +8,41 @@
 
 ## Task 5.1: Backend Scans - Database Operations
 
-**TASK**: Implement comprehensive scan CRUD operations with TypeORM repository pattern, pagination, and filtering.
+```
+TASK: Implement comprehensive scan CRUD operations with TypeORM repository pattern, pagination, and filtering.
 
-**SYSTEM CONTEXT**: Core scanning functionality. All scan data flows through these operations. Must handle high volume (thousands of scans per user) with efficient queries.
+SYSTEM CONTEXT: Core scanning functionality. All scan data flows through these operations. Must handle high volume (thousands of scans per user) with efficient queries.
 
-**REQUIREMENTS**:
+REQUIREMENTS:
 
-1. **Scans Module**: Create ScansModule with proper imports
-2. **Scans Service**: Create ScansService with TypeORM repository injection
-3. **Create Method**: Implement `create(userId, createScanDto)` that:
+1. Scans Module: Create ScansModule with proper imports
+2. Scans Service: Create ScansService with TypeORM repository injection
+3. Create Method: Implement create(userId, createScanDto) that:
    - Validates barcode data
    - Associates scan with user
    - Stores metadata (device type, location if provided)
    - Returns created scan entity
-4. **Find All Method**: Implement `findAll(userId, pagination, filters)` with:
+4. Find All Method: Implement findAll(userId, pagination, filters) with:
    - User-scoped queries (only user's scans)
    - Pagination (page, limit)
    - Filtering by barcode_type, date range, device_type
    - Sorting by scanned_at DESC
-5. **Find One Method**: Implement `findOne(userId, scanId)` with user ownership validation
-6. **Delete Method**: Implement `delete(userId, scanId)` with user ownership validation
-7. **Bulk Create**: Implement `bulkCreate(userId, scans[])` with transaction support
+5. Find One Method: Implement findOne(userId, scanId) with user ownership validation
+6. Delete Method: Implement delete(userId, scanId) with user ownership validation
+7. Bulk Create: Implement bulkCreate(userId, scans[]) with transaction support
 
-**CONSTRAINTS**:
+CONSTRAINTS:
 - All operations must be user-scoped (prevent access to other users' scans)
 - Bulk operations must use database transactions
 - Queries must use indexes for performance
 - Must handle duplicate barcode scans gracefully
 
-**INTEGRATION POINTS**:
+INTEGRATION POINTS:
 - Uses Scan entity from Task 3.1
 - Will be called by ScansController (Task 5.2)
 - Will trigger WebSocket events (Task 5.3)
 
-**TESTING REQUIREMENTS**:
+TESTING REQUIREMENTS:
 1. Create scan successfully
 2. Find all scans with pagination
 3. Find all with filters (date range, type)
@@ -50,82 +51,86 @@
 6. Bulk create with transaction rollback on error
 7. User cannot access other users' scans
 
-**ACCEPTANCE CRITERIA**:
+ACCEPTANCE CRITERIA:
 - ✅ All CRUD operations functional
 - ✅ User-scoped queries enforced
 - ✅ Pagination working correctly
 - ✅ Filters applied correctly
 
-**QUALITY STANDARDS**:
+QUALITY STANDARDS:
 - Use TypeORM repository pattern
 - Implement proper error handling
 - Use transactions for bulk operations
 - Validate user ownership on all operations
 - Log all database operations
 
-**DELIVERABLES**:
+DELIVERABLES:
 - ScansModule implementation
 - ScansService with all CRUD methods
 - Unit tests for all methods
 - Integration tests with database
 
-**SUCCESS METRIC**: Scan CRUD operations handle high volume efficiently with proper user isolation.
+SUCCESS METRIC: Scan CRUD operations handle high volume efficiently with proper user isolation.
+```
 
 ---
 
+
+
 ## Task 5.2: Backend Scans - API Endpoints
 
-**TASK**: Create REST API endpoints for scan operations with validation, authentication, and bulk operations.
+```
+TASK: Create REST API endpoints for scan operations with validation, authentication, and bulk operations.
 
-**SYSTEM CONTEXT**: Public API for scan management. Frontend applications (web, mobile) will use these endpoints for all scan operations.
+SYSTEM CONTEXT: Public API for scan management. Frontend applications (web, mobile) will use these endpoints for all scan operations.
 
-**REQUIREMENTS**:
+REQUIREMENTS:
 
-1. **Scans Controller**: Create ScansController with route prefix `/scans`
-2. **Create Endpoint**: `POST /scans`
+1. Scans Controller: Create ScansController with route prefix /scans
+2. Create Endpoint: POST /scans
    - Accept CreateScanDto (barcode_data, barcode_type, device_type, metadata)
    - Validate input with class-validator
    - Call ScansService.create()
    - Return 201 Created with scan data
-3. **Bulk Create Endpoint**: `POST /scans/bulk`
+3. Bulk Create Endpoint: POST /scans/bulk
    - Accept BulkCreateScansDto (scans array)
    - Implement deduplication logic (same barcode + timestamp within 1 minute)
    - Call ScansService.bulkCreate()
    - Return 201 with created scans count
-4. **List Endpoint**: `GET /scans`
+4. List Endpoint: GET /scans
    - Accept query params (page, limit, barcode_type, start_date, end_date, device_type)
    - Validate with ScanFilterDto
    - Call ScansService.findAll()
    - Return paginated response with metadata (total, page, pages)
-5. **Get One Endpoint**: `GET /scans/:id`
+5. Get One Endpoint: GET /scans/:id
    - Validate UUID format
    - Call ScansService.findOne()
    - Return 404 if not found or not owned by user
-6. **Incremental Sync Endpoint**: `GET /scans/since/:timestamp`
+6. Incremental Sync Endpoint: GET /scans/since/:timestamp
    - Accept timestamp parameter
    - Return all scans created/updated since timestamp
    - Support pagination for large result sets
-7. **Delete Endpoint**: `DELETE /scans/:id`
+7. Delete Endpoint: DELETE /scans/:id
    - Validate UUID format
    - Call ScansService.delete()
    - Return 204 No Content
-8. **Guards**: Apply `@UseGuards(JwtAuthGuard)` to all endpoints
-9. **Swagger Documentation**: Add @ApiOperation, @ApiResponse decorators
+8. Guards: Apply @UseGuards(JwtAuthGuard) to all endpoints
+9. Swagger Documentation: Add @ApiOperation, @ApiResponse decorators
 
-**CONSTRAINTS**:
+CONSTRAINTS:
 - All endpoints must require authentication
 - Input validation must be comprehensive
 - Bulk endpoint must handle up to 1000 scans
 - Deduplication must be efficient
 - Must return consistent error format
 
-**INTEGRATION POINTS**:
+INTEGRATION POINTS:
 - Uses ScansService from Task 5.1
 - Triggers WebSocket events (Task 5.3)
 - Web scanner will call these endpoints (Task 6.1-6.3)
 - Mobile scanner will call these endpoints (Task 7.3)
 
-**TESTING REQUIREMENTS**:
+TESTING REQUIREMENTS:
 1. POST /scans creates scan successfully
 2. POST /scans/bulk handles duplicates correctly
 3. GET /scans returns paginated results
@@ -136,74 +141,78 @@
 8. All endpoints reject unauthenticated requests
 9. Endpoints return 404 for non-existent scans
 
-**ACCEPTANCE CRITERIA**:
+ACCEPTANCE CRITERIA:
 - ✅ All endpoints functional
 - ✅ Authentication enforced
 - ✅ Validation working
 - ✅ Swagger documentation complete
 
-**QUALITY STANDARDS**:
+QUALITY STANDARDS:
 - Follow REST best practices
 - Use proper HTTP status codes
 - Implement comprehensive validation
 - Return detailed error messages
 - Log all API requests
 
-**DELIVERABLES**:
+DELIVERABLES:
 - ScansController with all endpoints
 - DTOs with validation decorators
 - Swagger documentation
 - API tests (Postman/Jest)
 
-**SUCCESS METRIC**: Complete scan API with authentication, validation, and bulk operations.
+SUCCESS METRIC: Complete scan API with authentication, validation, and bulk operations.
+```
 
 ---
 
+
+
 ## Task 5.3: Backend Scans - WebSocket Gateway
 
-**TASK**: Implement WebSocket gateway for real-time scan updates with JWT authentication and user-scoped rooms.
+```
+TASK: Implement WebSocket gateway for real-time scan updates with JWT authentication and user-scoped rooms.
 
-**SYSTEM CONTEXT**: Enables real-time synchronization across devices. When user scans on mobile, web app updates instantly. Critical for multi-device experience.
+SYSTEM CONTEXT: Enables real-time synchronization across devices. When user scans on mobile, web app updates instantly. Critical for multi-device experience.
 
-**REQUIREMENTS**:
+REQUIREMENTS:
 
-1. **Installation**: Install `@nestjs/websockets`, `@nestjs/platform-socket.io`
-2. **Scans Gateway**: Create ScansGateway with @WebSocketGateway decorator
-3. **JWT Middleware**: Implement WebSocket middleware for authentication:
-   - Extract token from `socket.handshake.auth.token` (preferred)
-   - Fallback to `socket.handshake.query.token` for compatibility
+1. Installation: Install @nestjs/websockets, @nestjs/platform-socket.io
+2. Scans Gateway: Create ScansGateway with @WebSocketGateway decorator
+3. JWT Middleware: Implement WebSocket middleware for authentication:
+   - Extract token from socket.handshake.auth.token (preferred)
+   - Fallback to socket.handshake.query.token for compatibility
    - Validate token using JwtService.verify()
    - Reject connection with error if token invalid/missing
    - Extract user ID from token payload
-   - Attach user to socket: `socket.data.user = decodedToken`
-4. **Connection Handling**: Implement `handleConnection(socket)`:
+   - Attach user to socket: socket.data.user = decodedToken
+4. Connection Handling: Implement handleConnection(socket):
    - Validate authentication (middleware should handle)
-   - Join user to private room: `socket.join(`user:${userId}`)`
+   - Join user to private room: socket.join(user:${userId})
    - Log connection event
-5. **Disconnection Handling**: Implement `handleDisconnect(socket)`:
+5. Disconnection Handling: Implement handleDisconnect(socket):
    - Leave user room
    - Clean up socket data
    - Log disconnection
-6. **Event Emitters**: Emit events to user rooms:
-   - `scan:created` when new scan created (from ScansService)
-   - `scan:deleted` when scan deleted (from ScansService)
+6. Event Emitters: Emit events to user rooms:
+   - scan:created when new scan created (from ScansService)
+   - scan:deleted when scan deleted (from ScansService)
    - Include full scan data in event payload
-7. **Integration**: Call gateway methods from ScansService after database operations
+7. Integration: Call gateway methods from ScansService after database operations
 
-**CONSTRAINTS**:
+CONSTRAINTS:
 - Only authenticated users can connect
 - Users must only receive their own scan events
 - Must handle connection failures gracefully
 - Must support multiple concurrent connections per user
 - Token validation must be secure
 
-**INTEGRATION POINTS**:
+INTEGRATION POINTS:
 - Uses JwtService from Task 3.5
 - Called by ScansService after CRUD operations
 - Web client will connect (Task 12.1)
 - Mobile client will connect (Task 12.2)
 
-**TESTING REQUIREMENTS**:
+TESTING REQUIREMENTS:
 1. Connection succeeds with valid token in auth object
 2. Connection succeeds with valid token in query param
 3. Connection rejected with missing token
@@ -214,27 +223,30 @@
 8. Multiple connections per user supported
 9. Events not leaked to other users
 
-**ACCEPTANCE CRITERIA**:
+ACCEPTANCE CRITERIA:
 - ✅ WebSocket authentication working
 - ✅ User rooms functional
 - ✅ Events broadcast correctly
 - ✅ No event leakage between users
 
-**QUALITY STANDARDS**:
+QUALITY STANDARDS:
 - Follow Socket.IO best practices
 - Implement proper error handling
 - Use user-scoped rooms for security
 - Log all connection events
 - Handle edge cases (rapid connect/disconnect)
 
-**DELIVERABLES**:
+DELIVERABLES:
 - ScansGateway implementation
 - JWT middleware for WebSocket
 - Event emitters in ScansService
 - WebSocket tests
 
-**SUCCESS METRIC**: Real-time scan updates work securely across multiple devices per user.
+SUCCESS METRIC: Real-time scan updates work securely across multiple devices per user.
+```
 
 ---
 
-**END OF PHASE 5**
+
+
+END OF PHASE 5
