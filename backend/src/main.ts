@@ -22,6 +22,19 @@ async function bootstrap() {
     }),
   );
 
+  // Swagger Configuration
+  console.log(`Initializing Swagger (NODE_ENV=${process.env.NODE_ENV})...`);
+  const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger');
+  const config = new DocumentBuilder()
+    .setTitle('Barcody API')
+    .setDescription('The Barcody Barcode Scanner API documentation')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
+  console.log('Swagger setup complete at /api/docs');
+
   await app.listen(process.env.PORT ?? 8000);
 }
 void bootstrap();
