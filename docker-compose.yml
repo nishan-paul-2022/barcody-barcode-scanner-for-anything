@@ -65,6 +65,27 @@ services:
       retries: 5
     restart: unless-stopped
 
+  web:
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+      target: deps
+    container_name: barcody_web
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+    volumes:
+      - ./web-app:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    restart: unless-stopped
+    networks:
+      - barcody-network
+    depends_on:
+      - backend
+
 networks:
   barcody-network:
     driver: bridge
