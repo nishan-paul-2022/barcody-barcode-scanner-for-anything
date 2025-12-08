@@ -18,7 +18,8 @@
       "@/modules/*": ["src/modules/*"],
       "@/common/*": ["src/common/*"],
       "@/config/*": ["src/config/*"],
-      "@/shared/*": ["src/shared/*"]
+      "@/shared/*": ["src/shared/*"],
+      "@/*": ["src/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
