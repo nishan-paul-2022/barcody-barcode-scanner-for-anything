@@ -1,9 +1,11 @@
 import { join } from 'path';
+
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WinstonModule } from 'nest-winston';
+
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { getDatabaseConfig } from '@/config/database.config';
