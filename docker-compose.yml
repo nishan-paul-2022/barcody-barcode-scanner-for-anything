@@ -1,25 +1,20 @@
-version: '3.8'
+version: "3.9"
 
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      target: runner
     container_name: barcody_backend
     ports:
       - "8000:8000"
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://${DB_USERNAME:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_DATABASE:-barcody}
-      - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=${JWT_SECRET:-dev_secret_unsafe_default}
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-dev_client_id}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-dev_client_secret}
-      - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI:-http://localhost:8000/api/v1/auth/google/callback}
-      - SENTRY_DSN=${SENTRY_DSN:-https://public@sentry.example.com/1}
-      - PORT=8000
     env_file:
       - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql://${DB_USERNAME:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_DATABASE:-barcody}
+      REDIS_URL: redis://redis:6379
+      PORT: 8000
     depends_on:
       postgres:
         condition: service_healthy
@@ -29,21 +24,37 @@ services:
       - barcody-network
     restart: unless-stopped
 
+  web:
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+      target: runner
+    container_name: barcody_web
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+    depends_on:
+      - backend
+    networks:
+      - barcody-network
+    restart: unless-stopped
+
   postgres:
     image: postgres:15-alpine
     container_name: barcody_postgres
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: ${DB_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_DATABASE:-barcody}
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - barcody-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -64,27 +75,6 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
-
-  web:
-    build:
-      context: ./web-app
-      dockerfile: Dockerfile
-      target: deps
-    container_name: barcody_web
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-    volumes:
-      - ./web-app:/app
-      - /app/node_modules
-      - /app/.next
-    command: npm run dev
-    restart: unless-stopped
-    networks:
-      - barcody-network
-    depends_on:
-      - backend
 
 networks:
   barcody-network:
