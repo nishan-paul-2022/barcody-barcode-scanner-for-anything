@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      target: runner
+    environment:
+      NODE_ENV: production
+
+  backend:
+    build:
+      target: runner
+    environment:
+      NODE_ENV: production
