@@ -1,6 +1,7 @@
 # Default configuration
 WEB_PORT ?= 3000
 BACKEND_PORT ?= 8000
+ADMIN_PORT ?= 3001
 
 DC_DEV := docker-compose.yml
 DC_PROD := docker-compose.yml -f docker-compose.prod.yml
@@ -42,6 +43,7 @@ dev:
 	@echo "Dev environment started."
 	@echo "Web: http://localhost:$(WEB_PORT)"
 	@echo "Backend: http://localhost:$(BACKEND_PORT)"
+	@echo "Admin: http://localhost:$(ADMIN_PORT)"
 
 .PHONY: prod
 prod:
@@ -50,6 +52,7 @@ prod:
 	@echo "Production environment started."
 	@echo "Web: http://localhost:$(WEB_PORT)"
 	@echo "Backend: http://localhost:$(BACKEND_PORT)"
+	@echo "Admin: http://localhost:$(ADMIN_PORT)"
 
 .PHONY: restart-dev
 restart-dev:

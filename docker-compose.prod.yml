@@ -1,13 +1,19 @@
 version: "3.9"
 
 services:
+  backend:
+    build:
+      target: runner
+    environment:
+      NODE_ENV: production
+
   web:
     build:
       target: runner
     environment:
       NODE_ENV: production
 
-  backend:
+  admin-dashboard:
     build:
       target: runner
     environment:
