@@ -79,8 +79,6 @@ SUCCESS METRIC: Global state management configured with persistence and type saf
 
 ---
 
-
-
 ## Task 7.2: Mobile Scanner - Camera Screen
 
 ```
@@ -158,8 +156,6 @@ SUCCESS METRIC: Users can scan barcodes smoothly with native feel and no perform
 
 ---
 
-
-
 ## Task 7.3: Mobile Scanner - Scan Result UI
 
 ```
@@ -230,8 +226,6 @@ SUCCESS METRIC: Users can save and view scans with seamless online/offline exper
 
 ---
 
-
-
 ## Task 7.4: Mobile Scanner - Batch Mode
 
 ```
@@ -297,7 +291,5 @@ SUCCESS METRIC: Users can rapidly scan multiple items with automatic batching an
 ```
 
 ---
-
-
 
 END OF PHASE 7

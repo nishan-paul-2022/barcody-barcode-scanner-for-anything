@@ -19,6 +19,7 @@ This is the Expo mobile application for Barcody.
 ## Assets
 
 Place your design assets in `assets/images/`:
+
 - `icon.png`: 1024x1024
 - `adaptive-icon.png`: 1024x1024
 - `splash-icon.png`: 200x200 (or larger)

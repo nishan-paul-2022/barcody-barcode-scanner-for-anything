@@ -33,7 +33,8 @@ export default function TabLayout() {
           backgroundColor: Colors[colorScheme ?? 'light'].background,
         },
         headerTintColor: Colors[colorScheme ?? 'light'].text,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{

@@ -75,8 +75,6 @@ SUCCESS METRIC: Users can scan barcodes using webcam/mobile camera with real-tim
 
 ---
 
-
-
 ## Task 6.2: Web Scanner - File Upload
 
 ```
@@ -138,8 +136,6 @@ SUCCESS METRIC: Users can upload barcode images and get accurate detection resul
 ```
 
 ---
-
-
 
 ## Task 6.3: Web Scanner - History & Management
 
@@ -209,8 +205,6 @@ SUCCESS METRIC: Users can efficiently browse, search, filter, and manage their s
 ```
 
 ---
-
-
 
 ## Task 6.4: Web PWA Configuration
 
@@ -290,7 +284,5 @@ SUCCESS METRIC: Web app is installable, works offline, and passes Lighthouse PWA
 ```
 
 ---
-
-
 
 END OF PHASE 6

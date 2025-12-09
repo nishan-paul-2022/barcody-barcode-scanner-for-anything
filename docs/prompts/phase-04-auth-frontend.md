@@ -129,8 +129,6 @@ SUCCESS METRIC: User can click "Sign in with Google", complete OAuth flow, and l
 
 ---
 
-
-
 ## Task 4.2: Web Auth - State Management
 
 ```
@@ -254,8 +252,6 @@ SUCCESS METRIC: User stays authenticated across page reloads, tokens refresh aut
 ```
 
 ---
-
-
 
 ## Task 4.3: Web API Client Service
 
@@ -393,8 +389,6 @@ SUCCESS METRIC: All backend communication goes through this client with proper t
 ```
 
 ---
-
-
 
 ## Task 4.4: Web Data Fetching Setup
 
@@ -538,8 +532,6 @@ SUCCESS METRIC: Data fetching is automatic, cached efficiently, and provides smo
 
 ---
 
-
-
 ## Task 4.5: Web Auth - Protected Routes
 
 ```
@@ -661,8 +653,6 @@ SUCCESS METRIC: Unauthorized users cannot access protected pages, and all errors
 ```
 
 ---
-
-
 
 ## Task 4.6: Mobile Auth - Google OAuth Flow
 
@@ -787,8 +777,6 @@ SUCCESS METRIC: User can authenticate with Google on mobile and receive valid JW
 ```
 
 ---
-
-
 
 ## Task 4.7: Mobile Auth - Token Storage
 
@@ -920,8 +908,6 @@ SUCCESS METRIC: Tokens stored securely, user stays authenticated across app rest
 ```
 
 ---
-
-
 
 ## Task 4.8: Mobile Auth - UI Components
 
@@ -1057,8 +1043,6 @@ SUCCESS METRIC: User can navigate through auth flow with clear, professional UI 
 
 ---
 
-
-
 ## Task 4.9: Mobile API Client Service
 
 ```
@@ -1192,8 +1176,6 @@ SUCCESS METRIC: All backend communication works reliably with proper offline han
 
 ---
 
-
-
 ## Task 4.10: Mobile Data Fetching Setup
 
 ```
@@ -1326,8 +1308,6 @@ SUCCESS METRIC: Data fetching works offline, caches efficiently, and syncs autom
 
 ---
 
-
-
 ## Task 4.11: Mobile Auth - Protected Navigation
 
 ```
@@ -1453,8 +1433,6 @@ SUCCESS METRIC: Unauthorized users cannot access protected screens, navigation i
 ```
 
 ---
-
-
 
 ## Task 4.12: Admin Dashboard Data Fetching
 
@@ -1590,8 +1568,6 @@ SUCCESS METRIC: Admin dashboard fetches real-time analytics data efficiently wit
 ```
 
 ---
-
-
 
 ## Task 4.13: Admin Dashboard Authentication
 
@@ -1732,11 +1708,10 @@ SUCCESS METRIC: Only authorized admin users can access dashboard, authentication
 
 ---
 
-
-
 ## Phase 4 Complete
 
 All 13 tasks for Auth Frontend have been detailed with:
+
 - ✅ Full requirements (no code snippets)
 - ✅ System context and integration points
 - ✅ Comprehensive testing requirements
@@ -1745,7 +1720,6 @@ All 13 tasks for Auth Frontend have been detailed with:
 - ✅ Success metrics
 
 **Next**: Create files for remaining phases (5-16)
-
 
 ```
 TASK: Implement Google OAuth login interface for web application
@@ -1993,8 +1967,6 @@ SUCCESS METRIC: User stays authenticated across page reloads, tokens refresh aut
 
 ---
 
-
-
 ## Task 4.3: Web API Client Service
 
 ```
@@ -2131,8 +2103,6 @@ SUCCESS METRIC: All backend communication goes through this client with proper t
 ```
 
 ---
-
-
 
 ## Task 4.4: Web Data Fetching Setup
 
@@ -2277,8 +2247,6 @@ SUCCESS METRIC: Data fetching is automatic, cached efficiently, and provides smo
 
 ---
 
-
-
 ## Task 4.5: Web Auth - Protected Routes
 
 ```
@@ -2401,9 +2369,7 @@ SUCCESS METRIC: Unauthorized users cannot access protected pages, and all errors
 
 ---
 
-
-
-*[Continuing with remaining tasks 4.6-4.13...]*
+_[Continuing with remaining tasks 4.6-4.13...]_
 
 ## Task 4.6: Mobile Auth - Google OAuth Flow
 
@@ -2528,8 +2494,6 @@ SUCCESS METRIC: User can authenticate with Google on mobile and receive valid JW
 ```
 
 ---
-
-
 
 ## Task 4.7: Mobile Auth - Token Storage
 
@@ -2662,8 +2626,6 @@ SUCCESS METRIC: Tokens stored securely, user stays authenticated across app rest
 
 ---
 
-
-
 ## Task 4.8: Mobile Auth - UI Components
 
 ```
@@ -2787,8 +2749,6 @@ SUCCESS METRIC: Complete auth UI with smooth navigation and native feel on both 
 ```
 
 ---
-
-
 
 ## Task 4.9: Mobile API Client Service
 
@@ -2927,8 +2887,6 @@ SUCCESS METRIC: All backend communication goes through this client with proper t
 ```
 
 ---
-
-
 
 ## Task 4.10: Mobile Data Fetching Setup
 
@@ -3074,8 +3032,6 @@ SUCCESS METRIC: Data fetching is automatic, cached efficiently, works offline, a
 
 ---
 
-
-
 ## Task 4.11: Mobile Auth - Protected Navigation
 
 ```
@@ -3205,8 +3161,6 @@ SUCCESS METRIC: Unauthorized users cannot access app screens, auto-login works s
 ```
 
 ---
-
-
 
 ## Task 4.12: Admin Dashboard Data Fetching
 
@@ -3353,8 +3307,6 @@ SUCCESS METRIC: Admin dashboard data fetching is automatic, cached efficiently, 
 
 ---
 
-
-
 ## Task 4.13: Admin Dashboard Authentication
 
 ```
@@ -3500,7 +3452,5 @@ SUCCESS METRIC: Only authorized admin emails can access dashboard, all others ar
 ```
 
 ---
-
-
 
 END OF PHASE 4
