@@ -1,5 +1,7 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WinstonModule } from 'nest-winston';
 import { AppController } from '@/app.controller';
@@ -19,6 +21,9 @@ import { HealthModule } from '@/modules/health/health.module';
         allowUnknown: true,
         abortEarly: true,
       },
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
     WinstonModule.forRoot(winstonConfig),
     TypeOrmModule.forRootAsync({
