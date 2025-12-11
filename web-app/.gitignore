@@ -1,12 +1,62 @@
-.DS_Store
-.env*
-.next/
-.vercel
-build/
-coverage/
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+coverage
+*.lcov
+.nyc_output
+
+# Next.js
+.next
+out
+build
+dist
+
+# Production
+*.tsbuildinfo
 next-env.d.ts
-node_modules/
+
+# Debug
 npm-debug.log*
-out/
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Env files
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# Turbo
+.turbo
+
+# IDE
+.vscode/
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PWA
+**/public/workbox-*
+**/public/worker-*.js
+**/public/sw.js
+**/public/fallback-*.js
+
+# Sentry
+.sentryclirc
+sentry.properties
+
+# Misc
+*.pem
+.eslintcache

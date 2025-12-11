@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Production
+*.tsbuildinfo
+next-env.d.ts
+
+# Coverage
+coverage
+.nyc_output
+
+# Env files
+.env
+.env*.local
+
+# Misc
+.DS_Store
+*.pem
+.vercel
+.turbo

@@ -1,12 +1,14 @@
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+
 import { AppModule } from '@/app.module';
-import { LoggingInterceptor } from '@/common/interceptors/logging.interceptor';
 import { HttpExceptionFilter } from '@/common/filters/http-exception.filter';
+import { LoggingInterceptor } from '@/common/interceptors/logging.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const logger = new Logger('Bootstrap');
 
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.setGlobalPrefix('api/v1');
@@ -23,9 +25,9 @@ async function bootstrap() {
   );
 
   // Swagger Configuration
-  console.log(`Current NODE_ENV: ${process.env.NODE_ENV}`);
+  logger.log(`Current NODE_ENV: ${process.env.NODE_ENV}`);
   if (process.env.NODE_ENV !== 'production') {
-    console.log('Initializing Swagger for development...');
+    logger.log('Initializing Swagger for development...');
     const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger');
     const config = new DocumentBuilder()
       .setTitle('Barcody API')
@@ -35,7 +37,7 @@ async function bootstrap() {
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api/docs', app, document);
-    console.log('Swagger setup complete at /api/docs');
+    logger.log('Swagger setup complete at /api/docs');
   }
 
   await app.listen(process.env.PORT ?? 8000);

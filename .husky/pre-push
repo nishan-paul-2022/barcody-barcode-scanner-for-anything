@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running unit tests..."
+npm run test:unit || {
+  echo "❌ Tests failed. Fix tests before pushing."
+  exit 1
+}
+
+echo "Running security audit..."
+npm audit --audit-level=high || {
+  echo "❌ High/critical vulnerabilities found. Fix before pushing."
+  exit 1
+}
+
+echo "✅ All pre-push checks passed!"

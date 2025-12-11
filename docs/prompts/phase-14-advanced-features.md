@@ -137,8 +137,6 @@ SUCCESS METRIC: Users can compare 2-5 products side-by-side with clear visual di
 
 ---
 
-
-
 ## Task 14.2: Advanced Search & Filters
 
 ```
@@ -299,7 +297,5 @@ SUCCESS METRIC: Users can find scans quickly with powerful search, multiple filt
 ```
 
 ---
-
-
 
 END OF PHASE 14

@@ -8,12 +8,12 @@ export class ExampleDto {
   })
   @IsString()
   @IsNotEmpty()
-  message: string;
+  message!: string;
 
   @ApiPropertyOptional({
     description: 'Optional metadata',
     example: { timestamp: '2023-01-01' },
   })
   @IsOptional()
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }

@@ -1,13 +1,114 @@
+# OSX
 .DS_Store
-.env
-.expo/
-.metro-health-check*
-android/
-dist/
-expo-env.d.ts
-ios/
+.AppleDouble
+.LSOverride
+._*
+
+# Node
 node_modules/
 npm-debug.log*
-web-build/
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Expo
+.expo/
+.expo-shared/
+expo-env.d.ts
+dist/
+web-build/
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.ipa
+*.apk
+*.aab
+
+# Metro
+.metro-health-check*
+
+# Android/IJ
+*.iml
+.gradle/
+local.properties
+*.hprof
+.cxx/
+*.keystore
+!debug.keystore
+
+# iOS
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+ios/.xcode.env.local
+
+# Pods
+ios/Pods/
+Podfile.lock
+
+# Android
+build/
+.gradle
+captures/
+*.class
+.externalNativeBuild
+.cxx
+
+# Env
+.env
+.env*.local
+.env.development
+.env.production
+.env.staging
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
+# Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+.history/
+
+# Misc
+*.log
+*.lock
+!yarn.lock
+!package-lock.json
+.cache/
+tmp/
+temp/

@@ -1,19 +1,35 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Tabs } from 'expo-router';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+import { StyleSheet } from 'react-native';
+
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={28} style={styles.tabIcon} {...props} />;
 }
+
+const styles = StyleSheet.create({
+  tabIcon: {
+    marginBottom: -3,
+  },
+});
+
+const renderScanTabIcon = ({ color }: { color: string }) => (
+  <TabBarIcon name="camera" color={color} />
+);
+const renderHistoryTabIcon = ({ color }: { color: string }) => (
+  <TabBarIcon name="history" color={color} />
+);
+const renderSettingsTabIcon = ({ color }: { color: string }) => (
+  <TabBarIcon name="cog" color={color} />
+);
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -33,26 +49,27 @@ export default function TabLayout() {
           backgroundColor: Colors[colorScheme ?? 'light'].background,
         },
         headerTintColor: Colors[colorScheme ?? 'light'].text,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Scan',
-          tabBarIcon: ({ color }) => <TabBarIcon name="camera" color={color} />,
+          tabBarIcon: renderScanTabIcon,
         }}
       />
       <Tabs.Screen
         name="history"
         options={{
           title: 'History',
-          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
+          tabBarIcon: renderHistoryTabIcon,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
+          tabBarIcon: renderSettingsTabIcon,
         }}
       />
     </Tabs>

@@ -1,49 +1,52 @@
-version: "3.9"
+version: '3.9'
 
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
       target: deps
     environment:
       NODE_ENV: development
       PORT: 8000
+    working_dir: /app/backend
     volumes:
-      - ./backend:/app
+      - .:/app
       - /app/node_modules
     command: npm run start:dev
     ports:
-      - "8000:8000"
+      - '8000:8000'
 
   web:
     build:
-      context: ./web-app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: web-app/Dockerfile
       target: deps
     environment:
       NODE_ENV: development
       PORT: 3000
+    working_dir: /app/web-app
     volumes:
-      - ./web-app:/app
+      - .:/app
       - /app/node_modules
-      - /app/.next
+      - /app/web-app/.next
     command: npm run dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
 
   admin-dashboard:
     build:
-      context: ./admin-dashboard
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: admin-dashboard/Dockerfile
       target: deps
     environment:
       NODE_ENV: development
       PORT: 3001
+    working_dir: /app/admin-dashboard
     volumes:
-      - ./admin-dashboard:/app
+      - .:/app
       - /app/node_modules
-      - /app/.next
+      - /app/admin-dashboard/.next
     command: npm run dev
     ports:
-      - "3001:3001"
+      - '3001:3001'

@@ -706,7 +706,7 @@ interface ProductInfo {
 
   // Nutrition (from Open Food Facts)
   nutrition?: {
-    grade?: "A" | "B" | "C" | "D" | "E";
+    grade?: 'A' | 'B' | 'C' | 'D' | 'E';
     calories?: number;
     fat?: number;
     carbs?: number;
@@ -722,7 +722,7 @@ interface ProductInfo {
   price?: number;
 
   // Metadata
-  source: "openfoodfacts" | "upcdatabase" | "barcodelookup" | "cache";
+  source: 'openfoodfacts' | 'upcdatabase' | 'barcodelookup' | 'cache';
   lastUpdated: string;
 }
 ```
@@ -743,7 +743,7 @@ if (!isConnected) {
     return {
       barcode,
       type: detectType(barcode),
-      message: "Product info unavailable offline",
+      message: 'Product info unavailable offline',
     };
   }
 }
@@ -788,8 +788,8 @@ compareProducts([barcode1, barcode2, barcode3]);
 
 ```typescript
 // Filter scans by dietary preferences
-filterByDiet("vegan"); // Shows only vegan products
-filterByAllergen("gluten"); // Excludes gluten-containing products
+filterByDiet('vegan'); // Shows only vegan products
+filterByAllergen('gluten'); // Excludes gluten-containing products
 ```
 
 **Automatic List Building:**
@@ -855,12 +855,12 @@ sequenceDiagram
 - **Rate Limiting**: Prevent brute force
 
 #### Admin Dashboard
- 
- - **Gmail OAuth**: Single admin account configured via `ADMIN_EMAIL` environment variable
- - **Access Control**: Strict validation against `ADMIN_EMAIL` on every request
- - **No MFA**: Simplified authentication flow (relies on Google's security)
- - **Single Admin**: One admin user, no role-based access control
- - **Session Management**: Secure session tokens with auto-refresh
+
+- **Gmail OAuth**: Single admin account configured via `ADMIN_EMAIL` environment variable
+- **Access Control**: Strict validation against `ADMIN_EMAIL` on every request
+- **No MFA**: Simplified authentication flow (relies on Google's security)
+- **Single Admin**: One admin user, no role-based access control
+- **Session Management**: Secure session tokens with auto-refresh
 
 ---
 
@@ -912,13 +912,13 @@ CMD ["npm", "start"]
 #### Docker Compose (Production)
 
 ```yaml
-version: "3.8"
+version: '3.8'
 
 services:
   backend:
     image: yourusername/barcode-backend:latest
     ports:
-      - "8000:8000"
+      - '8000:8000'
     environment:
       - DATABASE_URL=postgresql://user:pass@db:5432/barcode
       - REDIS_URL=redis://redis:6379
@@ -932,7 +932,7 @@ services:
   web:
     image: yourusername/barcode-web:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
     depends_on:
@@ -1022,7 +1022,7 @@ name: Build and Push Docker Images
 on:
   push:
     branches: [main]
-    tags: ["v*"]
+    tags: ['v*']
   pull_request:
     branches: [main]
 
@@ -1091,7 +1091,7 @@ name: Build and Release Mobile App
 
 on:
   push:
-    tags: ["mobile-v*"]
+    tags: ['mobile-v*']
 
 jobs:
   build-android:
@@ -1102,7 +1102,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Setup Expo
         uses: expo/expo-github-action@v8
@@ -1446,8 +1446,6 @@ docker start barcody-redis
 - Alert on backup failures
 - Monitor backup file sizes for anomalies
 
-
-
 ## 12. Monitoring & Observability
 
 ### 12.1 Application Monitoring
@@ -1472,15 +1470,7 @@ docker start barcody-redis
 ```yaml
 # Docker health checks (NestJS backend)
 healthcheck:
-  test:
-    [
-      "CMD",
-      "wget",
-      "--no-verbose",
-      "--tries=1",
-      "--spider",
-      "http://localhost:8000/health",
-    ]
+  test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:8000/health']
   interval: 30s
   timeout: 10s
   retries: 3
@@ -1590,16 +1580,16 @@ docker-compose -f docker-compose.dev.yml up
 
 ### 15.1 Infrastructure Costs (Monthly)
 
-| Component            | Service              | Cost       |
-| -------------------- | -------------------- | ---------- |
-| **Backend Hosting**  | Self-hosted (Docker) | **$0**     |
-| **Database**         | Self-hosted (Docker) | **$0**     |
-| **Mobile App**       | Expo (free tier)     | **$0**     |
-| **Web App**          | Self-hosted (Docker) | **$0**     |
-| **Admin Dashboard**  | Self-hosted (Docker) | **$0**     |
-| **Tailscale VPN**    | Free (personal use)  | **$0**     |
-| **GitHub Actions**   | Free (public repo)   | **$0**     |
-| **Domain (optional)**| Namecheap/Cloudflare | **$10/yr** |
+| Component             | Service              | Cost       |
+| --------------------- | -------------------- | ---------- |
+| **Backend Hosting**   | Self-hosted (Docker) | **$0**     |
+| **Database**          | Self-hosted (Docker) | **$0**     |
+| **Mobile App**        | Expo (free tier)     | **$0**     |
+| **Web App**           | Self-hosted (Docker) | **$0**     |
+| **Admin Dashboard**   | Self-hosted (Docker) | **$0**     |
+| **Tailscale VPN**     | Free (personal use)  | **$0**     |
+| **GitHub Actions**    | Free (public repo)   | **$0**     |
+| **Domain (optional)** | Namecheap/Cloudflare | **$10/yr** |
 
 **Total Monthly Cost: $0** (excluding optional domain)
 
@@ -1883,25 +1873,21 @@ Admin Dashboard (Next.js + Admin API)
 ### 🌟 **Unique Differentiators**
 
 1. **🏠 Localhost-First, Cloud-Optional**
-
    - All data stays on user's machine
    - No vendor lock-in
    - Complete privacy control
 
 2. **🌍 Access from Anywhere**
-
    - Tailscale VPN integration
    - Works on any WiFi, 4G/5G
    - Secure encrypted tunnels
 
 3. **📴 True Offline Support**
-
    - Mobile works without internet
    - Local SQLite database
    - Auto-sync when reconnected
 
 4. **💸 Zero Cost Operation**
-
    - All free tier services
    - No hidden fees
    - Open source forever

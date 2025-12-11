@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.yarn/
+.pnp.*
+
+# Build outputs
+dist/
+build/
+.expo/
+.expo-shared/
+web-build/
+
+# Native
+android/
+ios/
+*.pbxproj
+
+# Generated
+coverage/
+.next/
+out/
+
+# Configs that shouldn't be formatted
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.env*
+
+# Misc
+.DS_Store
+*.log
+.cache/
