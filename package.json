@@ -13,7 +13,7 @@
     "format-check": "npm run format-check --workspace=backend && npm run format-check --workspace=web-app && npm run format-check --workspace=mobile-app && npm run format-check --workspace=admin-dashboard",
     "format-root": "npx prettier --write \"./*.{json,md,yml}\" \"./docs/**/*.{json,md,yml}\"",
     "type-check": "npm run type-check --workspace=backend && npm run type-check --workspace=web-app && npm run type-check --workspace=mobile-app && npm run type-check --workspace=admin-dashboard",
-    "test": "npm run test --workspace=backend && npm run test --workspace=web-app && npm run test --workspace=mobile-app && npm run test --workspace=admin-dashboard"
+    "test:unit": "npm run test --workspace=backend && npm run test --workspace=web-app && npm run test --workspace=mobile-app && npm run test --workspace=admin-dashboard"
   },
   "workspaces": [
     "backend",
