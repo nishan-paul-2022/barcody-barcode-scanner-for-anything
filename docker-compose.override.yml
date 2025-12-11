@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
   backend:
@@ -15,7 +15,7 @@ services:
       - /app/node_modules
     command: npm run start:dev
     ports:
-      - "8000:8000"
+      - '8000:8000'
 
   web:
     build:
@@ -32,7 +32,7 @@ services:
       - /app/web-app/.next
     command: npm run dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
 
   admin-dashboard:
     build:
@@ -49,4 +49,4 @@ services:
       - /app/admin-dashboard/.next
     command: npm run dev
     ports:
-      - "3001:3001"
+      - '3001:3001'

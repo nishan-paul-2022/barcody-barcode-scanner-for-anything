@@ -10,9 +10,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
-    "format": "prettier --write",
-    "format:check": "prettier --check",
-    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "format-check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "format-staged": "prettier --write",
+    "type-check": "tsc --noEmit -p tsconfig.typecheck.json",
     "test": "echo \"No tests configured yet\""
   },
   "dependencies": {

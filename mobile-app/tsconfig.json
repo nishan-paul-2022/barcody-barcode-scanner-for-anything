@@ -38,6 +38,7 @@
     // Emit
     "noEmit": true,
     "skipLibCheck": true,
+    "incremental": true,
 
     // Interop Constraints
     "forceConsistentCasingInFileNames": true,
