@@ -64,8 +64,6 @@ SUCCESS METRIC: Every main branch push produces a tagged Docker image on Docker 
 
 ---
 
-
-
 ## Task 2.2: Web CI/CD
 
 ```
@@ -123,8 +121,6 @@ SUCCESS METRIC: Optimized web Docker images published automatically on every mai
 ```
 
 ---
-
-
 
 ## Task 2.3: Mobile CI/CD
 
@@ -184,8 +180,6 @@ SUCCESS METRIC: Tagged releases automatically produce installable APKs on GitHub
 
 ---
 
-
-
 ## Task 2.4: Admin Dashboard CI/CD
 
 ```
@@ -242,8 +236,6 @@ SUCCESS METRIC: Admin dashboard images published automatically with separate ver
 ```
 
 ---
-
-
 
 ## Task 2.5: PR Checks & Branch Protection
 
@@ -311,7 +303,5 @@ SUCCESS METRIC: No broken code can merge to dev; all PRs validated automatically
 ```
 
 ---
-
-
 
 END OF PHASE 2

@@ -1,4 +1,4 @@
-import { WinstonModuleOptions } from 'nest-winston';
+import type { WinstonModuleOptions } from 'nest-winston';
 import * as winston from 'winston';
 
 export const winstonConfig: WinstonModuleOptions = {
@@ -11,15 +11,11 @@ export const winstonConfig: WinstonModuleOptions = {
           ? winston.format.json()
           : winston.format.combine(
               winston.format.colorize(),
-              winston.format.printf(
-                ({ timestamp, level, message, context, ...meta }) => {
-                  const ctx = (context as string) || 'Application';
-                  const metaString = Object.keys(meta).length
-                    ? JSON.stringify(meta)
-                    : '';
-                  return `${timestamp as string} [${level}] [${ctx}] ${String(message)} ${metaString}`;
-                },
-              ),
+              winston.format.printf(({ timestamp, level, message, context, ...meta }) => {
+                const ctx = (context as string) || 'Application';
+                const metaString = Object.keys(meta).length ? JSON.stringify(meta) : '';
+                return `${timestamp as string} [${level}] [${ctx}] ${String(message)} ${metaString}`;
+              }),
             ),
       ),
     }),

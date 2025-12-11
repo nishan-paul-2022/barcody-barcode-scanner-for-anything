@@ -89,8 +89,6 @@ SUCCESS METRIC: Export 100k scans with constant memory usage and fast streaming.
 
 ---
 
-
-
 ## Task 11.2: Backend Export - PDF & Excel
 
 ```
@@ -178,8 +176,6 @@ SUCCESS METRIC: Professional PDF and Excel exports with charts and branding.
 ```
 
 ---
-
-
 
 ## Task 11.3: Frontend Export UI
 
@@ -284,7 +280,5 @@ SUCCESS METRIC: Users can easily export scans in any format with filters on both
 ```
 
 ---
-
-
 
 END OF PHASE 11

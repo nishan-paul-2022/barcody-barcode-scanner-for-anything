@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AppService } from '@/app.service';
+
 import { ExampleDto } from '@/app.dto';
+import { AppService } from '@/app.service';
 
 @ApiTags('App')
 @Controller()

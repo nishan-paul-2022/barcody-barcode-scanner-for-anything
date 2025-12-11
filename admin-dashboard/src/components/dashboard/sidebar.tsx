@@ -1,51 +1,51 @@
-"use client"
+'use client';
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { BarChart, Users, Scan, Settings, LayoutDashboard } from "lucide-react"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { BarChart, Users, Scan, Settings, LayoutDashboard } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
-  className?: string
+  className?: string;
 }
 
 export function Sidebar({ className, ...props }: SidebarNavProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const items = [
     {
-      title: "Dashboard",
-      href: "/", // Assuming dashboard is at root
+      title: 'Dashboard',
+      href: '/', // Assuming dashboard is at root
       icon: LayoutDashboard,
     },
     {
-      title: "Analytics",
-      href: "/analytics",
+      title: 'Analytics',
+      href: '/analytics',
       icon: BarChart,
     },
     {
-      title: "Users",
-      href: "/users",
+      title: 'Users',
+      href: '/users',
       icon: Users,
     },
     {
-      title: "Scans",
-      href: "/scans",
+      title: 'Scans',
+      href: '/scans',
       icon: Scan,
     },
     {
-      title: "Settings",
-      href: "/settings",
+      title: 'Settings',
+      href: '/settings',
       icon: Settings,
     },
-  ]
+  ];
 
   return (
     <nav
       className={cn(
-        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1",
+        'flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0',
         className
       )}
       {...props}
@@ -55,11 +55,11 @@ export function Sidebar({ className, ...props }: SidebarNavProps) {
           key={item.href}
           href={item.href}
           className={cn(
-            buttonVariants({ variant: "ghost" }),
+            buttonVariants({ variant: 'ghost' }),
             pathname === item.href
-              ? "bg-muted hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "justify-start"
+              ? 'bg-muted hover:bg-muted'
+              : 'hover:bg-transparent hover:underline',
+            'justify-start'
           )}
         >
           <item.icon className="mr-2 h-4 w-4" />
@@ -67,5 +67,5 @@ export function Sidebar({ className, ...props }: SidebarNavProps) {
         </Link>
       ))}
     </nav>
-  )
+  );
 }

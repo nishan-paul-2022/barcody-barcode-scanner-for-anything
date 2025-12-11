@@ -1,0 +1,48 @@
+{
+  "name": "barcody-barcode-scanner-for-anything",
+  "version": "1.0.0",
+  "description": "Monorepo for Barcody with web, mobile, and admin dashboard",
+  "author": "Nishan Paul",
+  "private": true,
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "npm run lint --workspace=backend && npm run lint --workspace=web-app && npm run lint --workspace=mobile-app && npm run lint --workspace=admin-dashboard",
+    "format": "npm run format --workspace=backend && npm run format --workspace=web-app && npm run format --workspace=mobile-app && npm run format --workspace=admin-dashboard",
+    "format-check": "npm run format-check --workspace=backend && npm run format-check --workspace=web-app && npm run format-check --workspace=mobile-app && npm run format-check --workspace=admin-dashboard",
+    "format-root": "npx prettier --write \"./*.{json,md,yml}\" \"./docs/**/*.{json,md,yml}\"",
+    "type-check": "npm run type-check --workspace=backend && npm run type-check --workspace=web-app && npm run type-check --workspace=mobile-app && npm run type-check --workspace=admin-dashboard",
+    "test:unit": "npm run test --workspace=backend && npm run test --workspace=web-app && npm run test --workspace=mobile-app && npm run test --workspace=admin-dashboard"
+  },
+  "workspaces": [
+    "backend",
+    "web-app",
+    "mobile-app",
+    "admin-dashboard"
+  ],
+  "lint-staged": {
+    "backend/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=backend",
+    "web-app/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=web-app",
+    "mobile-app/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=mobile-app",
+    "admin-dashboard/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=admin-dashboard",
+    "backend/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format-staged --workspace=backend",
+    "web-app/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format-staged --workspace=web-app",
+    "mobile-app/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format-staged --workspace=mobile-app",
+    "admin-dashboard/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format-staged --workspace=admin-dashboard"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything/issues"
+  },
+  "homepage": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything#readme"
+}

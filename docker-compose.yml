@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
   postgres:
@@ -9,13 +9,13 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_DATABASE:-barcody}
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - barcody-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-postgres}']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,13 +26,13 @@ services:
     image: redis:7-alpine
     container_name: barcody_redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis_data:/data
     networks:
       - barcody-network
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
       timeout: 3s
       retries: 5
@@ -41,12 +41,12 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
       target: runner
     container_name: barcody_backend
     ports:
-      - "8000:8000"
+      - '8000:8000'
     env_file:
       - ./backend/.env
     environment:
@@ -61,7 +61,7 @@ services:
     networks:
       - barcody-network
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8000/api/v1/health"]
+      test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:8000/api/v1/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -70,12 +70,12 @@ services:
 
   web:
     build:
-      context: ./web-app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: web-app/Dockerfile
       target: runner
     container_name: barcody_web
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
       PORT: 3000
@@ -85,7 +85,7 @@ services:
     networks:
       - barcody-network
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:3000/api/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -94,22 +94,22 @@ services:
 
   admin-dashboard:
     build:
-      context: ./admin-dashboard
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: admin-dashboard/Dockerfile
       target: runner
     container_name: barcody_admin
     ports:
-      - "3001:3001"
+      - '3001:3001'
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
       PORT: 3001
     depends_on:
       backend:
-         condition: service_healthy
+        condition: service_healthy
     networks:
       - barcody-network
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001/api/health"]
+      test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:3001/api/health']
       interval: 30s
       timeout: 10s
       retries: 3

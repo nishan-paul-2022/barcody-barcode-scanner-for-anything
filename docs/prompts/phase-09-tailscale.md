@@ -83,8 +83,6 @@ SUCCESS METRIC: Backend accessible from any device on Tailscale network with pro
 
 ---
 
-
-
 ## Task 9.2: Web Tailscale Setup Guide
 
 ```
@@ -158,8 +156,6 @@ SUCCESS METRIC: Users can easily generate QR code and test Tailscale connection 
 ```
 
 ---
-
-
 
 ## Task 9.3: Mobile Tailscale Integration
 
@@ -255,7 +251,5 @@ SUCCESS METRIC: Users can easily configure mobile app to connect to self-hosted 
 ```
 
 ---
-
-
 
 END OF PHASE 9

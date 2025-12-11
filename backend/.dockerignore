@@ -1,14 +1,78 @@
-.DS_Store
-.dockerignore
-.env
-.env.*
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build artifacts
+dist
+build
+*.tsbuildinfo
+
+# Testing
+coverage
+.nyc_output
+test-results
+playwright-report
+**/*.spec.ts
+**/*.e2e-spec.ts
+**/test
+
+# Git
 .git
 .gitignore
+.gitattributes
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+docs
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker
 Dockerfile
-coverage/
-dist/
-node_modules/
-npm-debug.log*
-test/
-yarn-debug.log*
-yarn-error.log*
+docker-compose.yml
+docker-compose.*.yml
+.dockerignore
+
+# Logs
+logs
+*.log
+
+# Temp files
+*.tmp
+*.temp
+.cache
+
+# Development tools
+.prettierrc
+.prettierignore
+.eslintrc
+eslint.config.mjs
+.editorconfig
+
+# Database
+*.sqlite
+*.db
+prisma/migrations

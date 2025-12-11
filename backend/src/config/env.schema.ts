@@ -13,7 +13,5 @@ export const envSchema = Joi.object({
     .default('development'),
   PORT: Joi.number().default(8000),
   API_VERSION: Joi.string().default('v1'),
-  LOG_LEVEL: Joi.string()
-    .valid('error', 'warn', 'info', 'debug', 'verbose')
-    .default('info'),
+  LOG_LEVEL: Joi.string().valid('error', 'warn', 'info', 'debug', 'verbose').default('info'),
 });

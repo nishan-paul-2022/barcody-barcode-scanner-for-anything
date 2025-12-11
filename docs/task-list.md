@@ -1142,7 +1142,8 @@
 - [ ] Test: Batch mode works
 - [ ] Test: Queue limit enforced (auto-saves at 100)
 - [ ] Test: Queue clears after save
-**Acceptance**: Continuous scanning functional
+      **Acceptance**: Continuous scanning functional
+
 ---
 
 ## Phase 8: Offline-First Mobile (Tasks 41-44)
@@ -1927,7 +1928,7 @@ graph TD
     T6 --> T13[2.2 Web CI/CD]
     T7 --> T14[2.3 Mobile CI/CD]
     T9 --> T15[2.4 Admin CI/CD]
-    
+
     %% PR Checks depend on all CI/CD pipelines
     T12 --> T16[2.5 PR Checks]
     T13 --> T16

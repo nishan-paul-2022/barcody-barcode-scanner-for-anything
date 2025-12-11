@@ -1,32 +1,73 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolvePackageJsonExports": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
+    /* Language and Environment */
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Modules */
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
-    "sourceMap": true,
-    "outDir": "./dist",
+    "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@/modules/*": ["src/modules/*"],
-      "@/common/*": ["src/common/*"],
-      "@/config/*": ["src/config/*"],
-      "@/shared/*": ["src/shared/*"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@app/*": ["src/*"],
+      "@config/*": ["src/config/*"],
+      "@modules/*": ["src/modules/*"],
+      "@common/*": ["src/common/*"],
+      "@common/decorators/*": ["src/common/decorators/*"],
+      "@common/filters/*": ["src/common/filters/*"],
+      "@common/guards/*": ["src/common/guards/*"],
+      "@common/interceptors/*": ["src/common/interceptors/*"],
+      "@common/pipes/*": ["src/common/pipes/*"],
+      "@database/*": ["src/database/*"],
+      "@shared/*": ["src/shared/*"],
+      "@shared/services/*": ["src/shared/services/*"],
+      "@shared/utils/*": ["src/shared/utils/*"]
     },
+
+    /* Emit */
+    "outDir": "./dist",
+    "rootDir": "./",
+    "removeComments": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "allowJs": false,
     "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": false,
+
+    /* Type Checking */
+    "strict": true,
     "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "strictBindCallApply": true,
-    "noFallthroughCasesInSwitch": true
-  }
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules", "dist", "coverage"]
 }
