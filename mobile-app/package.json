@@ -12,8 +12,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json}\"",
+    "format": "prettier --write",
+    "format:check": "prettier --check",
     "type-check": "tsc --noEmit",
     "test": "echo \"No tests configured yet\""
   },

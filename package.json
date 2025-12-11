@@ -21,12 +21,14 @@
     "admin-dashboard"
   ],
   "lint-staged": {
-    "**/*.{ts,tsx,js,jsx}": [
-      "npm run lint"
-    ],
-    "*.{ts,tsx,js,jsx,json,md}": [
-      "npm run format"
-    ]
+    "backend/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=backend",
+    "web-app/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=web-app",
+    "mobile-app/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=mobile-app",
+    "admin-dashboard/**/*.{js,jsx,ts,tsx}": "npm run lint --workspace=admin-dashboard",
+    "backend/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format --workspace=backend",
+    "web-app/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format --workspace=web-app",
+    "mobile-app/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format --workspace=mobile-app",
+    "admin-dashboard/**/*.{ts,tsx,js,jsx,json,css,md}": "npm run format --workspace=admin-dashboard"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
