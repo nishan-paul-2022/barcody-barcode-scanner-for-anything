@@ -1,11 +1,11 @@
 {
   "name": "barcody-barcode-scanner-for-anything",
   "version": "1.0.0",
-  "description": "- `make help`: Show help message - `make logs`: Tail logs of all containers - `make stop`: Stop all containers - `make dev`: Start development environment (hot reload) - `make prod`: Start production environment (always builds images) - `make restart-dev`: Restart development environment - `make restart-prod`: Restart production environment - `make rebuild-dev`: Rebuild dev environment (use if deps change)",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "description": "Monorepo for Barcody with web, mobile, and admin dashboard",
+  "author": "Nishan Paul",
+  "private": true,
+  "license": "MIT",
+  "type": "commonjs",
   "scripts": {
     "prepare": "husky",
     "lint": "npm run lint --workspace=backend && npm run lint --workspace=web-app && npm run lint --workspace=mobile-app && npm run lint --workspace=admin-dashboard",
@@ -14,6 +14,12 @@
     "type-check": "npm run type-check --workspace=backend && npm run type-check --workspace=web-app && npm run type-check --workspace=mobile-app && npm run type-check --workspace=admin-dashboard",
     "test:unit": "npm run test --workspace=backend && npm run test --workspace=web-app && npm run test --workspace=mobile-app && npm run test --workspace=admin-dashboard"
   },
+  "workspaces": [
+    "backend",
+    "web-app",
+    "mobile-app",
+    "admin-dashboard"
+  ],
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
       "npm run lint"
@@ -22,29 +28,19 @@
       "npm run format"
     ]
   },
-  "workspaces": [
-    "backend",
-    "web-app",
-    "mobile-app",
-    "admin-dashboard"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything/issues"
-  },
-  "homepage": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything#readme",
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything/issues"
+  },
+  "homepage": "https://github.com/nishan-paul-2022/barcody-barcode-scanner-for-anything#readme"
 }

@@ -1,7 +1,10 @@
 {
   "name": "web-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Next.js web app for Barcody",
+  "author": "Nishan Paul",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

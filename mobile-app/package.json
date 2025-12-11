@@ -1,7 +1,11 @@
 {
   "name": "mobile-app",
-  "main": "expo-router/entry",
   "version": "1.0.0",
+  "description": "Expo mobile app for Barcody",
+  "main": "expo-router/entry",
+  "author": "Nishan Paul",
+  "private": true,
+  "license": "MIT",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -47,6 +51,5 @@
     "prettier": "^3.7.4",
     "react-test-renderer": "19.1.0",
     "typescript": "~5.9.2"
-  },
-  "private": true
+  }
 }
