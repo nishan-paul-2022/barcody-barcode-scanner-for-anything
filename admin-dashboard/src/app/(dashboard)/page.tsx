@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function DashboardPage() {
   return (
@@ -11,7 +11,9 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1,234</div>
-            <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+            <p className="text-muted-foreground text-xs">
+              +20.1% from last month
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -20,7 +22,9 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">+201 since last hour</p>
+            <p className="text-muted-foreground text-xs">
+              +201 since last hour
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -29,16 +33,18 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">98.2%</div>
-            <p className="text-xs text-muted-foreground">Uptime this week</p>
+            <p className="text-muted-foreground text-xs">Uptime this week</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Alerts</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Pending Alerts
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">7</div>
-            <p className="text-xs text-muted-foreground">+2 since last hour</p>
+            <p className="text-muted-foreground text-xs">+2 since last hour</p>
           </CardContent>
         </Card>
       </div>

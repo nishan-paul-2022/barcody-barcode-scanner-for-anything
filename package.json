@@ -9,17 +9,17 @@
   "scripts": {
     "prepare": "husky",
     "lint": "npm run lint --workspace=backend && npm run lint --workspace=web-app && npm run lint --workspace=mobile-app && npm run lint --workspace=admin-dashboard",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format": "npm run format --workspace=backend && npm run format --workspace=web-app && npm run format --workspace=mobile-app && npm run format --workspace=admin-dashboard",
+    "format:check": "npm run format:check --workspace=backend && npm run format:check --workspace=web-app && npm run format:check --workspace=mobile-app && npm run format:check --workspace=admin-dashboard",
     "type-check": "npm run type-check --workspace=backend && npm run type-check --workspace=web-app && npm run type-check --workspace=mobile-app && npm run type-check --workspace=admin-dashboard",
     "test:unit": "npm run test --workspace=backend && npm run test --workspace=web-app && npm run test --workspace=mobile-app && npm run test --workspace=admin-dashboard"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "prettier --write"
+      "npm run lint"
     ],
-    "*.{json,md}": [
-      "prettier --write"
+    "*.{ts,tsx,js,jsx,json,md}": [
+      "npm run format"
     ]
   },
   "workspaces": [

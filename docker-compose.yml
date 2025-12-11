@@ -41,8 +41,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
       target: runner
     container_name: barcody_backend
     ports:
@@ -70,8 +70,8 @@ services:
 
   web:
     build:
-      context: ./web-app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: web-app/Dockerfile
       target: runner
     container_name: barcody_web
     ports:
@@ -94,8 +94,8 @@ services:
 
   admin-dashboard:
     build:
-      context: ./admin-dashboard
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: admin-dashboard/Dockerfile
       target: runner
     container_name: barcody_admin
     ports:

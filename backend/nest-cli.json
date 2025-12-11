@@ -3,6 +3,29 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
-  }
+    "deleteOutDir": true,
+    "tsConfigPath": "tsconfig.build.json",
+    "assets": [
+      {
+        "include": "../public/**/*",
+        "outDir": "dist/public",
+        "watchAssets": true
+      },
+      {
+        "include": "**/*.hbs",
+        "outDir": "dist"
+      },
+      {
+        "include": "**/*.json",
+        "outDir": "dist"
+      }
+    ],
+    "watchAssets": true
+  },
+  "generateOptions": {
+    "spec": true,
+    "flat": false
+  },
+  "monorepo": false,
+  "root": "src"
 }

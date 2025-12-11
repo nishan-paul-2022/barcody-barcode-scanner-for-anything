@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+dist
+build
+coverage
+.next
+out
+
+# Static assets
+public
+static
+
+# Generated files
+*.generated.*
+*.gen.*
+
+# Documentation
+docs
+CHANGELOG.md
+
+# IDE
+.vscode
+.idea
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# Cache
+.cache
+.parcel-cache
+.turbo
+
+# Test artifacts
+/test-results
+/playwright-report

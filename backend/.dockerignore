@@ -1,31 +1,78 @@
-# Nestjs specific
-/dist
-/node_modules
-/build
-/tmp
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build artifacts
+dist
+build
+*.tsbuildinfo
+
+# Testing
+coverage
+.nyc_output
+test-results
+playwright-report
+**/*.spec.ts
+**/*.e2e-spec.ts
+**/test
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+docs
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker-compose.*.yml
+.dockerignore
 
 # Logs
 logs
 *.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 
-# dotenv environment variable files
-.env
-.env.development
-.env.test
-.env.production
+# Temp files
+*.tmp
+*.temp
+.cache
 
-# temp directory
-.temp
-.tmp
+# Development tools
+.prettierrc
+.prettierignore
+.eslintrc
+eslint.config.mjs
+.editorconfig
 
-# Git
-.gitignore
-
-# Docker
-.dockerignore
-Dockerfile
+# Database
+*.sqlite
+*.db
+prisma/migrations

@@ -44,7 +44,10 @@ export function Sidebar({ className, ...props }: SidebarNavProps) {
 
   return (
     <nav
-      className={cn('flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1', className)}
+      className={cn(
+        'flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0',
+        className
+      )}
       {...props}
     >
       {items.map((item) => (
@@ -56,7 +59,7 @@ export function Sidebar({ className, ...props }: SidebarNavProps) {
             pathname === item.href
               ? 'bg-muted hover:bg-muted'
               : 'hover:bg-transparent hover:underline',
-            'justify-start',
+            'justify-start'
           )}
         >
           <item.icon className="mr-2 h-4 w-4" />

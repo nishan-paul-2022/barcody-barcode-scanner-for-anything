@@ -1,8 +1,8 @@
-# Nestjs specific
+# Compiled output
 /dist
 /node_modules
 /build
-/tmp
+*.tsbuildinfo
 
 # Logs
 logs
@@ -13,12 +13,51 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# dotenv environment variable files
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+/coverage
+/.nyc_output
+/test-results
+/playwright-report
+
+# IDE
+.vscode/
+.idea
+*.swp
+*.swo
+*~
+
+# Environment variables
 .env
+.env.local
 .env.development
 .env.test
 .env.production
+.env.*.local
 
-# temp directory
-.temp
-.tmp
+# Temp files
+*.tmp
+*.temp
+.cache
+
+# Docker
+docker-compose.override.yml
+
+# Database
+*.sqlite
+*.db
+
+# Package managers
+.pnpm-store
+.yarn/cache
+.yarn/install-state.gz
+
+# Prisma (if using)
+/prisma/migrations/dev.db
+
+# Build artifacts
+*.js.map
+*.d.ts.map

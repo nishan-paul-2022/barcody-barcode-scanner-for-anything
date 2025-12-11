@@ -8,7 +8,7 @@ export class ExampleDto {
   })
   @IsString()
   @IsNotEmpty()
-  message: string;
+  message!: string;
 
   @ApiPropertyOptional({
     description: 'Optional metadata',
