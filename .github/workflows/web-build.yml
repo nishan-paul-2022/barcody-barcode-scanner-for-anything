@@ -11,6 +11,7 @@ on:
 # Required GitHub Secrets:
 # DOCKERHUB_USERNAME - Your Docker Hub username
 # DOCKERHUB_TOKEN - Your Docker Hub personal access token (PAT)
+# NEXT_PUBLIC_API_URL - Production API URL for the backend
 # The image will be pushed to: ${{ secrets.DOCKERHUB_USERNAME }}/barcody-web
 
 jobs:
@@ -50,6 +51,8 @@ jobs:
           file: web-app/Dockerfile
           push: true
           platforms: linux/amd64
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
