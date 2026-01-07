@@ -13,6 +13,7 @@ RUN npm ci
 FROM base AS builder
 WORKDIR /app
 ARG NEXT_PUBLIC_API_URL
+RUN if [ -z "$NEXT_PUBLIC_API_URL" ]; then echo "Error: NEXT_PUBLIC_API_URL build argument must be set"; exit 1; fi
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
