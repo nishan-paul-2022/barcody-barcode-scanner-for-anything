@@ -26,5 +26,6 @@ Required for building and releasing the mobile application via EAS.
 
 The workflows are configured to use these secrets automatically:
 - **Backend Build**: Uses `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
-- **Web Build**: Uses `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
+- **Web Build**: Uses `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, and `NEXT_PUBLIC_API_URL`.
+- **Admin Dashboard Build**: Uses `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, and `NEXT_PUBLIC_API_URL`.
 - **Mobile Build**: Uses `EXPO_TOKEN`.
