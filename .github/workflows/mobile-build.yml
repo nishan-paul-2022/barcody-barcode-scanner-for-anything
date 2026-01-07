@@ -1,59 +1,76 @@
-name: Mobile App Build
+name: Mobile APK Build
 
 on:
   push:
     tags:
       - 'mobile-v*'
-  workflow_dispatch:
-
-# Required GitHub Secrets:
-# EXPO_TOKEN - Your Expo access token
 
 jobs:
   build:
-    name: Build & Release Mobile App
+    name: Build & Release APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for creating releases
+
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Install dependencies
+        run: npm ci
 
       - name: Setup Expo
         uses: expo/expo-github-action@v8
         with:
           expo-version: latest
+          eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Build APK (Local)
+      - name: Check EXPO_TOKEN
         run: |
-          cd mobile-app
-          npx eas-build --platform android --profile production --non-interactive --local --output=../Barcody.apk
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "Error: EXPO_TOKEN is not set in GitHub Secrets."
+            exit 1
+          fi
 
-      - name: Create Release
+      - name: Build Android APK
+        working-directory: ./mobile-app
+        id: build
+        run: |
+          # Trigger EAS build and wait for the result
+          echo "Starting EAS Build for Android..."
+          build_json=$(eas build --platform android --profile production --non-interactive --wait --json)
+          
+          # Extract build artifact URL
+          artifact_url=$(echo "$build_json" | jq -r '.[0].artifacts.buildUrl')
+          
+          if [ "$artifact_url" == "null" ] || [ -z "$artifact_url" ]; then
+            echo "Error: Could not find build artifact URL in EAS response."
+            echo "Response: $build_json"
+            exit 1
+          fi
+          
+          echo "artifact_url=$artifact_url" >> $GITHUB_OUTPUT
+          echo "Successfully completed build. Artifact URL: $artifact_url"
+
+      - name: Download APK
+        run: |
+          curl -L -o barcody-release.apk "${{ steps.build.outputs.artifact_url }}"
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: Barcody.apk
+          files: barcody-release.apk
           name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
+          tag_name: ${{ github.ref }}
           generate_release_notes: true
+          body_path: .github/RELEASE_TEMPLATE.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
