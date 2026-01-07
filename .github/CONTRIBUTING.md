@@ -57,7 +57,7 @@ To ensure the stability of the `dev` branch, the following requirements must be 
 ## Local Development Hooks
 
 We use Husky to run pre-commit and pre-push hooks:
-- **Pre-commit**: Runs `lint-staged` and type-checking on affected files.
+- **Pre-commit**: Runs `lint-staged` to lint and format staged files.
 - **Pre-push**: Runs unit tests and security audits.
 - **Commit-msg**: Validates commit messages against conventional commit rules.
 
