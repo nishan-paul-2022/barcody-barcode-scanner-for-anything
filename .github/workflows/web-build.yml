@@ -1,0 +1,56 @@
+name: Web App Docker Build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'web-app/**'
+  workflow_dispatch:
+
+# Required GitHub Secrets:
+# DOCKERHUB_USERNAME - Your Docker Hub username
+# DOCKERHUB_TOKEN - Your Docker Hub personal access token (PAT)
+# The image will be pushed to: ${{ secrets.DOCKERHUB_USERNAME }}/barcody-web
+
+jobs:
+  build-and-push:
+    name: Build & Publish Web Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/barcody-web
+          tags: |
+            type=sha,format=short,prefix=sha-
+            type=ref,event=branch
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: web-app/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
