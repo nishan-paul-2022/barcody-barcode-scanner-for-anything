@@ -29,7 +29,7 @@ Format: `<type>(<scope>): <description>`
 - `chore`: Changes to the build process or auxiliary tools and libraries
 
 **Scopes:**
-- `backend`, `web`, `mobile`, `admin`, `api`, `auth`, `ui`, etc.
+- `backend`, `web-app`, `mobile-app`, `admin-dashboard`, `api`, `auth`, `ui`, etc.
 
 **Example:**
 `feat(auth): add google oauth login to mobile app`
