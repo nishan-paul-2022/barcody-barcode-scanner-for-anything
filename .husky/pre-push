@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "Running unit tests..."
-npm run test:unit || {
+npm test || {
   echo "❌ Tests failed. Fix tests before pushing."
   exit 1
 }
