@@ -30,12 +30,12 @@
 
 ## Directory overview
 
-- [`src/app`](../../app-web/src/app): Next.js route entrypoints and layout
-- [`src/components`](../../app-web/src/components): reusable UI components and providers
-- [`src/hooks`](../../app-web/src/hooks): data hooks and domain logic hooks
-- [`src/lib`](../../app-web/src/lib): shared utilities, API client, query client, websocket service
-- [`src/store`](../../app-web/src/store): Zustand state stores
-- [`src/types`](../../app-web/src/types): shared TypeScript types
+- [`src/app`](../../../app-web/src/app): Next.js route entrypoints and layout
+- [`src/components`](../../../app-web/src/components): reusable UI components and providers
+- [`src/hooks`](../../../app-web/src/hooks): data hooks and domain logic hooks
+- [`src/lib`](../../../app-web/src/lib): shared utilities, API client, query client, websocket service
+- [`src/store`](../../../app-web/src/store): Zustand state stores
+- [`src/types`](../../../app-web/src/types): shared TypeScript types
 
 ## What is covered in this explanation set
 

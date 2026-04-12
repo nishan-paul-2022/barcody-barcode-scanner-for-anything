@@ -24,14 +24,14 @@ This document explains the core backend architecture of the Barcody API server i
 
 ## Main backend entry points
 
-- [`src/main.ts`](../app-backend/src/main.ts#L32-L105)  — application bootstrap, CORS, global pipes, logging, Swagger setup
-- [`src/app.module.ts`](../app-backend/src/app.module.ts#L1-L79)  — root module wiring all feature modules
-- [`src/modules/auth`](../app-backend/src/modules/auth)  — auth controllers, JWT handling, refresh tokens, Google OAuth
-- [`src/modules/scans`](../app-backend/src/modules/scans)  — scan API CRUD, query filters, bulk writes, real-time gateway
-- [`src/modules/product-lookup`](../app-backend/src/modules/product-lookup)  — barcode product data lookup with cache and API fallback
-- [`src/modules/export`](../app-backend/src/modules/export)  — streaming export endpoints and report generation
-- [`src/modules/analytics`](../app-backend/src/modules/analytics)  — enqueue analytics events safely
-- [`src/modules/redis`](../app-backend/src/modules/redis)  — Redis helper wrapper used across backend
+- [`src/main.ts`](../../app-backend/src/main.ts#L32-L105)  — application bootstrap, CORS, global pipes, logging, Swagger setup
+- [`src/app.module.ts`](../../app-backend/src/app.module.ts#L1-L79)  — root module wiring all feature modules
+- [`src/modules/auth`](../../app-backend/src/modules/auth)  — auth controllers, JWT handling, refresh tokens, Google OAuth
+- [`src/modules/scans`](../../app-backend/src/modules/scans)  — scan API CRUD, query filters, bulk writes, real-time gateway
+- [`src/modules/product-lookup`](../../app-backend/src/modules/product-lookup)  — barcode product data lookup with cache and API fallback
+- [`src/modules/export`](../../app-backend/src/modules/export)  — streaming export endpoints and report generation
+- [`src/modules/analytics`](../../app-backend/src/modules/analytics)  — enqueue analytics events safely
+- [`src/modules/redis`](../../app-backend/src/modules/redis)  — Redis helper wrapper used across backend
 
 ## How the backend is organized
 

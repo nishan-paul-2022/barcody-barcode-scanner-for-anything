@@ -4,7 +4,7 @@ This document explains how `app-backend` handles authentication, session tokens,
 
 ## Auth controller endpoints
 
-[`src/modules/auth/auth.controller.ts`](../app-backend/src/modules/auth/auth.controller.ts#L25-L85) exposes these routes:
+[`src/modules/auth/auth.controller.ts`](../../app-backend/src/modules/auth/auth.controller.ts#L25-L85) exposes these routes:
 
 - `POST /auth/google` — exchange Google ID token for JWT access and refresh tokens.
 - `POST /auth/refresh` — refresh access token using a refresh token.
@@ -14,7 +14,7 @@ This document explains how `app-backend` handles authentication, session tokens,
 
 ## Google login flow
 
-[`src/modules/auth/auth.service.ts`](../app-backend/src/modules/auth/auth.service.ts#L31-L119) handles Google authentication.
+[`src/modules/auth/auth.service.ts`](../../app-backend/src/modules/auth/auth.service.ts#L31-L119) handles Google authentication.
 
 - Verifies the Google ID token against `https://oauth2.googleapis.com/tokeninfo`.
 - Verifies the `aud` claim matches `GOOGLE_CLIENT_ID`.
@@ -24,7 +24,7 @@ This document explains how `app-backend` handles authentication, session tokens,
 
 ## JWT and refresh token lifecycle
 
-[`src/modules/auth/jwt-auth.service.ts`](../app-backend/src/modules/auth/jwt-auth.service.ts#L21-L108) manages token creation and validation.
+[`src/modules/auth/jwt-auth.service.ts`](../../app-backend/src/modules/auth/jwt-auth.service.ts#L21-L108) manages token creation and validation.
 
 - `generateAccessToken(...)` creates a short-lived access token (15m).
 - `generateRefreshToken(...)` creates a 7d refresh token and stores it in Redis.
@@ -35,14 +35,14 @@ This document explains how `app-backend` handles authentication, session tokens,
 
 ## Protecting routes
 
-- [`JwtAuthGuard`](../app-backend/src/modules/auth/guards/jwt-auth.guard.ts#L1-L40) is applied to most protected controllers.
+- [`JwtAuthGuard`](../../app-backend/src/modules/auth/guards/jwt-auth.guard.ts#L1-L40) is applied to most protected controllers.
 - It extracts `Authorization: Bearer <token>` from HTTP headers.
 - If valid, it attaches the decoded JWT payload to the request as `user`.
 
 ## Google OAuth web redirect
 
-- [`GoogleAuthGuard`](../app-backend/src/modules/auth/guards/google-auth.guard.ts#L1-L20) uses Passport's Google strategy.
-- [`GoogleAuthGuard`](../app-backend/src/modules/auth/guards/google-auth.guard.ts#L1-L20) uses Passport's Google strategy.
+- [`GoogleAuthGuard`](../../app-backend/src/modules/auth/guards/google-auth.guard.ts#L1-L20) uses Passport's Google strategy.
+- [`GoogleAuthGuard`](../../app-backend/src/modules/auth/guards/google-auth.guard.ts#L1-L20) uses Passport's Google strategy.
 - `GET /auth/google` begins the OAuth redirect.
 - `GET /auth/google/callback` handles provider callback.
 - This flow is mainly for browser redirect login, while the mobile/web client generally uses `POST /auth/google`.

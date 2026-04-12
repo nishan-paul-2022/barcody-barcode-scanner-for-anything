@@ -2,7 +2,7 @@
 
 Authentication and client state are centralized in `app-web`. The app keeps track of user login, tokens, UI state, scan workflow state, and socket connection status.
 
-## Auth store: [`src/store/useAuthStore.ts`](../../app-web/src/store/useAuthStore.ts#L1-L167)
+## Auth store: [`src/store/useAuthStore.ts`](../../../app-web/src/store/useAuthStore.ts#L1-L167)
 
 - Uses Zustand with `persist` to store auth in `localStorage` under `auth-storage`.
 - Maintains:
@@ -21,7 +21,7 @@ Authentication and client state are centralized in `app-web`. The app keeps trac
   - If refresh fails with 401/403, the user is logged out.
   - Axios requests automatically trigger refresh on 401 via interceptor.
 
-## UI state: [`src/store/useUIStore.ts`](../../app-web/src/store/useUIStore.ts#L1-L26)
+## UI state: [`src/store/useUIStore.ts`](../../../app-web/src/store/useUIStore.ts#L1-L26)
 
 Simple UI store for modal and redirect state:
 
@@ -31,7 +31,7 @@ Simple UI store for modal and redirect state:
 - Open/close login modal
 - Save redirect path for protected navigation
 
-## Scan state: [`src/store/useScanStore.ts`](../../app-web/src/store/useScanStore.ts#L1-L149)
+## Scan state: [`src/store/useScanStore.ts`](../../../app-web/src/store/useScanStore.ts#L1-L149)
 
 This store persists scan session state across refreshes.
 
@@ -41,7 +41,7 @@ This store persists scan session state across refreshes.
 - Provides helpers to update current tab data
 - Persists only safe fields; sensitive or transient state is excluded
 
-## Socket state: [`src/store/useSocketStore.ts`](../../app-web/src/store/useSocketStore.ts#L1-L21)
+## Socket state: [`src/store/useSocketStore.ts`](../../../app-web/src/store/useSocketStore.ts#L1-L21)
 
 - Tracks realtime connection status:
   - `connected`

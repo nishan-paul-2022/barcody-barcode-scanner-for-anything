@@ -4,7 +4,7 @@ This document explains how product barcode lookup works and how external APIs ar
 
 ## Lookup service architecture
 
-[`src/modules/product-lookup/product-lookup.service.ts`](../app-backend/src/modules/product-lookup/product-lookup.service.ts#L15-L248) is the central lookup engine.
+[`src/modules/product-lookup/product-lookup.service.ts`](../../app-backend/src/modules/product-lookup/product-lookup.service.ts#L15-L248) is the central lookup engine.
 
 - Accepts barcode lookup requests from scan creation and direct product routes.
 - Uses Redis caching to avoid repeated external API calls.
@@ -24,7 +24,7 @@ If any provider returns a valid product, the result is cached and returned.
 
 ## Raw lookup proxy
 
-[`src/modules/product-lookup/products.controller.ts`](../app-backend/src/modules/product-lookup/products.controller.ts#L25-L89) exposes raw proxy endpoints for external sources.
+[`src/modules/product-lookup/products.controller.ts`](../../app-backend/src/modules/product-lookup/products.controller.ts#L25-L89) exposes raw proxy endpoints for external sources.
 
 - `GET /products/:barcode/raw/:source`
 - Supported sources: `off`, `obf`, `usda`, `upcitemdb`, `goUpc`, `searchUpc`

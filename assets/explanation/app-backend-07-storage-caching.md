@@ -4,7 +4,7 @@ This document explains how persistence and caching helpers are implemented.
 
 ## Redis wrapper service
 
-[`src/modules/redis/redis.service.ts`](../app-backend/src/modules/redis/redis.service.ts#L20-L124) is a shared Redis helper.
+[`src/modules/redis/redis.service.ts`](../../app-backend/src/modules/redis/redis.service.ts#L20-L124) is a shared Redis helper.
 
 - Uses NestJS `CACHE_MANAGER` to access Redis.
 - Checks availability on module initialization.
@@ -14,7 +14,7 @@ This document explains how persistence and caching helpers are implemented.
 
 ## User persistence
 
-[`src/modules/users/users.service.ts`](../app-backend/src/modules/users/users.service.ts#L7-L62) manages user records.
+[`src/modules/users/users.service.ts`](../../app-backend/src/modules/users/users.service.ts#L7-L62) manages user records.
 
 - `findOrCreateByGoogleId(...)` performs an upsert-like transaction.
 - `updateLastLogin(...)` refreshes login timestamps.
@@ -23,7 +23,7 @@ This document explains how persistence and caching helpers are implemented.
 
 ## Tailscale helper route
 
-[`src/modules/tailscale/tailscale.controller.ts`](../app-backend/src/modules/tailscale/tailscale.controller.ts#L1-L20) exposes Tailscale URI information.
+[`src/modules/tailscale/tailscale.controller.ts`](../../app-backend/src/modules/tailscale/tailscale.controller.ts#L1-L20) exposes Tailscale URI information.
 
 - `GET /setup/tailscale-info`
 - Computes a magic DNS hostname and backend URL for Tailscale access.

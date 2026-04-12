@@ -4,7 +4,7 @@ This file describes how `app-backend` starts and wires dependencies.
 
 ## Application bootstrap
 
-- Entry point: [`app-backend/src/main.ts`](../app-backend/src/main.ts#L32-L105).
+- Entry point: [`app-backend/src/main.ts`](../../app-backend/src/main.ts#L32-L105).
 - Bootstraps Nest application using `NestFactory.create(AppModule)`.
 - Sets global prefix `api/v1`.
 - Adds a custom middleware to fix `Cross-Origin-Opener-Policy` for Google login.
@@ -14,7 +14,7 @@ This file describes how `app-backend` starts and wires dependencies.
 
 ## Root module wiring
 
-[`app-backend/src/app.module.ts`](../app-backend/src/app.module.ts#L1-L79) is the root injector.
+[`app-backend/src/app.module.ts`](../../app-backend/src/app.module.ts#L1-L79) is the root injector.
 
 Key imports:
 - `ConfigModule.forRoot(...)` validates env vars via `src/config/env.schema.ts`.
@@ -26,7 +26,7 @@ Key imports:
 
 ## Environment and validation
 
-The backend relies on a validated environment schema in [`src/config/env.schema.ts`](../app-backend/src/config/env.schema.ts#L1-L35).
+The backend relies on a validated environment schema in [`src/config/env.schema.ts`](../../app-backend/src/config/env.schema.ts#L1-L35).
 
 Required values include:
 - `DATABASE_URL`

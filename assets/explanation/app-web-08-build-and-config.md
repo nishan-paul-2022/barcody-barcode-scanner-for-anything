@@ -56,8 +56,8 @@ The app expects runtime environment values such as:
 - Possibly theme or analytics variables in env files
 
 Env templates exist in:
-- [`app-web/.env.example`](../../app-web/.env.example)
-- [`envs/app-web/`](../../envs/app-web/)
+- [`app-web/.env.example`](../../../app-web/.env.example)
+- [`envs/app-web/`](../../../envs/app-web/)
 
 ## Type checking and linting
 

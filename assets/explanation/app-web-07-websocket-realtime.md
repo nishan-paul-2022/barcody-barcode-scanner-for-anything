@@ -1,12 +1,12 @@
 # app-web Websocket / Realtime
 
-Realtime scan updates are handled by [`src/lib/websocket/socket-service.ts`](../../app-web/src/lib/websocket/socket-service.ts#L1-L184) and [`SocketProvider`](../../app-web/src/components/providers/SocketProvider.tsx#L1-L31). This enables the app to stay in sync with backend scan events.
+Realtime scan updates are handled by [`src/lib/websocket/socket-service.ts`](../../../app-web/src/lib/websocket/socket-service.ts#L1-L184) and [`SocketProvider`](../../../app-web/src/components/providers/SocketProvider.tsx#L1-L31). This enables the app to stay in sync with backend scan events.
 
 ## Socket lifecycle
 
-- [`SocketProvider`](../../app-web/src/components/providers/SocketProvider.tsx#L1-L31) watches `useAuthStore.isAuthenticated` and `accessToken`.
-- When the user is authenticated, [`socketService.connect()`](../../app-web/src/lib/websocket/socket-service.ts#L19-L49) is called.
-- When the user logs out or loses auth, [`socketService.disconnect()`](../../app-web/src/lib/websocket/socket-service.ts#L182-L184) is called.
+- [`SocketProvider`](../../../app-web/src/components/providers/SocketProvider.tsx#L1-L31) watches `useAuthStore.isAuthenticated` and `accessToken`.
+- When the user is authenticated, [`socketService.connect()`](../../../app-web/src/lib/websocket/socket-service.ts#L19-L49) is called.
+- When the user logs out or loses auth, [`socketService.disconnect()`](../../../app-web/src/lib/websocket/socket-service.ts#L182-L184) is called.
 
 ## Connection details
 
@@ -17,10 +17,10 @@ Realtime scan updates are handled by [`src/lib/websocket/socket-service.ts`](../
 
 ## Event handling
 
-- [`connect`](../../app-web/src/lib/websocket/socket-service.ts#L51-L60) updates `useSocketStore.status` to `connected`.
-- [`disconnect`](../../app-web/src/lib/websocket/socket-service.ts#L182-L184) marks status as `disconnected` or `reconnecting`.
-- [`connect_error`](../../app-web/src/lib/websocket/socket-service.ts#L62-L70) captures errors and increments retry counters.
-- [`reconnect_attempt`](../../app-web/src/lib/websocket/socket-service.ts#L72-L77) updates status to `reconnecting`.
+- [`connect`](../../../app-web/src/lib/websocket/socket-service.ts#L51-L60) updates `useSocketStore.status` to `connected`.
+- [`disconnect`](../../../app-web/src/lib/websocket/socket-service.ts#L182-L184) marks status as `disconnected` or `reconnecting`.
+- [`connect_error`](../../../app-web/src/lib/websocket/socket-service.ts#L62-L70) captures errors and increments retry counters.
+- [`reconnect_attempt`](../../../app-web/src/lib/websocket/socket-service.ts#L72-L77) updates status to `reconnecting`.
 
 ## Business events
 

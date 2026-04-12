@@ -4,7 +4,7 @@ This document details export endpoints and asynchronous analytics tracking.
 
 ## Export endpoints
 
-[`src/modules/export/export.controller.ts`](../app-backend/src/modules/export/export.controller.ts#L12-L120) exposes export types behind JWT auth:
+[`src/modules/export/export.controller.ts`](../../app-backend/src/modules/export/export.controller.ts#L12-L120) exposes export types behind JWT auth:
 
 - `GET /export/csv` — stream CSV directly.
 - `GET /export/json` — stream JSON directly.
@@ -13,7 +13,7 @@ This document details export endpoints and asynchronous analytics tracking.
 
 ## Streaming exports
 
-[`src/modules/export/export.service.ts`](../app-backend/src/modules/export/export.service.ts#L74-L120) uses database streaming for efficient export.
+[`src/modules/export/export.service.ts`](../../app-backend/src/modules/export/export.service.ts#L74-L120) uses database streaming for efficient export.
 
 - `getCsvStream(...)` streams rows from PostgreSQL and formats CSV.
 - `getJsonStream(...)` streams JSON objects using `JSONStream`.
@@ -30,11 +30,11 @@ For `pdf` and `excel` exports:
 
 ## Analytics event queue
 
-[`src/modules/analytics/analytics.controller.ts`](../app-backend/src/modules/analytics/analytics.controller.ts#L7-L22) accepts events at:
+[`src/modules/analytics/analytics.controller.ts`](../../app-backend/src/modules/analytics/analytics.controller.ts#L7-L22) accepts events at:
 
 - `POST /analytics/event`
 
-[`src/modules/analytics/analytics.service.ts`](../app-backend/src/modules/analytics/analytics.service.ts#L1-L45) queues events into a Bull queue named `analytics`.
+[`src/modules/analytics/analytics.service.ts`](../../app-backend/src/modules/analytics/analytics.service.ts#L1-L45) queues events into a Bull queue named `analytics`.
 
 - Hashes `user_id` with `ANALYTICS_HASH_SECRET` before storing.
 - Uses exponential retry and `removeOnComplete` for cleanup.

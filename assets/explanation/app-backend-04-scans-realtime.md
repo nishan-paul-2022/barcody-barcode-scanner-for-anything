@@ -4,7 +4,7 @@ This file covers the scan lifecycle and real-time notifications in `app-backend`
 
 ## Scan REST API
 
-[`src/modules/scans/scans.controller.ts`](../app-backend/src/modules/scans/scans.controller.ts#L27-L120) exposes scanned-item management endpoints:
+[`src/modules/scans/scans.controller.ts`](../../app-backend/src/modules/scans/scans.controller.ts#L27-L120) exposes scanned-item management endpoints:
 
 - `POST /scans` — create a scan.
 - `POST /scans/bulk` — bulk-create with deduplication within a 1-minute window.
@@ -17,7 +17,7 @@ This file covers the scan lifecycle and real-time notifications in `app-backend`
 
 ## Scan business logic
 
-[`src/modules/scans/scans.service.ts`](../app-backend/src/modules/scans/scans.service.ts#L49-L294) implements scan operations.
+[`src/modules/scans/scans.service.ts`](../../app-backend/src/modules/scans/scans.service.ts#L49-L294) implements scan operations.
 
 - `create(...)` optionally performs product lookup when `productName` is missing.
 - Saved scans are transformed into a client-friendly shape with embedded `product` metadata.
@@ -30,7 +30,7 @@ This file covers the scan lifecycle and real-time notifications in `app-backend`
 
 ## Real-time scan events
 
-[`src/modules/scans/scans.gateway.ts`](../app-backend/src/modules/scans/scans.gateway.ts#L12-L63) handles WebSocket-based updates.
+[`src/modules/scans/scans.gateway.ts`](../../app-backend/src/modules/scans/scans.gateway.ts#L12-L63) handles WebSocket-based updates.
 
 - Uses `@WebSocketGateway({ namespace: 'scans' })`.
 - Authenticates sockets by extracting JWT from `handshake.auth.token`, query token, or Authorization header.
