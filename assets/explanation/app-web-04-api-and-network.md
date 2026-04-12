@@ -61,3 +61,10 @@ The client exports structured endpoints grouped by feature in [`src/lib/api/clie
 - `apiClient` is the shared network layer used by hooks and UI events.
 - The auth logic inside `apiClient` means most pages do not need to handle token refresh manually.
 - Network resilience is tuned for fast frontend recovery.
+
+## Related backend docs
+
+- `app-backend-03-auth-session.md` — auth endpoints and token validation
+- `app-backend-04-scans-realtime.md` — scan CRUD API and scan list queries
+- `app-backend-05-product-lookup-cache.md` — product lookup and raw lookup proxy
+- `app-backend-06-export-analytics.md` — export endpoints for CSV/JSON/PDF/Excel

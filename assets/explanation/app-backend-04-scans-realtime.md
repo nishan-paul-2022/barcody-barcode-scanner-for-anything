@@ -51,3 +51,9 @@ Source:
 - On scan create or bulk create: `scansService.create(...)` / `bulkCreate(...)` → `scansGateway.emitScanCreated(...)`.
 - On scan delete or batch delete: `scansService.delete(...)` / `bulkDelete(...)` → `scansGateway.emitScanDeleted(...)`.
 - This gives the frontend instant updates without polling.
+
+## Related frontend docs
+
+- `app-web-04-api-and-network.md` — how scan requests are sent and retried
+- `app-web-07-websocket-realtime.md` — how realtime scan events are consumed client-side
+- `app-web-09-hooks.md` — scan hooks that encapsulate these backend APIs

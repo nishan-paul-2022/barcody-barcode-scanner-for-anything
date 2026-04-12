@@ -73,3 +73,8 @@ This store persists scan session state across refreshes.
 - State persistence lets the user remain logged in across browser reloads.
 - Token lifecycle is robust: login, refresh on expiry, logout on invalid refresh.
 - UI state is intentionally lightweight and separate from domain state.
+
+## Related backend docs
+
+- `app-backend-03-auth-session.md` — JWT login, refresh, logout, and auth guard flow
+- `app-backend-02-bootstrap-config.md` — CORS and global app middleware for auth support

@@ -58,5 +58,11 @@ Source:
 - `GET /auth/google/callback` handles provider callback.
 - This flow is mainly for browser redirect login, while the mobile/web client generally uses `POST /auth/google`.
 
+## Related frontend docs
+
+- `app-web-03-auth-and-state.md` — auth store, login modal, and refresh token handling
+- `app-web-04-api-and-network.md` — frontend API calls for login and token refresh
+- `app-web-01-overview.md` — where auth fits in the overall client workflow
+
 Source:
 - [`src/modules/auth/guards/google-auth.guard.ts`](../app-backend/src/modules/auth/guards/google-auth.guard.ts#L1-L20)

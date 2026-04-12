@@ -51,3 +51,9 @@ Source:
 Users can store API keys for external lookup providers, including UPC Database, USDA, GoUPC, and SearchUPC.
 - These keys are retrieved from `UsersService.getApiKeys(userId)`.
 - The service gracefully falls back when keys are missing.
+
+## Related frontend docs
+
+- `app-web-03-auth-and-state.md` — user-linked API keys are part of authenticated user profile state
+- `app-web-04-api-and-network.md` — product lookup requests and raw lookup endpoints
+- `app-web-09-hooks.md` — product hooks that call the lookup API

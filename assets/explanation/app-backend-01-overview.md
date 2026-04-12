@@ -2,6 +2,8 @@
 
 This document explains the core backend architecture of the Barcody API server in `app-backend`.
 
+> See `app-web-backend-crosswalk.md` for direct frontend/backend topic mapping.
+
 ## What this backend does
 
 - Provides authenticated REST APIs for barcode scanning, product lookup, export, analytics, and health checks.
@@ -38,6 +40,13 @@ This document explains the core backend architecture of the Barcody API server i
 3. `RedisModule` bootstraps Redis cache and exposes `RedisService`.
 4. Feature modules are imported into `AppModule`.
 5. `JwtAuthGuard` protects most API routes.
+
+## Related frontend docs
+
+- `app-web-01-overview.md` — overall client architecture and goals
+- `app-web-03-auth-and-state.md` — how auth state is mapped from backend tokens
+- `app-web-04-api-and-network.md` — frontend API client and retry behavior
+- `app-web-07-websocket-realtime.md` — frontend realtime event processing
 
 ## Read next
 

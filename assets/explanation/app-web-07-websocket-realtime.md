@@ -42,3 +42,7 @@ Realtime scan updates are handled by [`src/lib/websocket/socket-service.ts`](../
 - Keeps scan history accurate without full page refresh.
 - Ensures multiple clients see changes quickly.
 - Makes the frontend feel real-time while still relying on React Query cache invalidation.
+
+## Related backend docs
+
+- `app-backend-04-scans-realtime.md` — Socket.IO gateway and scan event emission

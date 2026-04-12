@@ -49,6 +49,11 @@ Source:
 - Uses exponential retry and `removeOnComplete` for cleanup.
 - Fails silently so analytics does not block the main application.
 
+## Related frontend docs
+
+- `app-web-08-build-and-config.md` — analytics integration and environment assumptions
+- `app-web-09-hooks.md` — frontend analytics hooks that send events to the backend
+
 Source:
 - [`src/modules/analytics/analytics.controller.ts`](../app-backend/src/modules/analytics/analytics.controller.ts#L7-L22)
 - [`src/modules/analytics/analytics.service.ts`](../app-backend/src/modules/analytics/analytics.service.ts#L1-L45)

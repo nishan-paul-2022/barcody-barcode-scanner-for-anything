@@ -44,3 +44,9 @@ The [`src/hooks`](../../app-web/src/hooks) folder contains reusable data access 
 - UI components should avoid direct API calls.
 - Feature pages should consume hooks and render returned state.
 - Hooks should remain focused on one feature area.
+
+## Related backend docs
+
+- `app-backend-04-scans-realtime.md` — scan hooks map to scan API and query behavior
+- `app-backend-05-product-lookup-cache.md` — product hooks map to barcode lookup services
+- `app-backend-06-export-analytics.md` — export hooks map to streaming export endpoints
