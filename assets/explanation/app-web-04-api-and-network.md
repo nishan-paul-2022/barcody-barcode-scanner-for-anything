@@ -64,7 +64,7 @@ The client exports structured endpoints grouped by feature in [`src/lib/api/clie
 
 ## Related backend docs
 
-- `app-backend-03-auth-session.md` — auth endpoints and token validation
-- `app-backend-04-scans-realtime.md` — scan CRUD API and scan list queries
-- `app-backend-05-product-lookup-cache.md` — product lookup and raw lookup proxy
-- `app-backend-06-export-analytics.md` — export endpoints for CSV/JSON/PDF/Excel
+- [`app-backend-03-auth-session.md`](app-backend-03-auth-session.md) — auth endpoints and token validation
+- [`app-backend-04-scans-realtime.md`](app-backend-04-scans-realtime.md) — scan CRUD API and scan list queries
+- [`app-backend-05-product-lookup-cache.md`](app-backend-05-product-lookup-cache.md) — product lookup and raw lookup proxy
+- [`app-backend-06-export-analytics.md`](app-backend-06-export-analytics.md) — export endpoints for CSV/JSON/PDF/Excel

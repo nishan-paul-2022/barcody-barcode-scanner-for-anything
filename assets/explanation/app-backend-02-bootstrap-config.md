@@ -4,7 +4,7 @@ This file describes how `app-backend` starts and wires dependencies.
 
 ## Application bootstrap
 
-- Entry point: `app-backend/src/main.ts`.
+- Entry point: [`app-backend/src/main.ts`](../app-backend/src/main.ts#L32-L105).
 - Bootstraps Nest application using `NestFactory.create(AppModule)`.
 - Sets global prefix `api/v1`.
 - Adds a custom middleware to fix `Cross-Origin-Opener-Policy` for Google login.
@@ -12,12 +12,9 @@ This file describes how `app-backend` starts and wires dependencies.
 - Trusts proxy addresses for Docker and Tailscale.
 - In development/test environments, initializes Swagger at `/api/docs`.
 
-Source:
-- [`src/main.ts`](../app-backend/src/main.ts#L32-L105)
-
 ## Root module wiring
 
-`app-backend/src/app.module.ts` is the root injector.
+[`app-backend/src/app.module.ts`](../app-backend/src/app.module.ts#L1-L79) is the root injector.
 
 Key imports:
 - `ConfigModule.forRoot(...)` validates env vars via `src/config/env.schema.ts`.
@@ -27,12 +24,9 @@ Key imports:
 - `BullModule.forRootAsync(...)` configures Redis-backed queues.
 - Application modules: `HealthModule`, `UsersModule`, `AuthModule`, `ScansModule`, `TailscaleModule`, `ProductLookupModule`, `ExportModule`, `AdminModule`, `AnalyticsModule`.
 
-Source:
-- [`src/app.module.ts`](../app-backend/src/app.module.ts#L1-L79)
-
 ## Environment and validation
 
-The backend relies on a validated environment schema in `src/config/env.schema.ts`.
+The backend relies on a validated environment schema in [`src/config/env.schema.ts`](../app-backend/src/config/env.schema.ts#L1-L35).
 
 Required values include:
 - `DATABASE_URL`
@@ -45,6 +39,3 @@ Required values include:
 - `ANALYTICS_HASH_SECRET`
 
 This ensures the backend fails early if essential secrets or endpoints are missing.
-
-Source:
-- [`src/config/env.schema.ts`](../app-backend/src/config/env.schema.ts#L1-L35)

@@ -47,6 +47,6 @@ The [`src/hooks`](../../app-web/src/hooks) folder contains reusable data access 
 
 ## Related backend docs
 
-- `app-backend-04-scans-realtime.md` — scan hooks map to scan API and query behavior
-- `app-backend-05-product-lookup-cache.md` — product hooks map to barcode lookup services
-- `app-backend-06-export-analytics.md` — export hooks map to streaming export endpoints
+- [`app-backend-04-scans-realtime.md`](app-backend-04-scans-realtime.md) — scan hooks map to scan API and query behavior
+- [`app-backend-05-product-lookup-cache.md`](app-backend-05-product-lookup-cache.md) — product hooks map to barcode lookup services
+- [`app-backend-06-export-analytics.md`](app-backend-06-export-analytics.md) — export hooks map to streaming export endpoints

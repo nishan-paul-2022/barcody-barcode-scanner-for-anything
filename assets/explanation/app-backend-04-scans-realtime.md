@@ -4,7 +4,7 @@ This file covers the scan lifecycle and real-time notifications in `app-backend`
 
 ## Scan REST API
 
-`src/modules/scans/scans.controller.ts` exposes scanned-item management endpoints:
+[`src/modules/scans/scans.controller.ts`](../app-backend/src/modules/scans/scans.controller.ts#L27-L120) exposes scanned-item management endpoints:
 
 - `POST /scans` — create a scan.
 - `POST /scans/bulk` — bulk-create with deduplication within a 1-minute window.
@@ -15,12 +15,9 @@ This file covers the scan lifecycle and real-time notifications in `app-backend`
 - `DELETE /scans/:id` — delete one scan.
 - `DELETE /scans/batch` — delete multiple scans.
 
-Source:
-- [`src/modules/scans/scans.controller.ts`](../app-backend/src/modules/scans/scans.controller.ts#L27-L120)
-
 ## Scan business logic
 
-`src/modules/scans/scans.service.ts` implements scan operations.
+[`src/modules/scans/scans.service.ts`](../app-backend/src/modules/scans/scans.service.ts#L49-L294) implements scan operations.
 
 - `create(...)` optionally performs product lookup when `productName` is missing.
 - Saved scans are transformed into a client-friendly shape with embedded `product` metadata.
@@ -31,20 +28,14 @@ Source:
 - `bulkCreate(...)` uses a transaction and emits created scan events.
 - Deletion methods emit scan deletion events too.
 
-Source:
-- [`src/modules/scans/scans.service.ts`](../app-backend/src/modules/scans/scans.service.ts#L49-L294)
-
 ## Real-time scan events
 
-`src/modules/scans/scans.gateway.ts` handles WebSocket-based updates.
+[`src/modules/scans/scans.gateway.ts`](../app-backend/src/modules/scans/scans.gateway.ts#L12-L63) handles WebSocket-based updates.
 
 - Uses `@WebSocketGateway({ namespace: 'scans' })`.
 - Authenticates sockets by extracting JWT from `handshake.auth.token`, query token, or Authorization header.
 - Joins each client to `user:<userId>` room.
 - Emits `scan:created` and `scan:deleted` to the user's room.
-
-Source:
-- [`src/modules/scans/scans.gateway.ts`](../app-backend/src/modules/scans/scans.gateway.ts#L12-L63)
 
 ## Event delivery pattern
 
@@ -54,6 +45,6 @@ Source:
 
 ## Related frontend docs
 
-- `app-web-04-api-and-network.md` — how scan requests are sent and retried
-- `app-web-07-websocket-realtime.md` — how realtime scan events are consumed client-side
-- `app-web-09-hooks.md` — scan hooks that encapsulate these backend APIs
+- [`app-web-04-api-and-network.md`](app-web-04-api-and-network.md) — how scan requests are sent and retried
+- [`app-web-07-websocket-realtime.md`](app-web-07-websocket-realtime.md) — how realtime scan events are consumed client-side
+- [`app-web-09-hooks.md`](app-web-09-hooks.md) — scan hooks that encapsulate these backend APIs

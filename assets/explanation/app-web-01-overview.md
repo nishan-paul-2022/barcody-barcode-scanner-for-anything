@@ -2,7 +2,7 @@
 
 `app-web` is the Next.js frontend for Barcody. It is the browser-facing client that handles user authentication, barcode scanning workflows, product lookup, export features, and realtime scan synchronization.
 
-> See `app-web-backend-crosswalk.md` for direct frontend/backend topic mapping.
+> See [`app-web-backend-crosswalk.md`](app-web-backend-crosswalk.md) for direct frontend/backend topic mapping.
 
 ## Core responsibilities
 
@@ -49,8 +49,8 @@
 
 ## Related backend docs
 
-- `app-backend-01-overview.md` — overall backend architecture
-- `app-backend-02-bootstrap-config.md` — backend runtime wiring and config
-- `app-backend-03-auth-session.md` — auth and token lifecycle
-- `app-backend-04-scans-realtime.md` — scan API and realtime event delivery
-- `app-backend-06-export-analytics.md` — export endpoints and analytics queue
+- [`app-backend-01-overview.md`](app-backend-01-overview.md) — overall backend architecture
+- [`app-backend-02-bootstrap-config.md`](app-backend-02-bootstrap-config.md) — backend runtime wiring and config
+- [`app-backend-03-auth-session.md`](app-backend-03-auth-session.md) — auth and token lifecycle
+- [`app-backend-04-scans-realtime.md`](app-backend-04-scans-realtime.md) — scan API and realtime event delivery
+- [`app-backend-06-export-analytics.md`](app-backend-06-export-analytics.md) — export endpoints and analytics queue

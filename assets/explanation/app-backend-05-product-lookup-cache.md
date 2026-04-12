@@ -4,16 +4,13 @@ This document explains how product barcode lookup works and how external APIs ar
 
 ## Lookup service architecture
 
-`src/modules/product-lookup/product-lookup.service.ts` is the central lookup engine.
+[`src/modules/product-lookup/product-lookup.service.ts`](../app-backend/src/modules/product-lookup/product-lookup.service.ts#L15-L248) is the central lookup engine.
 
 - Accepts barcode lookup requests from scan creation and direct product routes.
 - Uses Redis caching to avoid repeated external API calls.
 - Caches successful product results for 30 days.
 - Caches "not found" results for 24 hours.
 - Tracks cache hits, misses, and API usage metrics in Redis.
-
-Source:
-- [`src/modules/product-lookup/product-lookup.service.ts`](../app-backend/src/modules/product-lookup/product-lookup.service.ts#L15-L248)
 
 ## API cascade lookup
 
@@ -27,14 +24,11 @@ If any provider returns a valid product, the result is cached and returned.
 
 ## Raw lookup proxy
 
-`src/modules/product-lookup/products.controller.ts` exposes raw proxy endpoints for external sources.
+[`src/modules/product-lookup/products.controller.ts`](../app-backend/src/modules/product-lookup/products.controller.ts#L25-L89) exposes raw proxy endpoints for external sources.
 
 - `GET /products/:barcode/raw/:source`
 - Supported sources: `off`, `obf`, `usda`, `upcitemdb`, `goUpc`, `searchUpc`
 - These routes can be used to inspect the raw provider response or to support admin/debug flows.
-
-Source:
-- [`src/modules/product-lookup/products.controller.ts`](../app-backend/src/modules/product-lookup/products.controller.ts#L25-L89)
 
 ## Product comparison
 
@@ -54,6 +48,6 @@ Users can store API keys for external lookup providers, including UPC Database, 
 
 ## Related frontend docs
 
-- `app-web-03-auth-and-state.md` — user-linked API keys are part of authenticated user profile state
-- `app-web-04-api-and-network.md` — product lookup requests and raw lookup endpoints
-- `app-web-09-hooks.md` — product hooks that call the lookup API
+- [`app-web-03-auth-and-state.md`](app-web-03-auth-and-state.md) — user-linked API keys are part of authenticated user profile state
+- [`app-web-04-api-and-network.md`](app-web-04-api-and-network.md) — product lookup requests and raw lookup endpoints
+- [`app-web-09-hooks.md`](app-web-09-hooks.md) — product hooks that call the lookup API

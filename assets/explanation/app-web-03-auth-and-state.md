@@ -76,5 +76,5 @@ This store persists scan session state across refreshes.
 
 ## Related backend docs
 
-- `app-backend-03-auth-session.md` — JWT login, refresh, logout, and auth guard flow
-- `app-backend-02-bootstrap-config.md` — CORS and global app middleware for auth support
+- [`app-backend-03-auth-session.md`](app-backend-03-auth-session.md) — JWT login, refresh, logout, and auth guard flow
+- [`app-backend-02-bootstrap-config.md`](app-backend-02-bootstrap-config.md) — CORS and global app middleware for auth support

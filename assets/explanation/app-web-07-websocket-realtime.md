@@ -45,4 +45,4 @@ Realtime scan updates are handled by [`src/lib/websocket/socket-service.ts`](../
 
 ## Related backend docs
 
-- `app-backend-04-scans-realtime.md` — Socket.IO gateway and scan event emission
+- [`app-backend-04-scans-realtime.md`](app-backend-04-scans-realtime.md) — Socket.IO gateway and scan event emission
