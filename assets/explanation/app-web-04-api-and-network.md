@@ -1,11 +1,11 @@
 # app-web API and Network
 
-`app-web` centralizes backend communication in `src/lib/api/client.ts`. This file is the single place where HTTP behavior, retry, auth headers, and error handling are implemented.
+`app-web` centralizes backend communication in [`src/lib/api/client.ts`](../../app-web/src/lib/api/client.ts#L1-L361). This file is the single place where HTTP behavior, retry, auth headers, and error handling are implemented.
 
 ## API client basics
 
-- Uses `axios` with `baseURL` from `NEXT_PUBLIC_API_URL`.
-- Configures `withCredentials: true` and `Content-Type: application/json`.
+- Uses [`axios`](https://github.com/axios/axios) with `baseURL` from `NEXT_PUBLIC_API_URL`.
+- Configures `withCredentials: true` and `Content-Type: application/json` in [`src/lib/api/client.ts`](../../app-web/src/lib/api/client.ts#L1-L361).
 - Sets a 30s request timeout.
 
 ## Retry strategy
@@ -26,7 +26,7 @@
 
 ## API groups
 
-The client exports structured endpoints grouped by feature:
+The client exports structured endpoints grouped by feature in [`src/lib/api/client.ts`](../../app-web/src/lib/api/client.ts#L167-L361):
 
 - `api.auth`: login, refresh, logout, getMe
 - `api.scans`: create, list, get, delete, bulk create/delete, get stats
@@ -46,7 +46,7 @@ The client exports structured endpoints grouped by feature:
 
 ## Query client
 
-- `src/lib/query-client.ts` configures React Query.
+- [`src/lib/query-client.ts`](../../app-web/src/lib/query-client.ts#L1-L37) configures React Query.
 - Default staleTime is 5 minutes; cache garbage collection is 10 minutes.
 - Queries retry unless the error status is 401, 403, or 404.
 - Global query and mutation error logging is enabled.

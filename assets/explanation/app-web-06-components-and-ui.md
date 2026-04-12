@@ -4,24 +4,24 @@
 
 ## Component folder structure
 
-- `src/components/common`: shared layout pieces like header, footer, error boundary, and loading screen.
-- `src/components/auth`: login dialog, auth redirect, and protected-route helpers.
-- `src/components/providers`: app-wide wrappers for query, socket, auth, and loading.
-- `src/components/ui`: design system primitives and UI controls.
-- `src/components/scanner`, `lookup`, `history`, `export`, `settings`, `compare`: domain-specific feature UIs.
+- [`src/components/common`](../../app-web/src/components/common): shared layout pieces like header, footer, error boundary, and loading screen.
+- [`src/components/auth`](../../app-web/src/components/auth): login dialog, auth redirect, and protected-route helpers.
+- [`src/components/providers`](../../app-web/src/components/providers): app-wide wrappers for query, socket, auth, and loading.
+- [`src/components/ui`](../../app-web/src/components/ui): design system primitives and UI controls.
+- [`src/components/scanner`](../../app-web/src/components/scanner), [`src/components/lookup`](../../app-web/src/components/lookup), [`src/components/history`](../../app-web/src/components/history), [`src/components/export`](../../app-web/src/components/export), [`src/components/settings`](../../app-web/src/components/settings), [`src/components/compare`](../../app-web/src/components/compare): domain-specific feature UIs.
 
 ## UI primitives
 
-`src/components/ui` contains custom wrappers such as:
-- `button.tsx`
-- `dialog.tsx`
-- `select.tsx`
-- `tabs.tsx`
-- `popover.tsx`
-- `table.tsx`
-- `json-viewer.tsx`
-- `skeleton.tsx`
-- `badge.tsx`
+[`src/components/ui`](../../app-web/src/components/ui) contains custom wrappers such as:
+- [`button.tsx`](../../app-web/src/components/ui/button.tsx)
+- [`dialog.tsx`](../../app-web/src/components/ui/dialog.tsx)
+- [`select.tsx`](../../app-web/src/components/ui/select.tsx)
+- [`tabs.tsx`](../../app-web/src/components/ui/tabs.tsx)
+- [`popover.tsx`](../../app-web/src/components/ui/popover.tsx)
+- [`table.tsx`](../../app-web/src/components/ui/table.tsx)
+- [`json-viewer.tsx`](../../app-web/src/components/ui/json-viewer.tsx)
+- [`skeleton.tsx`](../../app-web/src/components/ui/skeleton.tsx)
+- [`badge.tsx`](../../app-web/src/components/ui/badge.tsx)
 
 These likely combine:
 - Radix UI accessibility primitives
